@@ -4,25 +4,37 @@
 }
 <div class="conteiner">
     <div class="row">
-        <div class="col" style="display: flex;">
-
-            @foreach (var tournament in @Model)
-            {
+        <div class="col" style="display: flex;">            
                 <div class="card text-center" >
                 <div class="card-header">
                     Featured
                 </div>
-                <img src="@tournament.ImageUrl" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">@tournament.Name</h5>
-                    <p class="card-text">@tournament.Descrioption.Substring(0, 40)...</p>
+                <img src="@Model[0].ImageUrl" class="card-img-top hoverable">
+                <div class="card-body bg-image hover-zoom">
+                    <h5 class="card-title">@Model[0].Name</h5>
+                    <p class="card-text">@Model[0].Descrioption.Substring(0, 40)...</p>
                     <a href="#" class="btn btn-primary">Create</a>
                 </div>
                 <div class="card-footer text-muted">
                     @DateTime.Now.ToString("dd.MM.yyyy")
                 </div>
             </div>
-            }         
+
+             <div class="card text-center" >
+                <div class="card-header">
+                    Featured
+                </div>
+                <img src="@Model[1].ImageUrl" class="card-img-top hoverable">
+                <div class="card-body bg-image hover-zoom">
+                    <h5 class="card-title">@Model[1].Name</h5>
+                    <p class="card-text">@Model[1].Descrioption.Substring(0, 40)...</p>
+                    <a asp-controller="Home" asp-action="Unavailable" class="btn btn-primary">Create</a>
+                </div>
+                <div class="card-footer text-muted">
+                    @DateTime.Now.ToString("dd.MM.yyyy")
+                </div>
+            </div>
+                    
             
         </div>
     </div>

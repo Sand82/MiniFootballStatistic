@@ -23,6 +23,11 @@ namespace MiniFootballStatistic.Controllers
             return View(model);
         }
 
+        public IActionResult Unavailable()
+        {           
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
