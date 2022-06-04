@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniFootballStatistic.Models;
+using MiniFootballStatistic.Services.Home;
 using System.Diagnostics;
 
 namespace MiniFootballStatistic.Controllers
@@ -7,15 +8,19 @@ namespace MiniFootballStatistic.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHomeService homeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHomeService homeService)
         {
             _logger = logger;
+            this.homeService = homeService;
         }
 
         public IActionResult Index()
         {
-            return View();
+           var model = homeService.GetTournaments();
+
+            return View(model);
         }
 
         public IActionResult Privacy()

@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using static MiniFootballStatistic.Data.DataConstants;
+
 namespace MiniFootballStatistic.Data.Models
 {
     public class TournamentCategory
@@ -7,6 +9,15 @@ namespace MiniFootballStatistic.Data.Models
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        [StringLength(MaxTournamentTypeNameLength)]
+        public string? Name { get; set; }
+
+        [Required]
+        [StringLength(MaxPictureUrlLength)]
+        public string? ImageUrl { get; set; }
+
+        [Required]
+        [StringLength(MaxPictureUrlLength)]
+        public string? Descrioption { get; set; }
     }
 }
