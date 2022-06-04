@@ -1,27 +1,33 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MiniFootballStatistic.Data;
+using MiniFootballStatistic.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("FoodballStatisticConnection") ?? throw new InvalidOperationException("Connection string 'FoodballStatisticConnection' not found.");
-
-builder.Services.AddDbContext<FoodballStatisticDbContext>(options =>
-    options.UseSqlServer(connectionString));;
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<FoodballStatisticDbContext>();;
-
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FoodballStatisticDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+// Add services to the container.
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<FoodballStatisticDbContext>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    //options.Lockout.MaxFailedAccessAttempts = 5;
+    //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+    //options.User.RequireUniqueEmail = true;
+})
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<FoodballStatisticDbContext>();
 
 var app = builder.Build();
+
+app.PrepareDatabase();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
