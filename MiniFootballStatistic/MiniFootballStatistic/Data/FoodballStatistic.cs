@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MiniFootballStatistic.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class FoodballStatistic : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public FoodballStatistic(DbContextOptions<FoodballStatistic> options)
             : base(options)
         {
         }
