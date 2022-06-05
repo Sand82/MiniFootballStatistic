@@ -6,6 +6,7 @@ namespace MiniFootballStatistic.Data.Models
 {
     public class Schema
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]

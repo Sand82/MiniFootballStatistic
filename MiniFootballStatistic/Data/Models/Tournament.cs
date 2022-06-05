@@ -4,8 +4,13 @@ using static MiniFootballStatistic.Data.DataConstants;
 
 namespace MiniFootballStatistic.Data.Models
 {
-    public class TournamentCategory
+    public class Tournament
     {
+        public Tournament()
+        {
+            this.Teams = new HashSet<Team>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -14,11 +19,11 @@ namespace MiniFootballStatistic.Data.Models
         public string? Name { get; set; }
 
         [Required]
-        [StringLength(MaxImageUrlLength)]
-        public string? ImageUrl { get; set; }
+        public string? UserId { get; set; }
 
-        [Required]
-        [StringLength(MaxImageUrlLength)]
-        public string? Descrioption { get; set; }
+        [Range(MinSchemaTypeLenght,MaxSchemaTypeLenght)]
+        public int ShcemaLength { get; set; }
+
+        public ICollection<Team> Teams { get; set; }
     }
 }

@@ -92,17 +92,22 @@
             }
 
             data.Schemas.AddRange(new[]
-            {
-                new Schema { 
-                    Name = "Eight players bracket",
-                    PositionCount = 8,
-                    ImageUrl = "https://cdn4.vectorstock.com/i/thumb-large/18/48/tournament-bracket-template-color-championship-vector-41931848.jpg"
-                },
+            {                
                 new Schema 
                 {
                     Name = "Four players bracket",
                     PositionCount = 4,
                     ImageUrl = "https://cdn5.vectorstock.com/i/thumb-large/32/99/tournament-bracket-icon-suitable-for-football-vector-42313299.jpg"
+                },
+                new Schema {
+                    Name = "Eight players bracket",
+                    PositionCount = 8,
+                    ImageUrl = "https://cdn4.vectorstock.com/i/thumb-large/18/48/tournament-bracket-template-color-championship-vector-41931848.jpg"
+                },
+                new Schema {
+                    Name = "Sixteen players bracket",
+                    PositionCount = 16,
+                    ImageUrl = "https://cdn3.vectorstock.com/i/thumb-large/55/27/tournament-bracket-template-for-32-teams-on-blue-vector-30725527.jpg"
                 },
             });
 

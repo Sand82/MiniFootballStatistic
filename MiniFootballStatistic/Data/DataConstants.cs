@@ -14,5 +14,13 @@
         public const int MaxSchemaNameLenght = 50;
         public const int MinSchemaNameLenght = 3;
 
+        public const int MaxSchemaTypeLenght = 32;
+        public const int MinSchemaTypeLenght = 4;
+
+        public const int MaxPlayerStatsValue = 60;
+        public const int MinPlayerStatsValue = 0;
+
+        public const int MaxTeamStatsValue = 120;
+        public const int MinTeamStatsValue = 0;
     }
 }

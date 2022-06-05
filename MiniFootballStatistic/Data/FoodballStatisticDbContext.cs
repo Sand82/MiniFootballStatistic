@@ -15,6 +15,10 @@ namespace MiniFootballStatistic.Data
 
        public DbSet<Schema> Schemas { get; set; }
 
+       public DbSet<Tournament> Tournaments { get; set; }
 
+       public DbSet<Tournament> Team { get; set; }
+
+       public DbSet<Tournament> Player { get; set; }
     }
 }
