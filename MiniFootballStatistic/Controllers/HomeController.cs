@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MiniFootballStatistic.Models;
+﻿using MiniFootballStatistic.Models;
 using MiniFootballStatistic.Services.Home;
+
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace MiniFootballStatistic.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
         private readonly IHomeService homeService;
 
         public HomeController(ILogger<HomeController> logger, IHomeService homeService)
         {
-            _logger = logger;
+            this.logger = logger;
             this.homeService = homeService;
         }
 

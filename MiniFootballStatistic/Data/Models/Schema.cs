@@ -4,20 +4,21 @@ using static MiniFootballStatistic.Data.DataConstants;
 
 namespace MiniFootballStatistic.Data.Models
 {
-    public class TournamentCategory
+    public class Schema
     {
         public int Id { get; set; }
 
         [Required]
-        [StringLength(MaxTournamentTypeNameLength)]
+        [StringLength(MaxSchemaNameLenght)]
         public string? Name { get; set; }
+        
+        public string? UserId { get; set; }
 
         [Required]
         [StringLength(MaxImageUrlLength)]
         public string? ImageUrl { get; set; }
 
-        [Required]
-        [StringLength(MaxImageUrlLength)]
-        public string? Descrioption { get; set; }
+        public int PositionCount { get; set; }
+
     }
 }
