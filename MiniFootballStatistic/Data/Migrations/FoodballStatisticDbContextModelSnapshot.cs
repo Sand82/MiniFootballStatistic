@@ -346,12 +346,6 @@ namespace MiniFootballStatistic.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.Property<int>("SchemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SchemasId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ShcemaLength")
                         .HasColumnType("int");
 
@@ -360,8 +354,6 @@ namespace MiniFootballStatistic.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchemasId");
 
                     b.ToTable("Tournament");
                 });
@@ -467,17 +459,6 @@ namespace MiniFootballStatistic.Data.Migrations
                         .HasForeignKey("TournamentId");
 
                     b.Navigation("Teams");
-                });
-
-            modelBuilder.Entity("MiniFootballStatistic.Data.Models.Tournament", b =>
-                {
-                    b.HasOne("MiniFootballStatistic.Data.Models.Schema", "Schemas")
-                        .WithMany()
-                        .HasForeignKey("SchemasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Schemas");
                 });
 
             modelBuilder.Entity("MiniFootballStatistic.Data.Models.Team", b =>

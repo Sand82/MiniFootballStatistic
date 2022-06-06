@@ -1,7 +1,7 @@
 using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Infrastructure;
 using MiniFootballStatistic.Services.Home;
-using MiniFootballStatistic.Services.Schema;
+using MiniFootballStatistic.Services.Championship;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +29,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 .AddEntityFrameworkStores<FoodballStatisticDbContext>();
 
 builder.Services.AddTransient<IHomeService, HomeService>();
-builder.Services.AddTransient<ISchemaService, SchemaService>();
+builder.Services.AddTransient<IChampionshipService, ChampionshipService>();
 
 var app = builder.Build();
 

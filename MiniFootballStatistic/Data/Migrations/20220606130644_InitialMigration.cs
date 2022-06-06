@@ -65,6 +65,21 @@ namespace MiniFootballStatistic.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tournament",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShcemaLength = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tournament", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TournamentCategories",
                 columns: table => new
                 {
@@ -186,35 +201,13 @@ namespace MiniFootballStatistic.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tournament",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShcemaLength = table.Column<int>(type: "int", nullable: false),
-                    SchemId = table.Column<int>(type: "int", nullable: false),
-                    SchemasId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tournament", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tournament_Schemas_SchemasId",
-                        column: x => x.SchemasId,
-                        principalTable: "Schemas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Team",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    TournamentPosition = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ScoredGoals = table.Column<int>(type: "int", nullable: true),
                     AccumolateGoals = table.Column<int>(type: "int", nullable: true),
                     Difference = table.Column<int>(type: "int", nullable: true),
@@ -314,11 +307,6 @@ namespace MiniFootballStatistic.Data.Migrations
                 name: "IX_Team_TournamentId",
                 table: "Team",
                 column: "TournamentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tournament_SchemasId",
-                table: "Tournament",
-                column: "SchemasId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -342,6 +330,9 @@ namespace MiniFootballStatistic.Data.Migrations
                 name: "Plyer");
 
             migrationBuilder.DropTable(
+                name: "Schemas");
+
+            migrationBuilder.DropTable(
                 name: "TournamentCategories");
 
             migrationBuilder.DropTable(
@@ -355,9 +346,6 @@ namespace MiniFootballStatistic.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tournament");
-
-            migrationBuilder.DropTable(
-                name: "Schemas");
         }
     }
 }

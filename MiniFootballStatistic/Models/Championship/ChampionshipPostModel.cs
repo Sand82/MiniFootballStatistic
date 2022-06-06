@@ -3,16 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 using static MiniFootballStatistic.Data.DataConstants;
 
-namespace MiniFootballStatistic.Models.Tournament
+namespace MiniFootballStatistic.Models.Championship
 {
-    public class TournamentPostModel
-    {
+    public class ChampionshipPostModel
+    {       
+
         [Required]
         [StringLength(MaxNameLenght, MinimumLength = MinNameLenght,
             ErrorMessage = "The field {0} is not valid! Must be between of {2} and {1} symbols.")]
         public string? Name { get; set; }
 
+        public int TournamentPositions { get; set; }        
+
         [Required]
-        ICollection<TeamPostModel> Teams { get; set; }
+        public IList<TeamPostModel>? Teams { get; set; }
     }
 }

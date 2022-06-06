@@ -24,9 +24,9 @@ namespace MiniFootballStatistic.Data.Models
         [Range(MinSchemaTypeLenght,MaxSchemaTypeLenght)]
         public int ShcemaLength { get; set; }
 
-        public int SchemId { get; set; }
+        //public int SchemId { get; set; }
 
-        public Schema Schemas { get; set; }
+        //public Schema Schemas { get; set; }
 
         public ICollection<Team> Teams { get; set; }
     }
