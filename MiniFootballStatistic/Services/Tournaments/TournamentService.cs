@@ -28,7 +28,7 @@ namespace MiniFootballStatistic.Services.Tournaments
                 tournament.Teams = model.Teams.Select(t => new Team
                 {
                     Name = t.Name,
-                    TeamId = tournament.Id,
+                    TournamentId = tournament.Id,
                     TournamentPosition = t.TournamentPosition,
                 })
                 .ToList();
@@ -86,12 +86,7 @@ namespace MiniFootballStatistic.Services.Tournaments
                     Teams = t.Teams.Select(te => new TeamViewModel
                     {
                         Name = te.Name,
-                        Players = te.Players.Select(p => new PlayerPostModel
-                        {
-                            Name = p.Name,
-                            TeamId = te.TeamId
-                        })
-                        .ToList()
+                        Id = te.Id,                        
                     })
                     .ToList()                    
                 })

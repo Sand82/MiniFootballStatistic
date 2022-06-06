@@ -2,8 +2,9 @@
 {
     public class TeamViewModel
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
 
-        public IList<PlayerPostModel> Players { get; set; }
+        public string Name { get; set; }
+        
     }
 }

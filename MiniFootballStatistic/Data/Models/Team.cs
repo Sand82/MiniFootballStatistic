@@ -26,9 +26,9 @@ namespace MiniFootballStatistic.Data.Models
         [Range(MinTeamStatsValue, MaxTeamStatsValue)]
         public int? Difference { get; set; }
 
-        public int TeamId { get; set; }
+        public int TournamentId { get; set; }
 
-        public Team? Teams { get; set; }
+        public Tournament? Tournaments { get; set; }
 
         public bool? IsLose { get; set; }
 

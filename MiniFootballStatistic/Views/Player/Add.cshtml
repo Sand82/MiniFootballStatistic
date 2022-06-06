@@ -1,0 +1,26 @@
+﻿@model TeamPlayerPostModel
+
+@{
+    ViewData["Title"] = "Player Add";
+}
+
+<div class="container">   
+    <div class="row">
+        <div class="col-4">           
+            <form method="Post">
+                <h1>Add Players in @Model.Name team.</h1>                
+                <div class="form-group">
+                    @for (var i = 0; i < 8; i++)
+                    {
+                        <div class="form-group" style="margin: 40px;" >
+                            <label asp-for="@Model.Players[i].Name"></label>
+                            <input asp-for="@Model.Players[i].Name" class="form-control" placeholder="Players @(i+1) name">
+                            <span asp-validation-for="@Model.Players[i].Name" class="small text-danger"></span>                     
+                        </div>
+                    }
+                </div>
+                <button type="submit" style="margin-bottom: 50px;" class="btn btn-primary mt-4">Save Players in team</button>
+            </form>
+        </div>
+    </div>
+</div>

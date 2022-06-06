@@ -211,28 +211,22 @@ namespace MiniFootballStatistic.Data.Migrations
                     ScoredGoals = table.Column<int>(type: "int", nullable: true),
                     AccumolateGoals = table.Column<int>(type: "int", nullable: true),
                     Difference = table.Column<int>(type: "int", nullable: true),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
-                    TeamsId = table.Column<int>(type: "int", nullable: true),
-                    IsLose = table.Column<bool>(type: "bit", nullable: true),
-                    TournamentId = table.Column<int>(type: "int", nullable: true)
+                    TournamentId = table.Column<int>(type: "int", nullable: false),
+                    IsLose = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Team", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Team_Team_TeamsId",
-                        column: x => x.TeamsId,
-                        principalTable: "Team",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Team_Tournament_TournamentId",
                         column: x => x.TournamentId,
                         principalTable: "Tournament",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Plyer",
+                name: "Player",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -245,9 +239,9 @@ namespace MiniFootballStatistic.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plyer", x => x.Id);
+                    table.PrimaryKey("PK_Player", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Plyer_Team_TeamId",
+                        name: "FK_Player_Team_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Team",
                         principalColumn: "Id",
@@ -294,14 +288,9 @@ namespace MiniFootballStatistic.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plyer_TeamId",
-                table: "Plyer",
+                name: "IX_Player_TeamId",
+                table: "Player",
                 column: "TeamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Team_TeamsId",
-                table: "Team",
-                column: "TeamsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Team_TournamentId",
@@ -327,7 +316,7 @@ namespace MiniFootballStatistic.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Plyer");
+                name: "Player");
 
             migrationBuilder.DropTable(
                 name: "Schemas");

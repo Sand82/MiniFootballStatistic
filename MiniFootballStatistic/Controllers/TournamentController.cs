@@ -52,7 +52,7 @@ namespace MiniFootballStatistic.Controllers
 
             tournamentService.CreateChampionship(model, userId);
 
-            return RedirectToAction("ThirdStep", "Championship");
+            return RedirectToAction("ThirdStep", "Tournament");
         }
 
         [Authorize]
