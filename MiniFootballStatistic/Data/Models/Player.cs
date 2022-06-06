@@ -4,7 +4,7 @@ using static MiniFootballStatistic.Data.DataConstants;
 
 namespace MiniFootballStatistic.Data.Models
 {
-    public class Plyer
+    public class Player
     {
         [Key]
         public int Id { get; set; }

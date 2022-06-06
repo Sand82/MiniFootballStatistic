@@ -13,7 +13,7 @@
                 <div class="card-body bg-image hover-zoom">
                     <h5 class="card-title">@Model[0].Name</h5>
                     <p class="card-text">@Model[0].Descrioption.Substring(0, 40)...</p>
-                    <a asp-controller="Championship" asp-action="FirstStep" class="btn btn-primary">Create</a>
+                    <a asp-controller="Tournament" asp-action="FirstStep" class="btn btn-primary">Create</a>
                 </div>
                 <div class="card-footer text-muted">
                     @DateTime.Now.ToString("dd.MM.yyyy")

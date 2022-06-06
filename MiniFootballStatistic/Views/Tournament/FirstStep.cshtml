@@ -1,7 +1,7 @@
-﻿@model List<ChampionshipViewModel>
+﻿@model List<TournamentViewModel>
 
 @{
-    ViewData["Title"] = "Championship FirstStep";
+    ViewData["Title"] = "Tournament FirstStep";
 }
 
 <div class="container">
@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@item.Name </h5>
                         <p class="card-text">Create new bracket template with @item.PositionCount position for teams.</p>
-                        <a asp-controller="Championship" asp-action="SecondStep" asp-route-positionCount="@item.PositionCount" class="btn btn-primary">Get template</a>
+                        <a asp-controller="Tournament" asp-action="SecondStep" asp-route-positionCount="@item.PositionCount" class="btn btn-primary">Get template</a>
                     </div>
                 </div>
             }

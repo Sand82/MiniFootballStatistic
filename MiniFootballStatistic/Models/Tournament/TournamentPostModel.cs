@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 using static MiniFootballStatistic.Data.DataConstants;
 
-namespace MiniFootballStatistic.Models.Championship
+namespace MiniFootballStatistic.Models.Tournament
 {
-    public class ChampionshipPostModel
+    public class TournamentPostModel
     {       
 
         [Required]

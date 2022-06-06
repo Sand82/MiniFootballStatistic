@@ -1,6 +1,6 @@
-﻿namespace MiniFootballStatistic.Models.Championship
+﻿namespace MiniFootballStatistic.Models.Tournament
 {
-    public class ChampionshipViewModel
+    public class TournamentViewModel
     {
         public string? Name { get; set; }
 
