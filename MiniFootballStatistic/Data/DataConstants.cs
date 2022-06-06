@@ -11,8 +11,8 @@
         public const int MaxDescriptionLength = 2000;
         public const int MinDescriptionLength = 20;
 
-        public const int MaxSchemaNameLenght = 50;
-        public const int MinSchemaNameLenght = 3;
+        public const int MaxNameLenght = 50;
+        public const int MinNameLenght = 3;
 
         public const int MaxSchemaTypeLenght = 32;
         public const int MinSchemaTypeLenght = 4;
@@ -22,5 +22,8 @@
 
         public const int MaxTeamStatsValue = 120;
         public const int MinTeamStatsValue = 0;
+
+        public const int MaxTeamPositionLength = 20;
+        public const int MinTeamPositionLength = 1;
     }
 }

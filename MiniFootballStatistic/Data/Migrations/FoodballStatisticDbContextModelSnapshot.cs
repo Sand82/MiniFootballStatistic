@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniFootballStatistic.Data;
 
@@ -12,10 +11,9 @@ using MiniFootballStatistic.Data;
 namespace MiniFootballStatistic.Data.Migrations
 {
     [DbContext(typeof(FoodballStatisticDbContext))]
-    [Migration("20220605165718_AddNewEntityesInDatabase")]
-    partial class AddNewEntityesInDatabase
+    partial class FoodballStatisticDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,11 +293,14 @@ namespace MiniFootballStatistic.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AccumolateGoalse")
+                    b.Property<int?>("AccumolateGoals")
                         .HasColumnType("int");
 
                     b.Property<int?>("Difference")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsLose")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -309,10 +310,23 @@ namespace MiniFootballStatistic.Data.Migrations
                     b.Property<int?>("ScoredGoals")
                         .HasColumnType("int");
 
-                    b.Property<int>("TournamentId")
+                    b.Property<int>("TeamId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TeamsId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TournamentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TournamentPosition")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TeamsId");
 
                     b.HasIndex("TournamentId");
 
@@ -332,6 +346,12 @@ namespace MiniFootballStatistic.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
+                    b.Property<int>("SchemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SchemasId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ShcemaLength")
                         .HasColumnType("int");
 
@@ -340,6 +360,8 @@ namespace MiniFootballStatistic.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SchemasId");
 
                     b.ToTable("Tournament");
                 });
@@ -436,13 +458,26 @@ namespace MiniFootballStatistic.Data.Migrations
 
             modelBuilder.Entity("MiniFootballStatistic.Data.Models.Team", b =>
                 {
-                    b.HasOne("MiniFootballStatistic.Data.Models.Tournament", "Tournament")
+                    b.HasOne("MiniFootballStatistic.Data.Models.Team", "Teams")
+                        .WithMany()
+                        .HasForeignKey("TeamsId");
+
+                    b.HasOne("MiniFootballStatistic.Data.Models.Tournament", null)
                         .WithMany("Teams")
-                        .HasForeignKey("TournamentId")
+                        .HasForeignKey("TournamentId");
+
+                    b.Navigation("Teams");
+                });
+
+            modelBuilder.Entity("MiniFootballStatistic.Data.Models.Tournament", b =>
+                {
+                    b.HasOne("MiniFootballStatistic.Data.Models.Schema", "Schemas")
+                        .WithMany()
+                        .HasForeignKey("SchemasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Tournament");
+                    b.Navigation("Schemas");
                 });
 
             modelBuilder.Entity("MiniFootballStatistic.Data.Models.Team", b =>

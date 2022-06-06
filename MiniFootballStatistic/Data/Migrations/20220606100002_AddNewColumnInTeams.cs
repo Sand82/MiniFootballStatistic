@@ -4,15 +4,15 @@
 
 namespace MiniFootballStatistic.Data.Migrations
 {
-    public partial class AddDescriptionInTournamentCategoryEntity : Migration
+    public partial class AddNewColumnInTeams : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Descrioption",
-                table: "TournamentCategories",
-                type: "nvarchar(500)",
-                maxLength: 500,
+                name: "TournamentPosition",
+                table: "Team",
+                type: "nvarchar(20)",
+                maxLength: 20,
                 nullable: false,
                 defaultValue: "");
         }
@@ -20,8 +20,8 @@ namespace MiniFootballStatistic.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Descrioption",
-                table: "TournamentCategories");
+                name: "TournamentPosition",
+                table: "Team");
         }
     }
 }

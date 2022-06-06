@@ -13,6 +13,10 @@ namespace MiniFootballStatistic.Data.Models
         [StringLength(MaxTournamentTypeNameLength)]
         public string? Name { get; set; }
 
+        [Required]
+        [StringLength(MaxTeamPositionLength)]
+        public string? TournamentPosition { get; set; }
+
         [Range(MinTeamStatsValue, MaxTeamStatsValue)]
         public int? ScoredGoals { get; set; }
 
@@ -22,9 +26,11 @@ namespace MiniFootballStatistic.Data.Models
         [Range(MinTeamStatsValue, MaxTeamStatsValue)]
         public int? Difference { get; set; }
 
-        public int TournamentId { get; set; }
+        public int TeamId { get; set; }
 
-        public Tournament? Tournament { get; set; }
+        public Team? Teams { get; set; }
+
+        public bool? IsLose { get; set; }
 
         public ICollection<Plyer>? Players { get; set; }
 

@@ -20,5 +20,13 @@ namespace MiniFootballStatistic.Controllers
 
             return View(model);
         }
+
+        [Authorize]
+        public IActionResult SecondStep(int positionCount)
+        {
+
+            ;
+            return View();
+        }
     }
 }
