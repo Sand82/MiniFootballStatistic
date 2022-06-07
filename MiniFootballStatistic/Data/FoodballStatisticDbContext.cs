@@ -19,6 +19,6 @@ namespace MiniFootballStatistic.Data
 
        public DbSet<Tournament> Team { get; set; }
 
-       public DbSet<Tournament> Player { get; set; }
+       public DbSet<Player> Player { get; set; }
     }
 }

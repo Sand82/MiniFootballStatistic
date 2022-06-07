@@ -4,6 +4,8 @@ namespace MiniFootballStatistic.Services.Players
 {
     public interface IPlayerService
     {
-        public TeamPlayerPostModel GetTeamById(int teamId);
+        public TeamPlayerPostModel GetTeamByTeamId(string userId);
+
+        public void CreatePlayers(TeamPlayerPostModel model, int modelId);
     }
 }

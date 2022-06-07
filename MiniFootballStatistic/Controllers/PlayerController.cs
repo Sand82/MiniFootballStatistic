@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using MiniFootballStatistic.Infrastructure;
 using MiniFootballStatistic.Models.Players;
-using MiniFootballStatistic.Models.ThirdPart;
 using MiniFootballStatistic.Services.Players;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MiniFootballStatistic.Controllers
 {
@@ -16,30 +17,51 @@ namespace MiniFootballStatistic.Controllers
         }
 
         [Authorize]
-        public IActionResult Add(int teamId)
+        public IActionResult Add()
         {
-            var model = playerService.GetTeamById(teamId);          
+            var userId = User.GetId();
+
+            var model = playerService.GetTeamByTeamId(userId);          
 
             return View(model);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Add(TeamPlayerPostModel model)
+        public IActionResult Add(TeamPlayerPostModel model, int modelId, int TeamsCount)
         {
-            if (model.Players.Count < 4)
-            {
-                ModelState.AddModelError("Players", "Cannot be lest than 4 peopels.");
-            }
+            //int registeredPlayerCounter = model.Players.Where(p => p.Name == null).Count();            
+
+            //if (registeredPlayerCounter > 4)
+            //{
+            //    ModelState.AddModelError("Players", "Cannot be lest than 4 peopels.");
+            //}
 
             if (!ModelState.IsValid)
             {
-                model = playerService.GetTeamById(model.Id);
+                var userId = User.GetId();
+
+                model = playerService.GetTeamByTeamId(userId);
 
                 return View(model);
             }
 
-            return View(model);
+            int counter = 1;
+
+            playerService.CreatePlayers(model, modelId);
+
+            if (counter < TeamsCount)
+            {
+                counter++;
+
+                var userId = User.GetId();
+
+                model = playerService.GetTeamByTeamId(userId);
+
+                return RedirectToAction("Player", "Add");
+            }
+
+            return RedirectToAction("/");
         }
     }
 }

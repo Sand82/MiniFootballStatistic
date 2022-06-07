@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using MiniFootballStatistic.Infrastructure;
+using MiniFootballStatistic.Models.Team;
+using MiniFootballStatistic.Models.ThirdPart;
 using MiniFootballStatistic.Models.Tournament;
 using MiniFootballStatistic.Services.Tournaments;
 
@@ -27,6 +30,18 @@ namespace MiniFootballStatistic.Controllers
         public IActionResult SecondStep(int positionCount)
         {
             TournamentPostModel model = new ();
+
+            for (int i = 0; i < positionCount; i++)
+            {
+                var team = new TeamPostModel();
+
+                for (int j = 0; j < 4; j++)
+                {
+                    team.Players.Add(new PlayerPostModel());
+                }
+
+                model.Teams.Add(team);
+            }
 
             model.TournamentPositions = positionCount;
 
@@ -61,6 +76,25 @@ namespace MiniFootballStatistic.Controllers
             var userId = User.GetId();
 
             var model = tournamentService.GetTeams(userId);
+
+            foreach (var team in model.Teams)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    //team.Players.Add(new PlayerPostModel());
+                }
+            }
+           
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult ThirdStep(TournamentCreatePlayersModel model)
+        {
+            var userId = User.GetId();
+
 
             return View(model);
         }

@@ -3,28 +3,47 @@
 @{
     ViewData["Title"] = "Tournament ThirdStep";
 }
+<form method="post">
+    <div class="conteiner">
+        <h1 style="text-align: center; margin-bottom: 30px">Add players in your teams.</h1>
+        <div class="row">
 
-<div class="conteiner">
-    <h1 style="text-align: center; margin-bottom: 30px">Add players in your teams.</h1>
-    <div class="row">
+            @{
+                int counter = 0;
+            }
 
-        @{
-            int counter = 0;
-        }
-        <div class="col">
-            @foreach (var item in Model.Teams)
+
+            @foreach (var team in Model.Teams)
             {
                 counter++;
-                <a class="text-decoration-none" asp-controller="Player" asp-action="Add" asp-route-teamId="@item.Id">
+
+                <div class="col-md-5 " style="margin-top: 70px;">
                     <div class="card border-secondary mb-3" style="max-width: 18rem;">
                         <div class="card-header">@Model.Name</div>
                         <div class="card-body text-secondary">
-                            <h5 class="card-title">@item.Name</h5>
-                            <p class="card-text">You should add not less than 4 and no more than 8 players on each team. This is your @counter team.</p>
+                            <h5 class="card-title">@team.Name</h5>
+                            <p class="card-text">You should add five players on each team. This is your @counter team.</p>
                         </div>
                     </div>
-                </a>
-             }
+                </div>
+
+                <div class="col-md-5 ">
+
+                    @for (var i = 0; i < 4; i++)
+                    {
+                       @* <div class="form-group" style="margin: 40px;">
+                            <label asp-for="@team.Players[i].Name"></label>
+                            <input asp-for="@team.Players[i].Name" class="form-control" placeholder="Players @(i+1) name">
+                            <span asp-validation-for="@team.Players[i].Name" class="small text-danger"></span>
+
+                        </div>
+                        <input type="hidden" value="@team.Players[i].TeamId" name="ModelId">*@
+                    }
+                </div>
+
+                <hr>
+            }
+            <button type="submit" class="btn btn-primary">Save Players in teams</button>
         </div>
     </div>
-</div>
+</form>

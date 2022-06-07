@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
+
 using MiniFootballStatistic.Models.ThirdPart;
 using MiniFootballStatistic.Models.Tournament;
 
@@ -29,7 +30,7 @@ namespace MiniFootballStatistic.Services.Tournaments
                 {
                     Name = t.Name,
                     TournamentId = tournament.Id,
-                    TournamentPosition = t.TournamentPosition,
+                    TournamentPosition = t.TournamentPosition,                  
                 })
                 .ToList();
 

@@ -1,4 +1,5 @@
 ﻿using MiniFootballStatistic.Data;
+using MiniFootballStatistic.Data.Models;
 using MiniFootballStatistic.Models.Players;
 
 namespace MiniFootballStatistic.Services.Players
@@ -12,24 +13,59 @@ namespace MiniFootballStatistic.Services.Players
             this.data = data;
         }
 
-        public TeamPlayerPostModel GetTeamById(int teamId)
+        public void CreatePlayers(TeamPlayerPostModel model, int modelId)
+        {
+            ICollection<Player>? players = null;
+
+            Task.Run(() =>
+            {
+                //players = model.Players
+                //.Where(p => p.Name != null)
+                //.Select(p => new Player
+                //{
+                //    Name = p.Name,
+                //    TeamId = modelId,
+                //    Assists = 0,
+                //    Goals = 0,
+                //    MachesCount = 0,
+                //})
+                //.ToList();               
+
+            }).GetAwaiter().GetResult();
+
+            AddPlayers(players);
+        }       
+
+        public TeamPlayerPostModel GetTeamByTeamId(string userId)
         {
             TeamPlayerPostModel? model = null;
 
             Task.Run(() =>
             {
-               model = this.data.Team
-                .Where(t => t.Id == teamId)
+                 model = this.data.Tournaments
+                .Where(t => t.UserId == userId)
                 .Select(t => new TeamPlayerPostModel 
                 { 
                     Id = t.Id,
-                    Name = t.Name,                    
+                    Name = t.Name,
+                    TeamsCount = t.ShcemaLength
                 })
                 .FirstOrDefault();                
 
             }).GetAwaiter().GetResult();
 
             return model;
+        }
+
+        private void AddPlayers(ICollection<Player> players)
+        {
+            Task.Run(() =>
+            {
+                this.data.Player.AddRange(players);
+
+                this.data.SaveChanges();
+
+            }).GetAwaiter().GetResult();
         }
     }
 }

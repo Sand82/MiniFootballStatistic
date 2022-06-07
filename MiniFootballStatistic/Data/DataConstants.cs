@@ -25,5 +25,9 @@
 
         public const int MaxTeamPositionLength = 20;
         public const int MinTeamPositionLength = 1;
+
+        public const int MaxPlayerNameLenght = 50;
+        public const int MinPlayerNameLenght = 2;
+        
     }
 }
