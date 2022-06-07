@@ -30,7 +30,15 @@ namespace MiniFootballStatistic.Services.Tournaments
                 {
                     Name = t.Name,
                     TournamentId = tournament.Id,
-                    TournamentPosition = t.TournamentPosition,                  
+                    TournamentPosition = t.TournamentPosition,
+                    Players = t.Players.Select(p => new Player
+                    {
+                        Name = p.Name,
+                        Assists = 0,
+                        Goals = 0,
+                        MachesCount = 0,                        
+                    })
+                    .ToList()
                 })
                 .ToList();
 

@@ -29,19 +29,7 @@ namespace MiniFootballStatistic.Controllers
         [Authorize]
         public IActionResult SecondStep(int positionCount)
         {
-            TournamentPostModel model = new ();
-
-            for (int i = 0; i < positionCount; i++)
-            {
-                var team = new TeamPostModel();
-
-                for (int j = 0; j < 4; j++)
-                {
-                    team.Players.Add(new PlayerPostModel());
-                }
-
-                model.Teams.Add(team);
-            }
+            var model = GeneratePostDataModel(positionCount);
 
             model.TournamentPositions = positionCount;
 
@@ -52,16 +40,14 @@ namespace MiniFootballStatistic.Controllers
         [HttpPost]
         public IActionResult SecondStep(TournamentPostModel model)
         {
+            var neededCount = model.Teams.Count();
+
             if (!ModelState.IsValid)
             {
-                TournamentPostModel newModel = new ();
-
-                newModel.TournamentPositions = model.Teams.Count();
+                var newModel = GeneratePostDataModel(neededCount);                
 
                 return View(newModel);
-            }
-
-            model.TournamentPositions = model.Teams.Count();
+            }            
 
             var userId = User.GetId();
 
@@ -97,6 +83,25 @@ namespace MiniFootballStatistic.Controllers
 
 
             return View(model);
+        }
+
+        private TournamentPostModel GeneratePostDataModel(int positionCount)
+        {
+            TournamentPostModel model = new();
+
+            for (int i = 0; i < positionCount; i++)
+            {
+                var team = new TeamPostModel();
+
+                for (int j = 0; j < 4; j++)
+                {
+                    team.Players.Add(new PlayerPostModel());
+                }
+
+                model.Teams.Add(team);
+            }
+
+            return model;
         }
     }
 }

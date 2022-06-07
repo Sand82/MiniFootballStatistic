@@ -26,8 +26,10 @@
                     <div class="col-md-5 ">
                         <div class="form-group" style="margin: 40px;">
                             <label asp-for="@Model.Teams[num].Name"></label>
-                            <input asp-for="@Model.Teams[num].Name" class="form-control" placeholder="">
+                            <input asp-for="@Model.Teams[num].Name" class="form-control" placeholder="" value="Team @(i + 1)">
                             <span asp-validation-for="@Model.Teams[num].Name" class="small text-danger"></span>
+
+                             <input asp-for="@Model.Teams[num].TournamentPosition" class="form-control" type ="hidden" value="@(i + 1)">
 
                         </div>
                     </div>                    
@@ -52,6 +54,5 @@
             </div>
             <button type="submit" class="btn btn-primary mt-4">Save Tournament with teams</button>
         </form>
-
     </div>
 </div>
