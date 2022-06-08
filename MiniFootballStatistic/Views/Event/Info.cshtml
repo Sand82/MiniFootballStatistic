@@ -1,4 +1,4 @@
-﻿
+﻿@model InfoViewModel
 
 @{
     ViewData["Title"] = "Info Event";
@@ -8,14 +8,37 @@
     var userId = User.GetId();
 }
 
-<div class="container">
-    <div class="row">
-        
-    </div>
-</div>
+@{
+    int modelPosition = 0;
+    int counter = @Model.Levels;
+    int idInHTML = 1;
+    int playersInEvent = @Model.ShcemaLength;
+}
 
- 
-                        <a asp-controller="" asp-action="" asp-route-id="" class="btn btn-success">Edit</a>
-                        <a asp-controller="Event" asp-action="Delete" asp-route-id="" class="btn btn-danger">Delete</a>
-                    
-                    
+<main class="conteiner" id="tournament">
+    
+    @for (var i = 0; i < counter; i++)
+    {
+        playersInEvent /= 2;
+
+        <ul class="round round-@(i + 1)">
+
+            @for (var j = 0; j < playersInEvent; j++)
+            {
+                <li class="spacer">&nbsp;</li>
+                <li @*id="@idInHTML"*@ class="game game-top ">@Model.Teams[modelPosition].Name <span>@Model.Teams[modelPosition].PositionResult</span></li>
+                <li class="game game-spacer">&nbsp;</li>
+                <li @*id="@(idInHTML + 1)"*@ class="game game-bottom ">@Model.Teams[modelPosition + 1].Name <span>@Model.Teams[modelPosition + 1].PositionResult</span></li>
+                idInHTML += 2;
+                modelPosition +=2;
+                if (j + 1 == playersInEvent)
+                {
+                    <li class="spacer">&nbsp;</li>
+                }
+            }
+        </ul>
+    }    
+</main>  
+
+
+

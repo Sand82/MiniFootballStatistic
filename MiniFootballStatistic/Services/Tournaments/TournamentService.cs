@@ -30,7 +30,10 @@ namespace MiniFootballStatistic.Services.Tournaments
                 {
                     Name = t.Name,
                     TournamentId = tournament.Id,
-                    TournamentPosition = t.TournamentPosition,                    
+                    TournamentPosition = t.TournamentPosition,
+                    ScoredGoals = 0,
+                    AccumolateGoals = 0,
+                    Difference = 0,                    
                     Players = t.Players.Select(p => new Player
                     {
                         Name = p.Name,
@@ -116,7 +119,7 @@ namespace MiniFootballStatistic.Services.Tournaments
 
         private int GetLevels(int positionCount)
         {
-            var count = 1;
+            var count = 0;
 
             int number = positionCount;
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MiniFootballStatistic.Models.Event;
 using MiniFootballStatistic.Services.Events;
 
 namespace MiniFootballStatistic.Controllers
@@ -27,16 +28,33 @@ namespace MiniFootballStatistic.Controllers
         
         public IActionResult Info(int id)
         {
-            var tournament = eventService.GetTournamentById(id);
+            var model = eventService.GetTournamentModelById(id);
 
-            if (tournament is null)
+            if (model is null)
             {
                 return NotFound();
-            }           
+            }
 
-            return View();
+            var blankModels = CreateEmptyTeamModels(model.ShcemaLength);
+
+            model.Teams.AddRange(blankModels);
+
+            return View(model);
         }
 
+        private List<InfoTeamModel> CreateEmptyTeamModels(int shcemaLength)
+        {
+            var emptyModels = new List<InfoTeamModel>();
+
+            for (int i = 0; i < shcemaLength - 2; i++)
+            {
+                var model = new InfoTeamModel { Name = "Not playe"};
+
+                emptyModels.Add(model);
+            }
+
+            return emptyModels;
+        }
 
         [Authorize]
         public IActionResult Delete(int id)

@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Players\" />
-    <Folder Include="Models\Team\" />
     <Folder Include="Views\Player\" />
   </ItemGroup>
 

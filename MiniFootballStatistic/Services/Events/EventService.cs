@@ -1,5 +1,6 @@
 ﻿using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
+using MiniFootballStatistic.Models.Event;
 using MiniFootballStatistic.Models.Tournament;
 
 namespace MiniFootballStatistic.Services.Events
@@ -63,16 +64,37 @@ namespace MiniFootballStatistic.Services.Events
             }).GetAwaiter().GetResult();
         }
 
+        public InfoViewModel GetTournamentModelById(int id)
+        {
+            InfoViewModel? model = null;
 
-        //private string GetUserEmail(string? userId)
-        //{
-        //    string email = null;
+            Task.Run(() =>
+            {
+                model = this.data.Tournaments
+                .Where(t => t.Id == id)
+                .Select(t => new InfoViewModel
+                {
+                    Id = t.Id,
+                    Levels = t.Levels,
+                    TournamentName = t.Name,
+                    ShcemaLength = t.ShcemaLength,
+                    Teams = t.Teams
+                    .OrderBy(te => te.TournamentPosition)
+                    .Select(te => new InfoTeamModel
+                    {
+                        Name = te.Name,
+                        PositionResult = int.Parse(te.PositionResult),
+                        TournamentPosition = int.Parse(te.TournamentPosition),
+                        Id = te.Id
 
-        //    Task.Run(() =>
-        //    {               
-        //        email = 
+                    })                    
+                    .ToList()
+                })
+                .FirstOrDefault();
 
-        //    }).GetAwaiter().GetResult();
-        //}
+            }).GetAwaiter().GetResult();
+
+            return model;
+        }        
     }
 }
