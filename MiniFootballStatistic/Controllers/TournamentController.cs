@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using MiniFootballStatistic.Infrastructure;
-using MiniFootballStatistic.Models.Team;
-using MiniFootballStatistic.Models.ThirdPart;
-using MiniFootballStatistic.Models.Tournament;
+using MiniFootballStatistic.Models.Tournament.TournamentPost;
 using MiniFootballStatistic.Services.Tournaments;
 
 namespace MiniFootballStatistic.Controllers

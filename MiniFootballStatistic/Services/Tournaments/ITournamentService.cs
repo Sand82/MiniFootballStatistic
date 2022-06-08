@@ -1,5 +1,5 @@
-﻿using MiniFootballStatistic.Models.ThirdPart;
-using MiniFootballStatistic.Models.Tournament;
+﻿using MiniFootballStatistic.Models.Tournament;
+using MiniFootballStatistic.Models.Tournament.TournamentPost;
 
 namespace MiniFootballStatistic.Services.Tournaments
 {
@@ -7,8 +7,6 @@ namespace MiniFootballStatistic.Services.Tournaments
     {
         public List<TournamentViewModel> GetSchemas();
 
-        public void CreateChampionship(TournamentPostModel model, string userId);
-
-        public TournamentCreatePlayersModel GetTeams(string userId);
+        public void CreateChampionship(TournamentPostModel model, string userId);        
     }
 }

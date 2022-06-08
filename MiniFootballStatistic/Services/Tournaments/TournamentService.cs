@@ -2,8 +2,8 @@
 using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
 
-using MiniFootballStatistic.Models.ThirdPart;
 using MiniFootballStatistic.Models.Tournament;
+using MiniFootballStatistic.Models.Tournament.TournamentPost;
 
 namespace MiniFootballStatistic.Services.Tournaments
 {
@@ -76,34 +76,6 @@ namespace MiniFootballStatistic.Services.Tournaments
             }).GetAwaiter().GetResult();
 
             return schemas;
-        }
-
-        public TournamentCreatePlayersModel GetTeams(string userId)
-        {
-            TournamentCreatePlayersModel? model = null;
-
-            Task.Run(() =>
-            {
-                model = this.data.Tournaments
-                .Include(t => t.Teams)
-                .ThenInclude(t => t.Players)
-                .Where(t => t.UserId == userId)
-                .OrderByDescending(t => t.Id)
-                .Select(t => new TournamentCreatePlayersModel
-                {
-                    Name = t.Name,
-                    Teams = t.Teams.Select(te => new TeamViewModel
-                    {
-                        Name = te.Name,
-                        Id = te.Id,                        
-                    })
-                    .ToList()                    
-                })
-                .FirstOrDefault();            
-               
-            }).GetAwaiter().GetResult();
-
-            return model;
-        }
+        }        
     }
 }
