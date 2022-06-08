@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
-
+using MiniFootballStatistic.Models.Schema;
 using MiniFootballStatistic.Models.Tournament;
 using MiniFootballStatistic.Models.Tournament.TournamentPost;
 
@@ -68,13 +68,13 @@ namespace MiniFootballStatistic.Services.Tournaments
             }
         }
         
-        public List<TournamentViewModel> GetSchemas()
+        public List<SchemaViewModel> GetSchemas()
         {
-            List<TournamentViewModel>? schemas = null;
+            List<SchemaViewModel>? schemas = null;
 
             Task.Run(() => 
             { 
-                schemas = this.data.Schemas.Select(x => new TournamentViewModel 
+                schemas = this.data.Schemas.Select(x => new SchemaViewModel
                 { 
                     Name = x.Name,
                     ImageUrl = x.ImageUrl,
