@@ -12,12 +12,11 @@
                 int counter = 0;
             }
 
-
             @foreach (var team in Model.Teams)
             {
                 counter++;
 
-                <div class="col-md-5 " style="margin-top: 70px;">
+                <div class="col-md-5 position-absolute top-50 start-50" style="margin-top: 70px;">
                     <div class="card border-secondary mb-3" style="max-width: 18rem;">
                         <div class="card-header">@Model.Name</div>
                         <div class="card-body text-secondary">
@@ -27,7 +26,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-5 ">
+                <div class="col-md-10 ">
 
                     @for (var i = 0; i < 4; i++)
                     {

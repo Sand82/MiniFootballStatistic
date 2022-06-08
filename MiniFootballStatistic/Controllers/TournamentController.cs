@@ -53,36 +53,7 @@ namespace MiniFootballStatistic.Controllers
 
             tournamentService.CreateChampionship(model, userId);
 
-            return RedirectToAction("ThirdStep", "Tournament");
-        }
-
-        [Authorize]
-        public IActionResult ThirdStep()
-        {
-            var userId = User.GetId();
-
-            var model = tournamentService.GetTeams(userId);
-
-            foreach (var team in model.Teams)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    //team.Players.Add(new PlayerPostModel());
-                }
-            }
-           
-
-            return View(model);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult ThirdStep(TournamentCreatePlayersModel model)
-        {
-            var userId = User.GetId();
-
-
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         private TournamentPostModel GeneratePostDataModel(int positionCount)
