@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MiniFootballStatistic.Data.Migrations
+namespace MiniFootballStatistic.Data.Mogrations
 {
     public partial class InitialMigration : Migration
     {
@@ -72,7 +72,8 @@ namespace MiniFootballStatistic.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShcemaLength = table.Column<int>(type: "int", nullable: false)
+                    ShcemaLength = table.Column<int>(type: "int", nullable: false),
+                    isAddedInDatabase = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniFootballStatistic.Data;
 
 #nullable disable
 
-namespace MiniFootballStatistic.Data.Migrations
+namespace MiniFootballStatistic.Data.Mogrations
 {
     [DbContext(typeof(FoodballStatisticDbContext))]
-    [Migration("20220607120430_InitialMigration")]
-    partial class InitialMigration
+    partial class FoodballStatisticDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -346,6 +344,9 @@ namespace MiniFootballStatistic.Data.Migrations
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isAddedInDatabase")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

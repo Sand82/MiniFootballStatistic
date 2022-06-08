@@ -28,6 +28,8 @@ namespace MiniFootballStatistic.Data.Models
 
         //public Schema Schemas { get; set; }
 
+        public bool isAddedInDatabase { get; set; } = false;
+
         public ICollection<Team> Teams { get; set; }
     }
 }

@@ -16,14 +16,14 @@ namespace MiniFootballStatistic.Services.Tournaments
             this.data = data;
         }
 
-        public void CreateChampionship(TournamentPostModel model, string userId)
+        public bool CreateChampionship(TournamentPostModel model, string userId)
         {
             Tournament tournament = new();           
 
             Task.Run(() =>
             {
                 tournament.UserId = userId;
-                tournament.ShcemaLength = model.TournamentPositions;
+                tournament.ShcemaLength = model.Teams.Count();
                 tournament.Name = model.Name;
 
                 tournament.Teams = model.Teams.Select(t => new Team
@@ -44,20 +44,30 @@ namespace MiniFootballStatistic.Services.Tournaments
 
             }).GetAwaiter().GetResult();
 
-            AddToDatabase(tournament);
+           var isAddedInDataBase = AddToDatabase(tournament);
+
+            return isAddedInDataBase;
         }
 
-        private void AddToDatabase(Tournament tournament)
+        public void FinishedTournament(string userId)
         {
+            Tournament? tournament = null;
+
             Task.Run(() =>
             {
-                this.data.Tournaments.Add(tournament);
-
-                this.data.SaveChanges();
+                tournament = this.data.Tournaments
+                .Where(t => t.UserId == userId)
+                .OrderByDescending(t => t.Id)
+                .FirstOrDefault();               
 
             }).GetAwaiter().GetResult();
-        }
 
+            if (tournament != null)
+            {
+                SetTournament(tournament);
+            }
+        }
+        
         public List<TournamentViewModel> GetSchemas()
         {
             List<TournamentViewModel>? schemas = null;
@@ -76,6 +86,32 @@ namespace MiniFootballStatistic.Services.Tournaments
             }).GetAwaiter().GetResult();
 
             return schemas;
-        }        
+        }
+
+        private bool AddToDatabase(Tournament tournament)
+        {
+            var isAddedInDatabase = false;
+
+            Task.Run(() =>
+            {
+                this.data.Tournaments.Add(tournament);
+
+                this.data.SaveChanges();
+
+            }).GetAwaiter().GetResult();
+
+            return isAddedInDatabase = true;
+        }
+
+        private void SetTournament(Tournament tournament)
+        {
+            Task.Run(() =>
+            {
+                tournament.isAddedInDatabase = true;
+
+                this.data.SaveChanges();
+
+            }).GetAwaiter().GetResult();
+        }
     }
 }

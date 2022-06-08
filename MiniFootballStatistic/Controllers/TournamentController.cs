@@ -49,7 +49,12 @@ namespace MiniFootballStatistic.Controllers
 
             var userId = User.GetId();
 
-            tournamentService.CreateChampionship(model, userId);
+            var isAddedInDataBase = tournamentService.CreateChampionship(model, userId);
+
+            if (isAddedInDataBase)
+            {
+                tournamentService.FinishedTournament(userId);
+            }
 
             return RedirectToAction("Index", "Home");
         }

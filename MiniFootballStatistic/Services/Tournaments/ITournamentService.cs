@@ -7,6 +7,8 @@ namespace MiniFootballStatistic.Services.Tournaments
     {
         public List<TournamentViewModel> GetSchemas();
 
-        public void CreateChampionship(TournamentPostModel model, string userId);        
+        public bool CreateChampionship(TournamentPostModel model, string userId);
+
+        public void FinishedTournament(string userId);
     }
 }
