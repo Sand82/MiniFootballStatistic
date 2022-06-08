@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MiniFootballStatistic.Data;
+﻿using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
 using MiniFootballStatistic.Models.Schema;
-using MiniFootballStatistic.Models.Tournament;
 using MiniFootballStatistic.Models.Tournament.TournamentPost;
 
 namespace MiniFootballStatistic.Services.Tournaments
@@ -16,7 +14,7 @@ namespace MiniFootballStatistic.Services.Tournaments
             this.data = data;
         }
 
-        public bool CreateChampionship(TournamentPostModel model, string userId)
+        public bool CreateChampionship(TournamentPostModel model, string userId, DateTime date)
         {
             Tournament tournament = new();           
 
@@ -25,12 +23,14 @@ namespace MiniFootballStatistic.Services.Tournaments
                 tournament.UserId = userId;
                 tournament.ShcemaLength = model.Teams.Count();
                 tournament.Name = model.Name;
+                tournament.Levels = GetLevels(model.Teams.Count());
+                tournament.CreatedOn = date;
 
                 tournament.Teams = model.Teams.Select(t => new Team
                 {
                     Name = t.Name,
                     TournamentId = tournament.Id,
-                    TournamentPosition = t.TournamentPosition,
+                    TournamentPosition = t.TournamentPosition,                    
                     Players = t.Players.Select(p => new Player
                     {
                         Name = p.Name,
@@ -112,6 +112,27 @@ namespace MiniFootballStatistic.Services.Tournaments
                 this.data.SaveChanges();
 
             }).GetAwaiter().GetResult();
+        }
+
+        private int GetLevels(int positionCount)
+        {
+            var count = 1;
+
+            int number = positionCount;
+
+            for (int i = 0; i < positionCount; i++)
+            {
+                number = number / 2;                
+
+                if (number == 0)
+                {
+                    break;
+                }
+
+                count++;
+            }
+
+            return count;
         }
     }
 }

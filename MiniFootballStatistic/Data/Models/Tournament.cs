@@ -22,11 +22,15 @@ namespace MiniFootballStatistic.Data.Models
         public string? UserId { get; set; }
 
         [Range(MinSchemaTypeLenght,MaxSchemaTypeLenght)]
-        public int ShcemaLength { get; set; }        
+        public int ShcemaLength { get; set; }
+
+        public int Levels { get; set; }
 
         public DateTime? CreatedOn { get; set; }
 
         public bool isAddedInDatabase { get; set; } = false;
+
+        public bool isDelete { get; set; } = false;
 
         public ICollection<Team> Teams { get; set; }
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniFootballStatistic.Data;
 
@@ -11,9 +12,10 @@ using MiniFootballStatistic.Data;
 namespace MiniFootballStatistic.Data.Mogrations
 {
     [DbContext(typeof(FoodballStatisticDbContext))]
-    partial class FoodballStatisticDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220608115932_AddInTournamentEntityIsDeliteProp")]
+    partial class AddInTournamentEntityIsDeliteProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -335,9 +337,6 @@ namespace MiniFootballStatistic.Data.Mogrations
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("Levels")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
