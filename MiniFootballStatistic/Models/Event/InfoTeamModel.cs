@@ -9,5 +9,11 @@
         public int PositionResult { get; set; }
 
         public int TournamentPosition { get; set; }
+
+        public int? ScoredGoals { get; set; }
+        
+        public int? AccumolateGoals { get; set; }
+
+        public int? Difference { get; set; }
     }
 }

@@ -58,9 +58,9 @@
                         statisticCount++;
                         <tr>
                             <td scope="col">@team.Name</td>
-                            <td scope="col">0</td>
-                            <td scope="col">0</td>
-                            <td scope="col">0</td>
+                            <td scope="col">@team.ScoredGoals</td>
+                            <td scope="col">@team.AccumolateGoals</td>
+                            <td scope="col">@team.Difference</td>
                         </tr>
 
                         @if (@Model.ShcemaLength == statisticCount)

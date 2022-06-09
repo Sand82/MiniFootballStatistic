@@ -85,6 +85,9 @@ namespace MiniFootballStatistic.Services.Events
                         Name = te.Name,
                         PositionResult = te.PositionResult,
                         TournamentPosition = te.TournamentPosition,
+                        AccumolateGoals = te.AccumolateGoals,
+                        Difference = te.Difference,
+                        ScoredGoals = te.ScoredGoals,
                         Id = te.Id
 
                     })                    

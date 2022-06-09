@@ -22,6 +22,7 @@
 
         public const int MaxTeamStatsValue = 120;
         public const int MinTeamStatsValue = 0;
+        public const int MinTeamDiferenceValue = -120;
 
         public const int MaxTeamPositionLength = 20;
         public const int MinTeamPositionLength = 1;

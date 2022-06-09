@@ -1,0 +1,61 @@
+﻿@{
+    Dictionary<int, string> position = new Dictionary<int, string>()
+    {
+        {
+            1, "start"
+        },
+        {
+            2, "center"
+        },
+        {
+            3, "end"
+        },
+    };
+
+    int dictCounter = 1;
+    int count = 8;
+    int colCounter = 1;
+}
+
+@*<form class="form-control">*@
+<div class="container">
+    <div class="row">
+        @for (var i = 0; i < 3; i++)
+        {
+            count /= 2;
+            <div class="col align-self-@(position[dictCounter])">
+                                    
+                    @for (var j = 0; j < count; j++)
+                    {
+                        @if (i == 1)
+                        {
+                            <div style="margin-top: 100px"></div>
+                        }
+
+                        @if (i == 2)
+                        {
+                            <div style="margin-top: 200px"></div>
+                        }
+
+                        <div class="row-3" style="margin-top: 20px">
+                            <label>Team Name</label>
+                            <input>
+                            <label>Scored Goals</label>
+                            <input>
+                        </div>
+                        <div class="row-3" style="margin-top: 20px">
+                            <label>Team Name</label>
+                            <input>
+                            <label>Scored Goals</label>
+                            <input>
+                        </div>
+                    }  
+                    
+            </div>           
+            colCounter++;
+        }
+    </div>
+</div>
+@*</form>*@
+
+

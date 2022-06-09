@@ -26,7 +26,7 @@ namespace MiniFootballStatistic.Controllers
 
             return View(model);
         }
-        
+
         public IActionResult Info(int id)
         {
             var model = eventService.GetTournamentModelById(id);
@@ -42,10 +42,27 @@ namespace MiniFootballStatistic.Controllers
 
             return View(model);
         }
-        
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var model = eventService.GetTournamentModelById(id);
+
+            if (model is null)
+            {
+                return NotFound();
+            }
+
+            var blankModels = CreateEmptyTeamModels(model.ShcemaLength, model.Teams.Count);// TODO send object and sheck for missing nested objects
+
+            model.Teams.AddRange(blankModels);
+
+            return View(model);
+        }
+
         [Authorize]
         public IActionResult Delete(int id)
-        {            
+        {
             var tournament = eventService.GetTournamentById(id);
 
             if (tournament is null)
@@ -53,9 +70,14 @@ namespace MiniFootballStatistic.Controllers
                 return NotFound();
             }
 
-            eventService.DeleteTournament(tournament);            
+            eventService.DeleteTournament(tournament);
 
             return Redirect("/");
+        }
+
+        public IActionResult Test()
+        {
+            return View();
         }
 
         private List<InfoTeamModel> CreateEmptyTeamModels(int shcemaLength, int existingModelsCount)

@@ -25,7 +25,7 @@ namespace MiniFootballStatistic.Data.Models
         [Range(MinTeamStatsValue, MaxTeamStatsValue)]
         public int? AccumolateGoals { get; set; }
 
-        [Range(MinTeamStatsValue, MaxTeamStatsValue)]
+        [Range(MinTeamDiferenceValue, MaxTeamStatsValue)]
         public int? Difference { get; set; }
 
         public int TournamentId { get; set; }
