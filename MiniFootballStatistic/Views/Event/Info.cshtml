@@ -16,7 +16,7 @@
     int statisticCount = 0;
 }
 
-<main class="conteiner" id="tournament">
+<main class="conteiner" id="tournament" >
 
     @for (var i = 0; i < counter; i++)
     {
@@ -39,38 +39,40 @@
             }
         </ul>
     }
+    <div class="container">
+        <div class="row">
+            <div class="col offset-xl-3">
+                <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col">Team name</th>
+                        <th scope="col">Scored Goals</th>
+                        <th scope="col">Accumolate Goals</th>
+                        <th scope="col">Diference</th>
+                    </tr>
 
-    <table class="table table-striped" style="width: 18rem; margin-left: 20px;">
+                </thead>
+                <tbody>
+                    @foreach (var team in Model.Teams.OrderBy(t => t.PositionResult).Where(t => t.Name != "Not played yet"))
+                    {
+                        statisticCount++;
+                        <tr>
+                            <td scope="col">@team.Name</td>
+                            <td scope="col">0</td>
+                            <td scope="col">0</td>
+                            <td scope="col">0</td>
+                        </tr>
 
-        <thead>
-            <tr>
-                <th scope="col">Team name</th>
-                <th scope="col">Scored Goals</th>
-                <th scope="col">Accumolate Goals</th>
-                <th scope="col">Diference</th>
-            </tr>
-
-        </thead>
-        <tbody>
-
-            @foreach (var team in Model.Teams.OrderBy(t => t.PositionResult).Where(t => t.Name != "Not played yet"))
-            {
-                statisticCount++;
-                <tr>
-                    <td scope="col">@team.Name</td>
-                    <td scope="col">0</td>
-                    <td scope="col">0</td>
-                    <td scope="col">0</td>
-                </tr>
-
-                @if (@Model.ShcemaLength == statisticCount)
-                {
-                    break;
-                }
-            }
-        </tbody>
-    </table>
-
+                        @if (@Model.ShcemaLength == statisticCount)
+                        {
+                            break;
+                        }
+                    }
+                </tbody>
+            </table>
+            </div>            
+        </div>
+    </div>
 </main>
 
 

@@ -79,7 +79,7 @@ namespace MiniFootballStatistic.Services.Events
                     TournamentName = t.Name,
                     ShcemaLength = t.ShcemaLength,
                     Teams = t.Teams
-                    .OrderBy(te => te.TournamentPosition)
+                    .OrderBy(t => t.TournamentPosition)
                     .Select(te => new InfoTeamModel
                     {
                         Name = te.Name,
