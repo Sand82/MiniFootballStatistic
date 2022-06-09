@@ -13,10 +13,11 @@
     int counter = @Model.Levels;
     int idInHTML = 1;
     int playersInEvent = @Model.ShcemaLength;
+    int statisticCount = 0;
 }
 
 <main class="conteiner" id="tournament">
-    
+
     @for (var i = 0; i < counter; i++)
     {
         playersInEvent /= 2;
@@ -30,15 +31,47 @@
                 <li class="game game-spacer">&nbsp;</li>
                 <li class="game game-bottom ">@(Model.Teams[modelPosition + 1].Name) <span>@(Model.Teams[modelPosition + 1].PositionResult)</span></li>
                 idInHTML += 2;
-                modelPosition +=2;
+                modelPosition += 2;
                 if (j + 1 == playersInEvent)
                 {
                     <li class="spacer">&nbsp;</li>
                 }
             }
         </ul>
-    }    
-</main>  
+    }
+
+    <table class="table table-striped" style="width: 18rem; margin-left: 20px;">
+
+        <thead>
+            <tr>
+                <th scope="col">Team name</th>
+                <th scope="col">Scored Goals</th>
+                <th scope="col">Accumolate Goals</th>
+                <th scope="col">Diference</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            @foreach (var team in Model.Teams.OrderBy(t => t.PositionResult).Where(t => t.Name != "Not played yet"))
+            {
+                statisticCount++;
+                <tr>
+                    <td scope="col">@team.Name</td>
+                    <td scope="col">0</td>
+                    <td scope="col">0</td>
+                    <td scope="col">0</td>
+                </tr>
+
+                @if (@Model.ShcemaLength == statisticCount)
+                {
+                    break;
+                }
+            }
+        </tbody>
+    </table>
+
+</main>
 
 
 
