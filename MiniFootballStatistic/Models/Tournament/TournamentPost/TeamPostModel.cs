@@ -19,9 +19,9 @@ namespace MiniFootballStatistic.Models.Tournament.TournamentPost
 
         [Required]
         [Display(Name = "Tournament Position")]
-        [StringLength(MaxTeamPositionLength, MinimumLength = MinTeamPositionLength,
+        [Range(MinTeamStatsValue, MaxTeamStatsValue,
             ErrorMessage = "The field {0} is not valid! Must be between of {2} and {1} symbols.")]
-        public string? TournamentPosition { get; set; }
+        public int TournamentPosition { get; set; }
 
         public List<PlayerPostModel>? Players { get; set; }
     }

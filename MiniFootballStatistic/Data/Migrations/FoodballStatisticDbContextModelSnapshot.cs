@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniFootballStatistic.Data;
 
 #nullable disable
 
-namespace MiniFootballStatistic.Data.Mogrations
+namespace MiniFootballStatistic.Data.Migrations
 {
     [DbContext(typeof(FoodballStatisticDbContext))]
-    [Migration("20220608080331_AddTournamentPropCreateOn")]
-    partial class AddTournamentPropCreateOn
+    partial class FoodballStatisticDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,16 +307,17 @@ namespace MiniFootballStatistic.Data.Mogrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
+                    b.Property<int>("PositionResult")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ScoredGoals")
                         .HasColumnType("int");
 
                     b.Property<int>("TournamentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TournamentPosition")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("TournamentPosition")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -338,6 +337,9 @@ namespace MiniFootballStatistic.Data.Mogrations
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Levels")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
@@ -351,6 +353,9 @@ namespace MiniFootballStatistic.Data.Mogrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isAddedInDatabase")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isDelete")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

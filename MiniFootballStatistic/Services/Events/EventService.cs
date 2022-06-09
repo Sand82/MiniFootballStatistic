@@ -83,8 +83,8 @@ namespace MiniFootballStatistic.Services.Events
                     .Select(te => new InfoTeamModel
                     {
                         Name = te.Name,
-                        PositionResult = int.Parse(te.PositionResult),
-                        TournamentPosition = int.Parse(te.TournamentPosition),
+                        PositionResult = te.PositionResult,
+                        TournamentPosition = te.TournamentPosition,
                         Id = te.Id
 
                     })                    

@@ -13,13 +13,11 @@ namespace MiniFootballStatistic.Data.Models
         [StringLength(MaxTournamentTypeNameLength)]
         public string? Name { get; set; }
 
-        [Required]
-        [StringLength(MaxTeamPositionLength)]
-        public string? TournamentPosition { get; set; }
+        [Range(MinTeamStatsValue, MaxTeamStatsValue)]
+        public int TournamentPosition { get; set; }
 
-        [Required]
-        [StringLength(MaxTeamPositionLength)]
-        public string? PositionResult { get; set; }
+        [Range(MinTeamStatsValue, MaxTeamStatsValue)]
+        public int PositionResult { get; set; }
 
         [Range(MinTeamStatsValue, MaxTeamStatsValue)]
         public int? ScoredGoals { get; set; }

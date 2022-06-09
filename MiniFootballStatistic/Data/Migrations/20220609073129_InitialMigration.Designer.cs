@@ -9,11 +9,11 @@ using MiniFootballStatistic.Data;
 
 #nullable disable
 
-namespace MiniFootballStatistic.Data.Mogrations
+namespace MiniFootballStatistic.Data.Migrations
 {
     [DbContext(typeof(FoodballStatisticDbContext))]
-    [Migration("20220608125640_AddInTournamentPropLevel")]
-    partial class AddInTournamentPropLevel
+    [Migration("20220609073129_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -309,16 +309,17 @@ namespace MiniFootballStatistic.Data.Mogrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
+                    b.Property<int>("PositionResult")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ScoredGoals")
                         .HasColumnType("int");
 
                     b.Property<int>("TournamentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TournamentPosition")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("TournamentPosition")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

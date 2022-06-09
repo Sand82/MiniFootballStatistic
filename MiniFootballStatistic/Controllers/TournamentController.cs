@@ -40,11 +40,11 @@ namespace MiniFootballStatistic.Controllers
         {
             var neededCount = model.Teams.Count();
 
-            if (!ModelState.IsValid)
-            {
-                var newModel = GeneratePostDataModel(neededCount);                
+            model.TournamentPositions = neededCount;
 
-                return View(newModel);
+            if (!ModelState.IsValid)
+            {              
+               return View(model);
             }            
 
             var userId = User.GetId();

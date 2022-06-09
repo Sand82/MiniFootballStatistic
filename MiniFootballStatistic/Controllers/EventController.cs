@@ -71,6 +71,5 @@ namespace MiniFootballStatistic.Controllers
 
             return emptyModels;
         }
-
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MiniFootballStatistic.Data.Mogrations
+namespace MiniFootballStatistic.Data.Migrations
 {
     public partial class InitialMigration : Migration
     {
@@ -73,7 +73,10 @@ namespace MiniFootballStatistic.Data.Mogrations
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShcemaLength = table.Column<int>(type: "int", nullable: false),
-                    isAddedInDatabase = table.Column<bool>(type: "bit", nullable: false)
+                    Levels = table.Column<int>(type: "int", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    isAddedInDatabase = table.Column<bool>(type: "bit", nullable: false),
+                    isDelete = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,7 +211,8 @@ namespace MiniFootballStatistic.Data.Mogrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    TournamentPosition = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    TournamentPosition = table.Column<int>(type: "int", nullable: false),
+                    PositionResult = table.Column<int>(type: "int", nullable: false),
                     ScoredGoals = table.Column<int>(type: "int", nullable: true),
                     AccumolateGoals = table.Column<int>(type: "int", nullable: true),
                     Difference = table.Column<int>(type: "int", nullable: true),

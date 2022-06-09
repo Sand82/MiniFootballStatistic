@@ -33,7 +33,8 @@ namespace MiniFootballStatistic.Services.Tournaments
                     TournamentPosition = t.TournamentPosition,
                     ScoredGoals = 0,
                     AccumolateGoals = 0,
-                    Difference = 0,                    
+                    Difference = 0,
+                    PositionResult = 0,
                     Players = t.Players.Select(p => new Player
                     {
                         Name = p.Name,
