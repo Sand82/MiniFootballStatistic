@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MiniFootballStatistic.Models.Event;
+﻿using MiniFootballStatistic.Models.Event;
 using MiniFootballStatistic.Services.Events;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MiniFootballStatistic.Controllers
 {
@@ -35,27 +36,13 @@ namespace MiniFootballStatistic.Controllers
                 return NotFound();
             }
 
-            var blankModels = CreateEmptyTeamModels(model.ShcemaLength);
+            var blankModels = CreateEmptyTeamModels(model.ShcemaLength, model.Teams.Count);
 
             model.Teams.AddRange(blankModels);
 
             return View(model);
         }
-
-        private List<InfoTeamModel> CreateEmptyTeamModels(int shcemaLength)
-        {
-            var emptyModels = new List<InfoTeamModel>();
-
-            for (int i = 0; i < shcemaLength - 2; i++)
-            {
-                var model = new InfoTeamModel { Name = "Not playe"};
-
-                emptyModels.Add(model);
-            }
-
-            return emptyModels;
-        }
-
+        
         [Authorize]
         public IActionResult Delete(int id)
         {            
@@ -68,7 +55,22 @@ namespace MiniFootballStatistic.Controllers
 
             eventService.DeleteTournament(tournament);            
 
-            return Redirect("");
+            return Redirect("/");
         }
+
+        private List<InfoTeamModel> CreateEmptyTeamModels(int shcemaLength, int existingModelsCount)
+        {
+            var emptyModels = new List<InfoTeamModel>();
+
+            for (int i = existingModelsCount; i < (shcemaLength * 2) - 2; i++)
+            {
+                var model = new InfoTeamModel { Name = "Not played yet" };
+
+                emptyModels.Add(model);
+            }
+
+            return emptyModels;
+        }
+
     }
 }

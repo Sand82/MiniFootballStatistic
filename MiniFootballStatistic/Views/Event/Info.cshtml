@@ -26,9 +26,9 @@
             @for (var j = 0; j < playersInEvent; j++)
             {
                 <li class="spacer">&nbsp;</li>
-                <li @*id="@idInHTML"*@ class="game game-top ">@Model.Teams[modelPosition].Name <span>@Model.Teams[modelPosition].PositionResult</span></li>
+                <li class="game game-top ">@Model.Teams[modelPosition].Name <span>@Model.Teams[modelPosition].PositionResult</span></li>
                 <li class="game game-spacer">&nbsp;</li>
-                <li @*id="@(idInHTML + 1)"*@ class="game game-bottom ">@Model.Teams[modelPosition + 1].Name <span>@Model.Teams[modelPosition + 1].PositionResult</span></li>
+                <li class="game game-bottom ">@Model.Teams[modelPosition + 1].Name <span>@Model.Teams[modelPosition + 1].PositionResult</span></li>
                 idInHTML += 2;
                 modelPosition +=2;
                 if (j + 1 == playersInEvent)

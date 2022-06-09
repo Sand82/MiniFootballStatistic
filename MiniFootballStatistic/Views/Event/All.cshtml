@@ -33,7 +33,7 @@
                     @if (string.Compare(userId, @tournament.UserId) == 0)
                     {
                          <a asp-controller="" asp-action="" asp-route-id="" class="btn btn-success">Edit</a>
-                         <a asp-controller="Event" asp-action="Delete" asp-route-id="" class="btn btn-danger">Delete</a>
+                         <a asp-controller="Event" asp-action="Delete" asp-route-id="@tournament.Id" class="btn btn-danger">Delete</a>
                     }
                 </td>
             </tr>
