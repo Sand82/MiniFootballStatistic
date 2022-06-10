@@ -56,21 +56,7 @@ namespace MiniFootballStatistic.Services.Tournaments
 
             return isAddedInDataBase;
         }
-
-        private List<Team> CreateEmptyTeamInfoModels(int shcemaLength, int existingModelsCount)
-        {
-            var emptyModels = new List<Team>();
-
-            for (int i = existingModelsCount; i < (shcemaLength * 2) - 2; i++)
-            {
-                var model = new Team { Name = "Not played yet", PositionResult = 0,TournamentPosition = i + 1 };
-
-                emptyModels.Add(model);
-            }
-
-            return emptyModels;
-        }
-
+        
         public void FinishedTournament(string userId)
         {
             Tournament? tournament = null;
@@ -109,6 +95,21 @@ namespace MiniFootballStatistic.Services.Tournaments
 
             return schemas;
         }
+
+        private List<Team> CreateEmptyTeamInfoModels(int shcemaLength, int existingModelsCount)
+        {
+            var emptyModels = new List<Team>();
+
+            for (int i = existingModelsCount; i < (shcemaLength * 2) - 2; i++)
+            {
+                var model = new Team { Name = "Not played yet", PositionResult = 0, TournamentPosition = i + 1 };
+
+                emptyModels.Add(model);
+            }
+
+            return emptyModels;
+        }
+
 
         private bool AddToDatabase(Tournament tournament)
         {

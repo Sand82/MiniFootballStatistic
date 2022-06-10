@@ -8,33 +8,47 @@
     var userId = User.GetId();
 }
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Name of Tournament</th>
-            <th scope="col">Date of creation</th>
-            @*<th scope="col">Creator</th>*@
-            <th scope="col">Tournament positions</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var tournament in Model)
-        {
+@if (@Model.Count == 0)
+{
+    <div class="container ">
+        <div class="row d-flex align-items-center justify-content-center">
+            <h1>No Tournament in data base.</h1>
+            <a class="text-decoration-none" asp-controller="Tournament" asp-action="FirstStep"><h3>Click her to create first</h3></a>
+        </div>
+    </div>
+
+}
+@if (@Model.Count != 0)
+{
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td scope="col">@tournament.Name</td>
-                <td scope="col">@tournament.CreationData</td>
-                @*<td scope="col"></td>*@
-                <td scope="col">@tournament.SchemaLenght</td>
-                <td scope="col">
-                    <a asp-controller="Event" asp-action="Info" asp-route-id="@tournament.Id" class="btn btn-info">Info</a> 
-                    @if (string.Compare(userId, @tournament.UserId) == 0)
-                    {
-                         <a asp-controller="Event" asp-action="Edit" asp-route-id="@tournament.Id" class="btn btn-success">Edit</a>
-                         <a asp-controller="Event" asp-action="Delete" asp-route-id="@tournament.Id" class="btn btn-danger">Delete</a>
-                    }
-                </td>
+                <th scope="col">Name of Tournament</th>
+                <th scope="col">Date of creation</th>
+                @*<th scope="col">Creator</th>*@
+                <th scope="col">Tournament positions</th>
+                <th scope="col"></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var tournament in Model)
+            {
+                <tr>
+                    <td scope="col">@tournament.Name</td>
+                    <td scope="col">@tournament.CreationData</td>
+                    @*<td scope="col"></td>*@
+                    <td scope="col">@tournament.SchemaLenght</td>
+                    <td scope="col">
+                        <a asp-controller="Event" asp-action="Info" asp-route-id="@tournament.Id" class="btn btn-info">Info</a>
+                        @if (string.Compare(userId, @tournament.UserId) == 0)
+                        {
+                            <a asp-controller="Event" asp-action="Edit" asp-route-id="@tournament.Id" class="btn btn-success">Edit</a>
+                            <a asp-controller="Event" asp-action="Delete" asp-route-id="@tournament.Id" class="btn btn-danger">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
