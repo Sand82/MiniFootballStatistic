@@ -119,7 +119,7 @@ namespace MiniFootballStatistic.Services.Events
                     UserId = t.UserId,
                     Name = t.Name,
                     SchemaLenght = t.ShcemaLength,
-                    TournamentPositions = t.Levels,
+                    Levels = t.Levels,
                     Teams = t.Teams
                     .OrderBy(te => te.TournamentPosition)
                     .Select(te => new TeamEditModel

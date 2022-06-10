@@ -51,7 +51,7 @@ namespace MiniFootballStatistic.Controllers
 
             var creationDate = DateTime.UtcNow;
 
-            var isAddedInDataBase = tournamentService.CreateChampionship(model, userId, creationDate);
+            var isAddedInDataBase = tournamentService.CreateTournament(model, userId, creationDate);
 
             if (isAddedInDataBase)
             {

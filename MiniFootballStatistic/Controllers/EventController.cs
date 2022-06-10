@@ -3,6 +3,8 @@ using MiniFootballStatistic.Services.Events;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MiniFootballStatistic.Models.Tournament.TurnamentEdit;
+using MiniFootballStatistic.Models.Tournament.TournamentEdit;
 
 namespace MiniFootballStatistic.Controllers
 {
@@ -36,7 +38,7 @@ namespace MiniFootballStatistic.Controllers
                 return NotFound();
             }
 
-            var blankModels = CreateEmptyTeamModels(model.ShcemaLength, model.Teams.Count);
+            var blankModels = CreateEmptyTeamInfoModels(model.ShcemaLength, model.Teams.Count); // TODO send object and sheck for missing nested objects
 
             model.Teams.AddRange(blankModels);
 
@@ -53,9 +55,9 @@ namespace MiniFootballStatistic.Controllers
                 return NotFound();
             }
 
-            //var blankModels = CreateEmptyTeamModels(model.ShcemaLength, model.Teams.Count);// TODO send object and sheck for missing nested objects
+            var blankModels = CreateEmptyTeamEditModels(model.SchemaLenght, model.Teams.Count); // TODO send object and sheck for missing nested objects
 
-            //model.Teams.AddRange(blankModels);
+            model.Teams.AddRange(blankModels);
 
             return View(model);
         }
@@ -80,13 +82,27 @@ namespace MiniFootballStatistic.Controllers
             return View();
         }
 
-        private List<InfoTeamModel> CreateEmptyTeamModels(int shcemaLength, int existingModelsCount)
+        private List<InfoTeamModel> CreateEmptyTeamInfoModels(int shcemaLength, int existingModelsCount)
         {
             var emptyModels = new List<InfoTeamModel>();
 
             for (int i = existingModelsCount; i < (shcemaLength * 2) - 2; i++)
             {
                 var model = new InfoTeamModel { Name = "Not played yet" };
+
+                emptyModels.Add(model);
+            }
+
+            return emptyModels;
+        }
+
+        private List<TeamEditModel> CreateEmptyTeamEditModels(int shcemaLength, int existingModelsCount)
+        {
+            var emptyModels = new List<TeamEditModel>();
+
+            for (int i = existingModelsCount; i < (shcemaLength * 2) - 2; i++)
+            {
+                var model = new TeamEditModel { Name = "Not played yet", TournamentPosition = i + 1, PositionResult = 0};
 
                 emptyModels.Add(model);
             }

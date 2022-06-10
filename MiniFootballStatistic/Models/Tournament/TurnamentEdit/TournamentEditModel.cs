@@ -15,7 +15,7 @@ namespace MiniFootballStatistic.Models.Tournament.TurnamentEdit
 
         public string? Name { get; set; }
 
-        public int TournamentPositions { get; set; }
+        public int Levels { get; set; }
 
         public int SchemaLenght { get; set; }
 

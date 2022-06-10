@@ -12,7 +12,7 @@
     int modelPosition = 0;
     int counter = @Model.Levels;
     int idInHTML = 1;
-    int playersInEvent = @Model.ShcemaLength;
+    int teamsInEvent = @Model.ShcemaLength;
     int statisticCount = 0;
 }
 
@@ -20,11 +20,11 @@
 
     @for (var i = 0; i < counter; i++)
     {
-        playersInEvent /= 2;
+        teamsInEvent /= 2;
 
         <ul class="round round-@(i + 1)">
 
-            @for (var j = 0; j < playersInEvent; j++)
+            @for (var j = 0; j < teamsInEvent; j++)
             {
                 <li class="spacer">&nbsp;</li>
                 <li class="game game-top ">@(Model.Teams[modelPosition].Name) <span>@(Model.Teams[modelPosition].PositionResult)</span></li>
@@ -32,7 +32,7 @@
                 <li class="game game-bottom ">@(Model.Teams[modelPosition + 1].Name) <span>@(Model.Teams[modelPosition + 1].PositionResult)</span></li>
                 idInHTML += 2;
                 modelPosition += 2;
-                if (j + 1 == playersInEvent)
+                if (j + 1 == teamsInEvent)
                 {
                     <li class="spacer">&nbsp;</li>
                 }

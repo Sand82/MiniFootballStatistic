@@ -16,9 +16,11 @@
     };
 
     int dictCounter = 1;
-    int count = 8;
+    int teamsInEvent =@Model.SchemaLenght;
+    int counter = @Model.Levels;
     int colCounter = 1;
     int groupCounter = 1;
+    int modelPosition = 0;
 }
 
 @if (string.Compare(userId, @Model.UserId) == 0)
@@ -26,12 +28,12 @@
     <form class="form-floating">
         <div class="container">
             <div class="row">
-                @for (var i = 0; i < 3; i++)
+                @for (var i = 0; i < counter; i++)
                 {
-                    count /= 2;
+                    teamsInEvent /= 2;
                     <div class="col-md-2 align-self-@(dictPosition[dictCounter])">
 
-                        @for (var j = 0; j < count; j++)
+                        @for (var j = 0; j < teamsInEvent; j++)
                         {
                             @if (i == 1)
                             {
@@ -53,22 +55,23 @@
                                 <div class="d-flex flex-row bd-highlight mb-3">
                                     <div class="row" style="margin: 5px;">
                                         <label> Team Name </label>
-                                        <input value="">
-                                        <label> Scored Goals </label>
-                                        <input value="">
+                                        <input value="@Model.Teams[modelPosition].Name">
+                                        <label> Scored goals </label>
+                                        <input value="@Model.Teams[modelPosition].PositionResult">
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row bd-highlight mb-3">
                                     <div class="row" style="margin: 5px;">
                                         <label>Team Name</label>
-                                        <input value="">
-                                        <label>Scored Goals</label>
-                                        <input value="">
+                                        <input value="@Model.Teams[modelPosition + 1].Name">
+                                        <label>Scored goals</label>
+                                        <input value="@Model.Teams[modelPosition + 1].PositionResult">
                                     </div>
                                 </div>
                             </div>
 
                             groupCounter++;
+                            modelPosition += 2;
                         }
 
                     </div>

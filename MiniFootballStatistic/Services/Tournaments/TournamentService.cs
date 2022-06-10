@@ -14,7 +14,7 @@ namespace MiniFootballStatistic.Services.Tournaments
             this.data = data;
         }
 
-        public bool CreateChampionship(TournamentPostModel model, string userId, DateTime date)
+        public bool CreateTournament(TournamentPostModel model, string userId, DateTime date)
         {
             Tournament tournament = new();           
 
