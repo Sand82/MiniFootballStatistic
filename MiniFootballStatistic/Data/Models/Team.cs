@@ -34,6 +34,8 @@ namespace MiniFootballStatistic.Data.Models
 
         public bool? IsLose { get; set; }
 
+        public bool? IsWin { get; set; }
+
         public List<Player>? Players { get; set; }
 
     }

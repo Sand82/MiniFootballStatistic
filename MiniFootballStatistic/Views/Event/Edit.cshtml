@@ -55,17 +55,17 @@
                                 <div class="d-flex flex-row bd-highlight mb-3 ">
                                     <div class="row" style="margin: 5px;">
                                         <label asp-for="@Model.Teams[modelPosition].Name"> Team Name </label>
-                                        <input onclick="getValue(event, @Model.Id, @Model.Teams[modelPosition].Id)" id="@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].Name">
+                                        <input onchange="getValue(event, @Model.Id, @Model.Teams[modelPosition].Id)" id="Name-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].Name">
                                         <label asp-for="@Model.Teams[modelPosition].PositionResult"> Scored goals </label>
-                                        <input onclick="getResult(event, @Model.Id, @Model.Teams[modelPosition].Id)" id="@Model.Teams[modelPosition].Id"  value="@Model.Teams[modelPosition].PositionResult">
+                                        <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition].Id)" id="Velue-@Model.Teams[modelPosition].Id"  value="@Model.Teams[modelPosition].PositionResult">
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row bd-highlight mb-3">
                                     <div class="row" style="margin: 5px;">
                                         <label asp-for="@Model.Teams[modelPosition + 1].Name"> Team Name </label>
-                                        <input onclick="getValue(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)" id="@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].Name">
+                                        <input onchange="getValue(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)" id="Name-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].Name">
                                         <label asp-for="@Model.Teams[modelPosition + 1].PositionResult"> Scored goals </label>
-                                        <input onclick="getResult(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)" id="@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].PositionResult">
+                                        <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)" id="Velue-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].PositionResult">
                                     </div>
                                 </div>
                             </div>
@@ -87,19 +87,37 @@
         function getValue(e, tournamentId, teamId) {
             e.preventDefault();             
            
-            let result = document.getElementById(teamId).value;
+            let teamName = document.getElementById("Name-"+teamId).value;
+            
+            let model = {TournamentId: tournamentId, TeamId: teamId, TeamName: teamName};
 
-            //console.log("hello from Name");
-            console.log(result);
-            //console.log(teamId);
+            $.ajax({
+                type: "POST",
+                url: "/api/TeamName",
+                data: JSON.stringify(model),
+                success: function (data) {
+                   console.log("We are in the game!!!")
+                },
+                contentType: 'application/json'
+              });            
         }
 
         function getResult(e, tournamentId, teamId) {
             e.preventDefault();
 
-            //console.log("hello from Result");
-            //console.log(tournamentId);
-            //console.log(teamId);
+            let goals = document.getElementById("Velue-"+teamId).value;
+            
+            let model = {TournamentId: tournamentId, TeamId: teamId, Goals: goals};
+
+            $.ajax({
+                type: "POST",
+                url: "/api/Result",
+                data: JSON.stringify(model),
+                success: function (data) {
+                   console.log("We are in the game!!!")
+                },
+                contentType: 'application/json'
+              });            
         }
     </script>
 }

@@ -74,6 +74,8 @@ namespace MiniFootballStatistic.Services.Events
             Task.Run(() =>
             {
                 model = this.data.Tournaments
+                .Include(t => t.Teams)
+                .ThenInclude(t => t.Players)
                 .Where(t => t.Id == id)
                 .Select(t => new InfoViewModel
                 {
@@ -82,18 +84,18 @@ namespace MiniFootballStatistic.Services.Events
                     TournamentName = t.Name,
                     ShcemaLength = t.ShcemaLength,
                     Teams = t.Teams
-                    .OrderBy(t => t.TournamentPosition)
+                    .OrderBy(t => t.Id)
                     .Select(te => new InfoTeamModel
                     {
                         Name = te.Name,
                         PositionResult = te.PositionResult,
                         TournamentPosition = te.TournamentPosition,
-                        AccumolateGoals = te.AccumolateGoals,
+                        AccumolateGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.AccumolateGoals),
                         Difference = te.Difference,
                         ScoredGoals = te.ScoredGoals,
                         Id = te.Id
 
-                    })                    
+                    }) 
                     .ToList()
                 })
                 .FirstOrDefault();

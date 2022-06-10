@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniFootballStatistic.Data;
 
@@ -11,9 +12,10 @@ using MiniFootballStatistic.Data;
 namespace MiniFootballStatistic.Data.Migrations
 {
     [DbContext(typeof(FoodballStatisticDbContext))]
-    partial class FoodballStatisticDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220610173657_changeDbSetDelegatName")]
+    partial class changeDbSetDelegatName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -300,9 +302,6 @@ namespace MiniFootballStatistic.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool?>("IsLose")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsWin")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
