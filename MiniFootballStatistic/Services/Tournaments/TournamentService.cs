@@ -48,9 +48,27 @@ namespace MiniFootballStatistic.Services.Tournaments
 
             }).GetAwaiter().GetResult();
 
-           var isAddedInDataBase = AddToDatabase(tournament);
+            var teams = CreateEmptyTeamInfoModels(model.TournamentPositions, model.Teams.Count());
+
+            tournament.Teams.AddRange(teams);
+
+            var isAddedInDataBase = AddToDatabase(tournament);
 
             return isAddedInDataBase;
+        }
+
+        private List<Team> CreateEmptyTeamInfoModels(int shcemaLength, int existingModelsCount)
+        {
+            var emptyModels = new List<Team>();
+
+            for (int i = existingModelsCount; i < (shcemaLength * 2) - 2; i++)
+            {
+                var model = new Team { Name = "Not played yet", PositionResult = 0,TournamentPosition = i + 1 };
+
+                emptyModels.Add(model);
+            }
+
+            return emptyModels;
         }
 
         public void FinishedTournament(string userId)

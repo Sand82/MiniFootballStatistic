@@ -8,7 +8,7 @@ namespace MiniFootballStatistic.Data.Models
     {
         public Tournament()
         {
-            this.Teams = new HashSet<Team>();
+            this.Teams = new List<Team>();
         }
 
         [Key]
@@ -32,6 +32,6 @@ namespace MiniFootballStatistic.Data.Models
 
         public bool isDelete { get; set; } = false;
 
-        public ICollection<Team> Teams { get; set; }
+        public List<Team> Teams { get; set; }
     }
 }
