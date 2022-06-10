@@ -1,7 +1,10 @@
-﻿using MiniFootballStatistic.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
 using MiniFootballStatistic.Models.Event;
 using MiniFootballStatistic.Models.Tournament;
+using MiniFootballStatistic.Models.Tournament.TournamentEdit;
+using MiniFootballStatistic.Models.Tournament.TurnamentEdit;
 
 namespace MiniFootballStatistic.Services.Events
 {
@@ -64,7 +67,7 @@ namespace MiniFootballStatistic.Services.Events
             }).GetAwaiter().GetResult();
         }
 
-        public InfoViewModel GetTournamentModelById(int id)
+        public InfoViewModel GetInfoViewModel(int id)
         {
             InfoViewModel? model = null;
 
@@ -98,6 +101,49 @@ namespace MiniFootballStatistic.Services.Events
             }).GetAwaiter().GetResult();
 
             return model;
-        }        
+        }
+
+        public TournamentEditModel GetTournamentEditModel(int id)
+        {
+            TournamentEditModel? model = null;
+
+            Task.Run(() =>
+            {
+                model = this.data.Tournaments                
+                .Where(t => t.Id == id)
+                .Include(t => t.Teams)
+                .ThenInclude(t => t.Players)                
+                .Select(t => new TournamentEditModel
+                {
+                    Id = t.Id,
+                    UserId = t.UserId,
+                    Name = t.Name,
+                    SchemaLenght = t.ShcemaLength,
+                    TournamentPositions = t.Levels,
+                    Teams = t.Teams
+                    .OrderBy(te => te.TournamentPosition)
+                    .Select(te => new TeamEditModel
+                    {
+                        TournamentId = te.TournamentId,
+                        Name = te.Name,
+                        PositionResult = te.PositionResult,
+                        TournamentPosition = te.TournamentPosition,
+                        Players = te.Players.Select(p => new PlayerEditModel
+                        {
+                           TeamId = p.TeamId,
+                           Name = p.Name,
+                           Goals = p.Goals,
+                           Assists = p.Assists,
+                        })
+                        .ToList(),
+                    })
+                    .ToList(),
+                })                   
+                .FirstOrDefault();
+
+            }).GetAwaiter().GetResult();
+
+            return model;
+        }
     }
 }

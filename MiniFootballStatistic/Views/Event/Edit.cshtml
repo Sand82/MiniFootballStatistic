@@ -1,4 +1,5 @@
-﻿
+﻿@using MiniFootballStatistic.Models.Tournament.TurnamentEdit
+@model TournamentEditModel
 
 @{
     ViewData["Title"] = "Edit Event";
@@ -8,65 +9,76 @@
     var userId = User.GetId();
 }
 
-@*@if (string.Compare(userId, @tournament.UserId) == 0)
-    {
-
-    }*@
-
 @{
     Dictionary<int, string> dictPosition = new Dictionary<int, string>()
     {
-        {1, "start"}, {2, "center"}, {3, "end"},
+        {1, "md-start"}, {2, "md-center"}, {3, "md-end"},
     };
 
     int dictCounter = 1;
-    int count = 16;
+    int count = 8;
     int colCounter = 1;
+    int groupCounter = 1;
 }
 
-<form class="form-floating">
-    <div class="container">
-        <div class="row">
-            @for (var i = 0; i < 4; i++)
-            {
-                count /= 2;
-                <div class="col align-self-@(dictPosition[dictCounter])">
+@if (string.Compare(userId, @Model.UserId) == 0)
+{
+    <form class="form-floating">
+        <div class="container">
+            <div class="row">
+                @for (var i = 0; i < 3; i++)
+                {
+                    count /= 2;
+                    <div class="col-md-2 align-self-@(dictPosition[dictCounter])">
 
-                    @for (var j = 0; j < count; j++)
-                    {
-                        @if (i == 1)
+                        @for (var j = 0; j < count; j++)
                         {
-                            <div style="margin-top: 150px"></div>
-                        }
+                            @if (i == 1)
+                            {
+                                <div style="margin: 200px"></div>
+                            }
 
-                        @if (i == 2)
-                        {
-                            <div style="margin-top: 300px"></div>
-                        }
-                        @if (i == 3)
-                        {
-                            <div style="margin-top: 500px"></div>
-                        }
+                            @if (i == 2)
+                            {
+                                <div style="margin: 400px"></div>
+                            }
+                            @if (i == 3)
+                            {
+                                <div style="margin: 600px"></div>
+                            }
 
-                        <div class="row-3" style="margin-top: 50px">
-                            <div class="d-flex flex-row bd-highlight mb-3">
-                                <label for="floatingInputValue" class="p-2 bd-highlight">Team Name</label>
-                                <input class="form-control" id="floatingInputValue">
-                                <label class="p-2 bd-highlight">Scored Goals</label>
-                                <input class="form-control" id="floatingInputValue">
+                            <div class="row-2 border border-secondary" style="margin-top: 10px">
+                                <h5 style="text-align:center;">Group @groupCounter</h5>
+
+                                <div class="d-flex flex-row bd-highlight mb-3">
+                                    <div class="row" style="margin: 5px;">
+                                        <label> Team Name </label>
+                                        <input value="">
+                                        <label> Scored Goals </label>
+                                        <input value="">
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row bd-highlight mb-3">
+                                    <div class="row" style="margin: 5px;">
+                                        <label>Team Name</label>
+                                        <input value="">
+                                        <label>Scored Goals</label>
+                                        <input value="">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex flex-row bd-highlight mb-3">
-                                <label for="floatingInputValue" class="p-2 bd-highlight">Team Name</label>
-                                <input class="form-control" id="floatingInputValue">
-                                <label class="p-2 bd-highlight">Scored Goals</label>
-                                <input class="form-control" id="floatingInputValue">
-                            </div>
-                        </div>
-                    }
 
-                </div>
-                colCounter++;
-            }
+                            groupCounter++;
+                        }
+
+                    </div>
+                    colCounter++;
+                }
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+}
+
+
+
+

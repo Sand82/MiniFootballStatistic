@@ -29,7 +29,7 @@ namespace MiniFootballStatistic.Controllers
 
         public IActionResult Info(int id)
         {
-            var model = eventService.GetTournamentModelById(id);
+            var model = eventService.GetInfoViewModel(id);
 
             if (model is null)
             {
@@ -46,16 +46,16 @@ namespace MiniFootballStatistic.Controllers
         [Authorize]
         public IActionResult Edit(int id)
         {
-            var model = eventService.GetTournamentModelById(id);
+            var model = eventService.GetTournamentEditModel(id);
 
             if (model is null)
             {
                 return NotFound();
             }
 
-            var blankModels = CreateEmptyTeamModels(model.ShcemaLength, model.Teams.Count);// TODO send object and sheck for missing nested objects
+            //var blankModels = CreateEmptyTeamModels(model.ShcemaLength, model.Teams.Count);// TODO send object and sheck for missing nested objects
 
-            model.Teams.AddRange(blankModels);
+            //model.Teams.AddRange(blankModels);
 
             return View(model);
         }
