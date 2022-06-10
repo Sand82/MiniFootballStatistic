@@ -25,7 +25,7 @@
 
 @if (string.Compare(userId, @Model.UserId) == 0)
 {
-    <form class="form-floating">
+    <form method="Post" class="form-floating">
         <div class="container">
             <div class="row">
                 @for (var i = 0; i < counter; i++)
@@ -49,39 +49,60 @@
                                 <div style="margin: 600px"></div>
                             }
 
-                            <div class="row-2 border border-secondary" style="margin-top: 10px">
+                            <div class="form-group row-2 border border-secondary" style="margin-top: 10px">
                                 <h5 style="text-align:center;">Group @groupCounter</h5>
 
-                                <div class="d-flex flex-row bd-highlight mb-3">
+                                <div class="d-flex flex-row bd-highlight mb-3 ">
                                     <div class="row" style="margin: 5px;">
-                                        <label> Team Name </label>
-                                        <input value="@Model.Teams[modelPosition].Name">
-                                        <label> Scored goals </label>
-                                        <input value="@Model.Teams[modelPosition].PositionResult">
+                                        <label asp-for="@Model.Teams[modelPosition].Name"> Team Name </label>
+                                        <input onclick="getValue(event, @Model.Id, @Model.Teams[modelPosition].Id)" id="@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].Name">
+                                        <label asp-for="@Model.Teams[modelPosition].PositionResult"> Scored goals </label>
+                                        <input onclick="getResult(event, @Model.Id, @Model.Teams[modelPosition].Id)" id="@Model.Teams[modelPosition].Id"  value="@Model.Teams[modelPosition].PositionResult">
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row bd-highlight mb-3">
                                     <div class="row" style="margin: 5px;">
-                                        <label>Team Name</label>
-                                        <input value="@Model.Teams[modelPosition + 1].Name">
-                                        <label>Scored goals</label>
-                                        <input value="@Model.Teams[modelPosition + 1].PositionResult">
+                                        <label asp-for="@Model.Teams[modelPosition + 1].Name"> Team Name </label>
+                                        <input onclick="getValue(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)" id="@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].Name">
+                                        <label asp-for="@Model.Teams[modelPosition + 1].PositionResult"> Scored goals </label>
+                                        <input onclick="getResult(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)" id="@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].PositionResult">
                                     </div>
                                 </div>
                             </div>
 
                             groupCounter++;
-                            modelPosition += 2;
+                            modelPosition += 2;                            
                         }
 
                     </div>
                     colCounter++;
                 }
+                
             </div>
-        </div>
+        </div>        
     </form>
 }
+@section Scripts{
+    <script>
+        function getValue(e, tournamentId, teamId) {
+            e.preventDefault();             
+           
+            let result = document.getElementById(teamId).value;
 
+            //console.log("hello from Name");
+            console.log(result);
+            //console.log(teamId);
+        }
+
+        function getResult(e, tournamentId, teamId) {
+            e.preventDefault();
+
+            //console.log("hello from Result");
+            //console.log(tournamentId);
+            //console.log(teamId);
+        }
+    </script>
+}
 
 
 

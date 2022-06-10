@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MiniFootballStatistic.Models.Tournament.TurnamentEdit;
 
 namespace MiniFootballStatistic.Controllers
 {
@@ -47,6 +48,18 @@ namespace MiniFootballStatistic.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public IActionResult Edit(TournamentEditModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            return Redirect("/");
+        }
+
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var tournament = eventService.GetTournamentById(id);
@@ -59,11 +72,6 @@ namespace MiniFootballStatistic.Controllers
             eventService.DeleteTournament(tournament);
 
             return Redirect("/");
-        }
-
-        public IActionResult Test()
-        {
-            return View();
-        }       
+        }        
     }
 }

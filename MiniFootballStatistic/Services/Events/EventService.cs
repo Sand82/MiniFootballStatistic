@@ -124,6 +124,7 @@ namespace MiniFootballStatistic.Services.Events
                     .OrderBy(te => te.TournamentPosition)
                     .Select(te => new TeamEditModel
                     {
+                        Id = te.Id,
                         TournamentId = te.TournamentId,
                         Name = te.Name,
                         PositionResult = te.PositionResult,
