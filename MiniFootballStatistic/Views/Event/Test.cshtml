@@ -1,5 +1,5 @@
 ﻿@{
-    Dictionary<int, string> position = new Dictionary<int, string>()
+    Dictionary<int, string> dictPosition = new Dictionary<int, string>()
     {
         {
             1, "start"
@@ -13,49 +13,57 @@
     };
 
     int dictCounter = 1;
-    int count = 8;
+    int count = 16;
     int colCounter = 1;
 }
 
-@*<form class="form-control">*@
-<div class="container">
-    <div class="row">
-        @for (var i = 0; i < 3; i++)
-        {
-            count /= 2;
-            <div class="col align-self-@(position[dictCounter])">
-                                    
+<form class="form-floating">
+    <div class="container">
+        <div class="row">
+            @for (var i = 0; i < 4; i++)
+            {
+                count /= 2;
+                <div class="col align-self-@(dictPosition[dictCounter])">
+
                     @for (var j = 0; j < count; j++)
                     {
                         @if (i == 1)
                         {
-                            <div style="margin-top: 100px"></div>
+                            <div style="margin-top: 150px"></div>
                         }
 
                         @if (i == 2)
                         {
-                            <div style="margin-top: 200px"></div>
+                            <div style="margin-top: 300px"></div>
+                        }
+                        @if (i == 3)
+                        {
+                            <div style="margin-top: 500px"></div>
                         }
 
-                        <div class="row-3" style="margin-top: 20px">
-                            <label>Team Name</label>
-                            <input>
-                            <label>Scored Goals</label>
-                            <input>
+                        <div class="row-3" style="margin-top: 50px">
+                            <div class="d-flex flex-row bd-highlight mb-3">
+                                <label for="floatingInputValue" class="p-2 bd-highlight">Team Name</label>
+                                <input class="form-control" id="floatingInputValue">
+                                <label class="p-2 bd-highlight">Scored Goals</label>
+                                <input class="form-control" id="floatingInputValue">
+                            </div>
+
+
+                            <div class="d-flex flex-row bd-highlight mb-3">
+                                <label for="floatingInputValue" class="p-2 bd-highlight">Team Name</label>
+                                <input class="form-control" id="floatingInputValue">
+                                <label class="p-2 bd-highlight">Scored Goals</label>
+                                <input class="form-control" id="floatingInputValue">
+                            </div>
                         </div>
-                        <div class="row-3" style="margin-top: 20px">
-                            <label>Team Name</label>
-                            <input>
-                            <label>Scored Goals</label>
-                            <input>
-                        </div>
-                    }  
-                    
-            </div>           
-            colCounter++;
-        }
+                    }
+
+                </div>
+                colCounter++;
+            }
+        </div>
     </div>
-</div>
-@*</form>*@
+</form>
 
 
