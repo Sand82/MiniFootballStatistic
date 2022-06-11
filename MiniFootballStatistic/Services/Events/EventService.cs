@@ -92,7 +92,7 @@ namespace MiniFootballStatistic.Services.Events
                         TournamentPosition = te.TournamentPosition,
                         AccumolateGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.AccumolateGoals),
                         Difference = te.Difference,
-                        ScoredGoals = te.ScoredGoals,
+                        ScoredGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.ScoredGoals),
                         Id = te.Id
 
                     }) 

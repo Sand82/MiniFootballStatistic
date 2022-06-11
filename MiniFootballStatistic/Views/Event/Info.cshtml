@@ -53,14 +53,14 @@
 
                 </thead>
                 <tbody>
-                    @foreach (var team in Model.Teams.OrderBy(t => t.PositionResult).Where(t => t.Name != "Not played yet"))
+                    @foreach (var team in Model.Teams.OrderBy(t => t.Id).Take(Model.ShcemaLength))
                     {
                         statisticCount++;
                         <tr>
                             <td scope="col">@team.Name</td>
                             <td scope="col">@team.ScoredGoals</td>
                             <td scope="col">@team.AccumolateGoals</td>
-                            <td scope="col">@team.Difference</td>
+                            <td scope="col">@(team.ScoredGoals - team.AccumolateGoals)</td>
                         </tr>
 
                         @if (@Model.ShcemaLength == statisticCount)
