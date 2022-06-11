@@ -109,7 +109,6 @@ namespace MiniFootballStatistic.Services.Tournaments
             return emptyModels;
         }
 
-
         private bool AddToDatabase(Tournament tournament)
         {
             var isAddedInDatabase = false;

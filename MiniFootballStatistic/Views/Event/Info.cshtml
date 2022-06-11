@@ -53,7 +53,8 @@
 
                 </thead>
                 <tbody>
-                    @foreach (var team in Model.Teams.OrderBy(t => t.Id).Take(Model.ShcemaLength))
+                    @foreach (var team in Model.Teams.Take(Model.ShcemaLength).OrderByDescending(
+                        t => t.ScoredGoals - t.AccumolateGoals).ThenBy(t => t.ScoredGoals))
                     {
                         statisticCount++;
                         <tr>

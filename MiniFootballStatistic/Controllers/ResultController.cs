@@ -20,30 +20,33 @@ namespace MiniFootballStatistic.Controllers
 
         public IActionResult GoalsScored(GetGoalsEditModel model)
         {
-
             var team = teamService.FindTeam(model.TournamentId, model.TeamId);
 
-            var IsEmptyTeamScore = false;
-
-            if (team.PositionResult == null)
-            {
-                IsEmptyTeamScore = true;
-            }            
-
-            if (team is null)
-            {
-                return NotFound();
-            }
+            var initialTeamScore = team.ScoredGoals;
 
             teamService.SetStatistic(team, model.Goals);
 
+            team.ScoredGoals = model.Goals;
 
-            if (model.TeamId % 2 == 0 && IsEmptyTeamScore)
+            var positionId = model.TeamId + 1;
+
+            if (model.TeamId % 2 == 0)
             {
-                var previusTeam = teamService.FindTeam(model.TournamentId, model.TeamId - 1);
+                positionId -= 2;
+                initialTeamScore = model.Goals;
+            }
 
-                teamService.AdjustStatistic(previusTeam, team);
-            }            
+            var opponentTeam = teamService.FindTeam(model.TournamentId, positionId);
+
+            var shemaPosition = model.SchemaLength + model.GroupNumber;
+
+            if (initialTeamScore != null)
+            {
+                if (opponentTeam.ScoredGoals != team.ScoredGoals)
+                {
+                    teamService.AdjustStatistic(team, opponentTeam, shemaPosition, model.SchemaLength);
+                }                
+            }
 
             return Ok();
         }

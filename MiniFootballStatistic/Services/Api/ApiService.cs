@@ -31,59 +31,50 @@ namespace MiniFootballStatistic.Services.Api
             return team;
         }
 
-        public void AdjustStatistic(Team previusTeam, Team team)
+        public void AdjustStatistic(Team team, Team opponentTeam, int shemaPosition, int schemaLength)
         {
-            Task.Run(() =>
-            {
+            //Task.Run(() =>
+            //{
 
-                previusTeam.AccumulateGoals = team.ScoredGoals;
+                opponentTeam.AccumulateGoals = team.ScoredGoals;
 
-                team.AccumulateGoals = previusTeam.ScoredGoals;
+                team.AccumulateGoals = opponentTeam.ScoredGoals;
 
-                if (previusTeam.ScoredGoals > team.ScoredGoals)
+                if (opponentTeam.ScoredGoals > team.ScoredGoals)
                 {
-                    previusTeam.IsLose = false;
+                    opponentTeam.IsLose = false;
                     team.IsLose = true;
-                    SetTeam(previusTeam);
+                    SetTeam(opponentTeam, shemaPosition, schemaLength);
                 }
                 else
                 {
-                    previusTeam.IsLose = true;
+                    opponentTeam.IsLose = true;
                     team.IsLose = false;
-                    SetTeam(team);
+                    SetTeam(team, shemaPosition, schemaLength);
                 }
 
                 this.data.SaveChanges();
 
-            }).GetAwaiter().GetResult();
+            //}).GetAwaiter().GetResult();
         }
 
-        private void SetTeam(Team currTeam)
+        private void SetTeam(Team currTeam, int shemaPosition, int schemaLength)
         {
             Task.Run(() =>
-            {
-                bool IsemptyTeamExist = false;
+            {               
+                var team = this.data.Team                    
+                    .Include(t => t.Players)
+                    .Where(t => t.TournamentId == currTeam.TournamentId && t.TournamentPosition == shemaPosition)
+                    .FirstOrDefault();               
 
-                var tournament = this.data.Tournaments
-                    .Include(t => t.Teams)
-                    .ThenInclude(t => t.Players)
-                    .Where(t => t.Id == currTeam.TournamentId)
-                    .FirstOrDefault();
-
-                foreach (var team in tournament.Teams.OrderBy(t => t.Id))
-                {
-                    if (team.Name == EditTeamName)
-                    {
-                        team.Name = currTeam.Name;
-                        team.Players = currTeam.Players;
-                        IsemptyTeamExist = true;
-                        break;
-                    }
-                }
-
-                if (!IsemptyTeamExist)
+                if ((schemaLength - 2) < shemaPosition && team == null)
                 {
                     currTeam.IsChampion = true;
+                }
+                else
+                {
+                    team.Name = currTeam.Name;
+                    team.Players = currTeam.Players;                    
                 }
 
             }).GetAwaiter().GetResult();

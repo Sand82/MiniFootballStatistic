@@ -8,7 +8,7 @@
         
         public int ShcemaLength { get; set; }
 
-        public int Levels { get; set; }
+        public int Levels { get; set; }        
 
         public List<InfoTeamModel> Teams { get; set; }
     }
