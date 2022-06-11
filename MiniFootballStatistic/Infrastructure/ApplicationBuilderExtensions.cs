@@ -7,57 +7,23 @@
 
     public static class ApplicationBuilderExtensions
     {
-
         public static IApplicationBuilder PrepareDatabase(
            this IApplicationBuilder app)
         {
             var scolpedServices = app.ApplicationServices.CreateScope();
+            
             var serviceProvider = scolpedServices.ServiceProvider;
 
-            var data = serviceProvider.GetRequiredService<FoodballStatisticDbContext>();
-
-            //var webHostEnvironment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
+            var data = serviceProvider.GetRequiredService<FoodballStatisticDbContext>();                      
 
             data.Database.Migrate();
 
             SeedCategories(data);
-            SeedSchema(data);
 
-            //SeedAdministrator(serviceProvider);            
+            SeedSchema(data);                      
 
             return app;
-        }
-
-        private static void SeedAdministrator(IServiceProvider service)
-        {
-            //var userMager = service.GetRequiredService<UserManager<IdentityUser>>();
-            //var roleManager = service.GetRequiredService<RoleManager<IdentityRole>>();
-
-            //Task
-            //    .Run(async () =>
-            //    {
-            //        if (await roleManager.RoleExistsAsync(AdministratorRoleName))
-            //        {
-            //            return;
-            //        }
-
-            //        var role = new IdentityRole { Name = AdministratorRoleName };
-
-            //        await roleManager.CreateAsync(role);
-
-            //        var author = new IdentityUser
-            //        {
-            //            Email = "",
-            //            UserName = "",
-            //        };
-
-            //        await userMager.CreateAsync(author, "123456");
-
-            //        await userMager.AddToRoleAsync(author, role.Name);
-            //    })
-            //    .GetAwaiter()
-            //    .GetResult();
-        }
+        }        
 
         private static void SeedCategories(FoodballStatisticDbContext data)
         {

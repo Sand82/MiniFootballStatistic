@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-using MiniFootballStatistic.Infrastructure;
+﻿using MiniFootballStatistic.Infrastructure;
 using MiniFootballStatistic.Models.Tournament.TournamentPost;
 using MiniFootballStatistic.Services.Tournaments;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MiniFootballStatistic.Controllers
 {

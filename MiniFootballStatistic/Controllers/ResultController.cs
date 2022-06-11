@@ -1,8 +1,6 @@
 ﻿using MiniFootballStatistic.Models.Team;
 using MiniFootballStatistic.Services.Api;
 
-using static MiniFootballStatistic.GlobalConstants.Constans;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace MiniFootballStatistic.Controllers

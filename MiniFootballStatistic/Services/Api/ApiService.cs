@@ -1,8 +1,6 @@
 ﻿using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
 
-using static MiniFootballStatistic.GlobalConstants.Constans;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace MiniFootballStatistic.Services.Api
@@ -33,8 +31,8 @@ namespace MiniFootballStatistic.Services.Api
 
         public void AdjustStatistic(Team team, Team opponentTeam, int shemaPosition, int schemaLength)
         {
-            //Task.Run(() =>
-            //{
+            Task.Run(() =>
+            {
 
                 opponentTeam.AccumulateGoals = team.ScoredGoals;
 
@@ -55,17 +53,17 @@ namespace MiniFootballStatistic.Services.Api
 
                 this.data.SaveChanges();
 
-            //}).GetAwaiter().GetResult();
+            }).GetAwaiter().GetResult();
         }
 
         private void SetTeam(Team currTeam, int shemaPosition, int schemaLength)
         {
             Task.Run(() =>
-            {               
-                var team = this.data.Team                    
+            {
+                var team = this.data.Team
                     .Include(t => t.Players)
                     .Where(t => t.TournamentId == currTeam.TournamentId && t.TournamentPosition == shemaPosition)
-                    .FirstOrDefault();               
+                    .FirstOrDefault();
 
                 if ((schemaLength - 2) < shemaPosition && team == null)
                 {
@@ -74,12 +72,10 @@ namespace MiniFootballStatistic.Services.Api
                 else
                 {
                     team.Name = currTeam.Name;
-                    team.Players = currTeam.Players;                    
+                    team.Players = currTeam.Players;
                 }
 
-            }).GetAwaiter().GetResult();
-
-            //this.data.SaveChanges();
+            }).GetAwaiter().GetResult();           
         }
 
         public void SetName(Team team, string name)

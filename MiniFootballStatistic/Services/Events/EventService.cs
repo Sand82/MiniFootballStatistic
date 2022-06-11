@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MiniFootballStatistic.Data;
+﻿using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
 using MiniFootballStatistic.Models.Event;
 using MiniFootballStatistic.Models.Tournament;
 using MiniFootballStatistic.Models.Tournament.TournamentEdit;
 using MiniFootballStatistic.Models.Tournament.TurnamentEdit;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace MiniFootballStatistic.Services.Events
 {

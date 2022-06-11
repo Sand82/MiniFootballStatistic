@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MiniFootballStatistic.Models.Team;
+﻿using MiniFootballStatistic.Models.Team;
 using MiniFootballStatistic.Services.Api;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace MiniFootballStatistic.Controllers
 {
