@@ -12,9 +12,6 @@ namespace MiniFootballStatistic.Models.Tournament
 
         public int SchemaLenght { get; set; }
 
-        public string UserId { get; set; }
-
-        //[Display(Name = "Player email")]
-        //public string UserEmail { get; set; }
+        public string UserId { get; set; }       
     }
 }

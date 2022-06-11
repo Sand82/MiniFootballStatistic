@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MiniFootballStatistic.Models.Team;
+﻿using MiniFootballStatistic.Models.Team;
 using MiniFootballStatistic.Services.Api;
+
+using static MiniFootballStatistic.GlobalConstants.Constans;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace MiniFootballStatistic.Controllers
 {
@@ -19,7 +22,13 @@ namespace MiniFootballStatistic.Controllers
         {
 
             var team = teamService.FindTeam(model.TournamentId, model.TeamId);
-            
+
+            var IsEmptyTeamScore = false;
+
+            if (team.PositionResult == null)
+            {
+                IsEmptyTeamScore = true;
+            }            
 
             if (team is null)
             {
@@ -29,7 +38,7 @@ namespace MiniFootballStatistic.Controllers
             teamService.SetStatistic(team, model.Goals);
 
 
-            if (model.TeamId % 2 == 0)
+            if (model.TeamId % 2 == 0 && IsEmptyTeamScore)
             {
                 var previusTeam = teamService.FindTeam(model.TournamentId, model.TeamId - 1);
 

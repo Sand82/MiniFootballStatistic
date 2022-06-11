@@ -3,6 +3,8 @@ using MiniFootballStatistic.Data.Models;
 using MiniFootballStatistic.Models.Schema;
 using MiniFootballStatistic.Models.Tournament.TournamentPost;
 
+using static MiniFootballStatistic.GlobalConstants.Constans;
+
 namespace MiniFootballStatistic.Services.Tournaments
 {
     public class TournamentService : ITournamentService
@@ -30,8 +32,7 @@ namespace MiniFootballStatistic.Services.Tournaments
                 {
                     Name = t.Name,
                     TournamentId = tournament.Id,
-                    TournamentPosition = t.TournamentPosition,
-                    ScoredGoals = 0,
+                    TournamentPosition = t.TournamentPosition,                   
                     AccumulateGoals = 0,                                    
                     Players = t.Players.Select(p => new Player
                     {
@@ -100,7 +101,7 @@ namespace MiniFootballStatistic.Services.Tournaments
 
             for (int i = existingModelsCount; i < (shcemaLength * 2) - 2; i++)
             {
-                var model = new Team { Name = "Not played yet", PositionResult = 0, TournamentPosition = i + 1 };
+                var model = new Team { Name = EditTeamName, TournamentPosition = i + 1 };
 
                 emptyModels.Add(model);
             }

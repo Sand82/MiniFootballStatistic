@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MiniFootballStatistic.Data;
+﻿using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
+
+using static MiniFootballStatistic.GlobalConstants.Constans;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace MiniFootballStatistic.Services.Api
 {
@@ -69,7 +72,7 @@ namespace MiniFootballStatistic.Services.Api
 
                 foreach (var team in tournament.Teams.OrderBy(t => t.Id))
                 {
-                    if (team.Name == "Not played yet")
+                    if (team.Name == EditTeamName)
                     {
                         team.Name = currTeam.Name;
                         team.Players = currTeam.Players;
