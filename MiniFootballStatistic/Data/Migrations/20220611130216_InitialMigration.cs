@@ -65,7 +65,22 @@ namespace MiniFootballStatistic.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tournament",
+                name: "TournamentCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Descrioption = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TournamentCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tournaments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -80,22 +95,7 @@ namespace MiniFootballStatistic.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tournament", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TournamentCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Descrioption = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TournamentCategories", x => x.Id);
+                    table.PrimaryKey("PK_Tournaments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,20 +212,20 @@ namespace MiniFootballStatistic.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     TournamentPosition = table.Column<int>(type: "int", nullable: false),
-                    PositionResult = table.Column<int>(type: "int", nullable: false),
+                    PositionResult = table.Column<int>(type: "int", nullable: true),
                     ScoredGoals = table.Column<int>(type: "int", nullable: true),
-                    AccumolateGoals = table.Column<int>(type: "int", nullable: true),
-                    Difference = table.Column<int>(type: "int", nullable: true),
+                    AccumulateGoals = table.Column<int>(type: "int", nullable: true),
                     TournamentId = table.Column<int>(type: "int", nullable: false),
-                    IsLose = table.Column<bool>(type: "bit", nullable: true)
+                    IsLose = table.Column<bool>(type: "bit", nullable: true),
+                    IsChampion = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Team", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Team_Tournament_TournamentId",
+                        name: "FK_Team_Tournaments_TournamentId",
                         column: x => x.TournamentId,
-                        principalTable: "Tournament",
+                        principalTable: "Tournaments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -339,7 +339,7 @@ namespace MiniFootballStatistic.Data.Migrations
                 name: "Team");
 
             migrationBuilder.DropTable(
-                name: "Tournament");
+                name: "Tournaments");
         }
     }
 }

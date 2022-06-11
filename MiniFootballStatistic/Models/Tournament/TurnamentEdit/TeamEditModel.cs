@@ -26,7 +26,7 @@ namespace MiniFootballStatistic.Models.Tournament.TurnamentEdit
         public int TournamentPosition { get; set; }
                 
         [Display(Name = "Scored Goals")]
-        public int PositionResult { get; set; }
+        public int? PositionResult { get; set; }
 
         public List<PlayerEditModel>? Players { get; set; }
     }

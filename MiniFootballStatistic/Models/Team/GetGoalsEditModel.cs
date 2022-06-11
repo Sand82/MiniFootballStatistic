@@ -12,5 +12,9 @@ namespace MiniFootballStatistic.Models.Team
 
         [Range(MinTeamStatsValue, MaxTeamStatsValue)]
         public int Goals { get; set; }
+
+        public int GroupNumber { get; set; }
+
+        public int SchemaLength { get; set; }
     }
 }

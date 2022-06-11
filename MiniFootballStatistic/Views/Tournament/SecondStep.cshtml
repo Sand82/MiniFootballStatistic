@@ -28,7 +28,7 @@
                         <div class="card border-secondary mb-3" style="max-width: 18rem;">
                             <div class="card-body text-secondary">
                                 <label asp-for="@Model.Teams[num].Name"></label>
-                                <input asp-for="@Model.Teams[num].Name" style="margin: 5px;" class="form-control" placeholder="" value="Team Mama @(i + 1)">
+                                <input asp-for="@Model.Teams[num].Name" style="margin: 5px;" class="form-control" placeholder="" value="Team Tati @(i + 1)">
                                 <span asp-validation-for="@Model.Teams[num].Name" class="small text-danger"></span>
 
                                 <input asp-for="@Model.Teams[num].TournamentPosition" class="form-control" type="hidden" value="@(i + 1)">

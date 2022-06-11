@@ -1,4 +1,5 @@
-﻿using MiniFootballStatistic.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
 
 namespace MiniFootballStatistic.Services.Api
@@ -10,11 +11,11 @@ namespace MiniFootballStatistic.Services.Api
         public ApiService(FoodballStatisticDbContext data)
         {
             this.data = data;
-        }        
+        }
 
         public Team FindTeam(int tournamentId, int teamId)
         {
-            Team? team = null;               
+            Team? team = null;
 
             Task.Run(() =>
             {
@@ -28,28 +29,63 @@ namespace MiniFootballStatistic.Services.Api
         }
 
         public void AdjustStatistic(Team previusTeam, Team team)
-        {            
+        {
             Task.Run(() =>
             {
-                previusTeam.AccumolateGoals = team.ScoredGoals;
 
-                team.AccumolateGoals = previusTeam.ScoredGoals;
+                previusTeam.AccumulateGoals = team.ScoredGoals;
+
+                team.AccumulateGoals = previusTeam.ScoredGoals;
 
                 if (previusTeam.ScoredGoals > team.ScoredGoals)
                 {
                     previusTeam.IsLose = false;
                     team.IsLose = true;
+                    SetTeam(previusTeam);
                 }
                 else
                 {
                     previusTeam.IsLose = true;
                     team.IsLose = false;
+                    SetTeam(team);
                 }
 
                 this.data.SaveChanges();
 
             }).GetAwaiter().GetResult();
+        }
 
+        private void SetTeam(Team currTeam)
+        {
+            Task.Run(() =>
+            {
+                bool IsemptyTeamExist = false;
+
+                var tournament = this.data.Tournaments
+                    .Include(t => t.Teams)
+                    .ThenInclude(t => t.Players)
+                    .Where(t => t.Id == currTeam.TournamentId)
+                    .FirstOrDefault();
+
+                foreach (var team in tournament.Teams.OrderBy(t => t.Id))
+                {
+                    if (team.Name == "Not played yet")
+                    {
+                        team.Name = currTeam.Name;
+                        team.Players = currTeam.Players;
+                        IsemptyTeamExist = true;
+                        break;
+                    }
+                }
+
+                if (!IsemptyTeamExist)
+                {
+                    currTeam.IsChampion = true;
+                }
+
+            }).GetAwaiter().GetResult();
+
+            //this.data.SaveChanges();
         }
 
         public void SetName(Team team, string name)
@@ -57,7 +93,7 @@ namespace MiniFootballStatistic.Services.Api
             Task.Run(() =>
             {
                 team.Name = name;
-                
+
                 this.data.SaveChanges();
 
             }).GetAwaiter().GetResult();

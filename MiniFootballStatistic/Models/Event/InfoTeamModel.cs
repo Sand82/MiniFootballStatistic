@@ -6,7 +6,7 @@
 
         public string Name { get; set; }
 
-        public int PositionResult { get; set; }
+        public int? PositionResult { get; set; }
 
         public int TournamentPosition { get; set; }
 

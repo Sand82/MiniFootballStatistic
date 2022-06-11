@@ -90,8 +90,7 @@ namespace MiniFootballStatistic.Services.Events
                         Name = te.Name,
                         PositionResult = te.PositionResult,
                         TournamentPosition = te.TournamentPosition,
-                        AccumolateGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.AccumolateGoals),
-                        Difference = te.Difference,
+                        AccumolateGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.AccumulateGoals),                        
                         ScoredGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.ScoredGoals),
                         Id = te.Id
 
@@ -120,7 +119,7 @@ namespace MiniFootballStatistic.Services.Events
                     Id = t.Id,
                     UserId = t.UserId,
                     Name = t.Name,
-                    SchemaLenght = t.ShcemaLength,
+                    SchemaLength = t.ShcemaLength,
                     Levels = t.Levels,
                     Teams = t.Teams
                     .OrderBy(te => te.TournamentPosition)

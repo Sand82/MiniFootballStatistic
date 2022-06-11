@@ -293,16 +293,13 @@ namespace MiniFootballStatistic.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AccumolateGoals")
+                    b.Property<int?>("AccumulateGoals")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Difference")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsLose")
+                    b.Property<bool?>("IsChampion")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsWin")
+                    b.Property<bool?>("IsLose")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -310,7 +307,7 @@ namespace MiniFootballStatistic.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.Property<int>("PositionResult")
+                    b.Property<int?>("PositionResult")
                         .HasColumnType("int");
 
                     b.Property<int?>("ScoredGoals")

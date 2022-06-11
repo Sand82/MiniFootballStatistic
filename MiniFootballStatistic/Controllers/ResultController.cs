@@ -34,7 +34,7 @@ namespace MiniFootballStatistic.Controllers
                 var previusTeam = teamService.FindTeam(model.TournamentId, model.TeamId - 1);
 
                 teamService.AdjustStatistic(previusTeam, team);
-            }
+            }            
 
             return Ok();
         }

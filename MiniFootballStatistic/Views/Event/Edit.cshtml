@@ -16,7 +16,7 @@
     };
 
     int dictCounter = 1;
-    int teamsInEvent =@Model.SchemaLenght;
+    int teamsInEvent = @Model.SchemaLength;
     int counter = @Model.Levels;
     int colCounter = 1;
     int groupCounter = 1;
@@ -57,7 +57,7 @@
                                         <label asp-for="@Model.Teams[modelPosition].Name"> Team Name </label>
                                         <input onchange="getValue(event, @Model.Id, @Model.Teams[modelPosition].Id)" id="Name-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].Name">
                                         <label asp-for="@Model.Teams[modelPosition].PositionResult"> Scored goals </label>
-                                        <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition].Id)" id="Velue-@Model.Teams[modelPosition].Id"  value="@Model.Teams[modelPosition].PositionResult">
+                                        <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition].Id, @groupCounter, @Model.SchemaLength)" id="Velue-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].PositionResult">
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row bd-highlight mb-3">
@@ -65,62 +65,74 @@
                                         <label asp-for="@Model.Teams[modelPosition + 1].Name"> Team Name </label>
                                         <input onchange="getValue(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)" id="Name-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].Name">
                                         <label asp-for="@Model.Teams[modelPosition + 1].PositionResult"> Scored goals </label>
-                                        <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)" id="Velue-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].PositionResult">
+                                        <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition + 1].Id, @groupCounter, @Model.SchemaLength)" id="Velue-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].PositionResult">
                                     </div>
                                 </div>
                             </div>
 
                             groupCounter++;
-                            modelPosition += 2;                            
+                            modelPosition += 2;
                         }
 
                     </div>
                     colCounter++;
                 }
-                
+                <div style="margin-top: 30px;" class="d-grid gap-2 d-md-block">
+                    <a class="btn btn-outline-secondary me-md-2" asp-controller="Event" asp-action="Info" asp-route-id="@Model.Id">See Changes</a>
+                </div>
+
             </div>
-        </div>        
+        </div>
     </form>
+
+
 }
 @section Scripts{
-    <script>
-        function getValue(e, tournamentId, teamId) {
-            e.preventDefault();             
-           
-            let teamName = document.getElementById("Name-"+teamId).value;
-            
-            let model = {TournamentId: tournamentId, TeamId: teamId, TeamName: teamName};
+<script>
+    function getValue(e, tournamentId, teamId) {
+        e.preventDefault();
 
-            $.ajax({
-                type: "POST",
-                url: "/api/TeamName",
-                data: JSON.stringify(model),
-                success: function (data) {
-                   console.log("We are in the game!!!")
-                },
-                contentType: 'application/json'
-              });            
-        }
+        let teamName = document.getElementById("Name-"+teamId).value;
 
-        function getResult(e, tournamentId, teamId) {
-            e.preventDefault();
+        let model = {TournamentId: tournamentId, TeamId: teamId, TeamName: teamName};
 
-            let goals = document.getElementById("Velue-"+teamId).value;
-            
-            let model = {TournamentId: tournamentId, TeamId: teamId, Goals: goals};
+        $.ajax({
+            type: "POST",
+            url: "/api/TeamName",
+            data: JSON.stringify(model),
+            success: function (data) {
+               console.log("We are in the game!!!")
+            },
+            contentType: 'application/json'
+          });
+    }
 
-            $.ajax({
-                type: "POST",
-                url: "/api/Result",
-                data: JSON.stringify(model),
-                success: function (data) {
-                   console.log("We are in the game!!!")
-                },
-                contentType: 'application/json'
-              });            
-        }
-    </script>
+    function getResult(e, tournamentId, teamId, groupNumber, schemaLength) {
+        e.preventDefault();
+
+        let goals = document.getElementById("Velue-"+teamId).value;
+
+        let model = {TournamentId: tournamentId,
+            TeamId: teamId,
+            Goals: goals,
+            GroupNumber: groupNumber,
+            SchemaLength: schemaLength};
+
+        console.log(schemaLength);
+
+        $.ajax({
+            type: "POST",
+            url: "/api/Result",
+            data: JSON.stringify(model),
+            success: function (data) {
+               console.log("We are in the game!!!")
+            },
+            contentType: 'application/json'
+          });
+    }
+</script>
+
+<partial name="_ValidationScriptsPartial" />
 }
-
 
 
