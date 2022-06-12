@@ -2,6 +2,7 @@
 using MiniFootballStatistic.Models.Player;
 
 using Microsoft.EntityFrameworkCore;
+using MiniFootballStatistic.Data.Models;
 
 namespace MiniFootballStatistic.Services.Players
 {
@@ -43,6 +44,41 @@ namespace MiniFootballStatistic.Services.Players
             }).GetAwaiter().GetResult();
 
             return players;
+        }
+
+        public void SetPlayersStatistic(PlayerTeamEditModel model, Team team)
+        {
+            Task.Run(() =>
+            {
+                for (int i = 0; i < team.Players.Count; i++)
+                {
+                    if (model.Players[i].Id == team.Players[i].Id)
+                    {
+                        team.Players[i].Name = model.Players[i].Name;
+                        team.Players[i].Goals = model.Players[i].Goals;
+                        team.Players[i].Assists = model.Players[i].Assists;
+                    }
+                }
+
+                this.data.SaveChanges();
+
+            }).GetAwaiter().GetResult();
+        }
+
+        public Team FindTeam(int tournamentId, int teamId)
+        {
+            Team? team = null;
+
+            Task.Run(() =>
+            {
+                team = this.data.Team
+                .Include(t => t.Players)
+                .Where(x => x.TournamentId == tournamentId && x.Id == teamId)                
+                .FirstOrDefault();
+
+            }).GetAwaiter().GetResult();
+
+            return team;
         }
     }
 }

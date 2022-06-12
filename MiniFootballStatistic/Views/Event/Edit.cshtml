@@ -54,26 +54,32 @@
 
                                 <div class="d-flex flex-row bd-highlight mb-3 ">
                                     <div class="row" style="margin: 5px;">
+
                                         <label asp-for="@Model.Teams[modelPosition].Name"> Team Name </label>
                                         <input onchange="getValue(event, @Model.Id, @Model.Teams[modelPosition].Id)"
                                                 id="Name-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].Name">
+
                                         <label asp-for="@Model.Teams[modelPosition].PositionResult"> Scored goals </label>
                                         <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition].Id, @groupCounter, @Model.SchemaLength)"
                                                 id="Velue-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].PositionResult">
+
                                                 <a class="btn btn-secondary btn-sm" style="margin-top: 5px;" asp-controller="Player" asp-action="Statistic"  asp-route-tournamentId="@Model.Id"
                                                 asp-route-teamId="@Model.Teams[modelPosition].Id" asp-route-teamName="@Model.Teams[modelPosition].Name">Players stats</a>
                                     </div>                                    
                                 </div>
                                 <div class="d-flex flex-row bd-highlight mb-3">
                                     <div class="row" style="margin: 5px;">
+
                                         <label asp-for="@Model.Teams[modelPosition + 1].Name"> Team Name </label>
                                         <input onchange="getValue(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)"
                                                 id="Name-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].Name">
+
                                         <label asp-for="@Model.Teams[modelPosition + 1].PositionResult"> Scored goals </label>
                                         <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition + 1].Id, @groupCounter, @Model.SchemaLength)"   
                                                 id="Velue-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].PositionResult">
+
                                                 <a class="btn btn-secondary btn-sm" style="margin-top: 5px;" asp-controller="Player" asp-action="Statistic" asp-route-tournamentId="@Model.Id"
-                                                asp-route-teamId="@Model.Teams[modelPosition].Id" asp-route-teamName="@Model.Teams[modelPosition].Name">Players stats</a>
+                                                asp-route-teamId="@Model.Teams[modelPosition + 1].Id" asp-route-teamName="@Model.Teams[modelPosition + 1].Name">Players stats</a>
                                     </div>                                    
                                 </div>                                 
                             </div>
