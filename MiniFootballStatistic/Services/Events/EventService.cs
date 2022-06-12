@@ -100,6 +100,7 @@ namespace MiniFootballStatistic.Services.Events
                             Assists = p.Assists,
                             Goals = p.Goals,
                         })
+                        .Where(p => p.Goals != 0 || p.Assists != 0)
                         .ToList()                      
                     })
                     .ToList()
