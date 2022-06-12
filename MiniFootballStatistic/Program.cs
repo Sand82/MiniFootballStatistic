@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MiniFootballStatistic.Services.Events;
 using MiniFootballStatistic.Services.Api;
+using MiniFootballStatistic.Services.Players;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -34,6 +35,7 @@ builder.Services.AddTransient<IHomeService, HomeService>();
 builder.Services.AddTransient<ITournamentService, TournamentService>();
 builder.Services.AddTransient<IEventService, EventService>();
 builder.Services.AddTransient<IApiService, ApiService>();
+builder.Services.AddTransient<IPlayerService, PlayerService>();
 
 var app = builder.Build();
 

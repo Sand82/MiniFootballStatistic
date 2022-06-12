@@ -1,0 +1,51 @@
+﻿@model PlayerTeamEditModel
+
+@{
+    ViewData["Title"] = "Player Statistic";
+}
+
+<div class="container">
+    <div class="row">
+        <form method="Post">
+            <h1>Team name: @Model.Name</h1>
+
+            <input type="hidden" asp-for="@Model.Id" class="form-control">
+            <input type="hidden" asp-for="@Model.TournamentId" class="form-control">
+            <input type="hidden" asp-for="@Model.Name" class="form-control">
+
+            @for (var i = 0; i < @Model.Players.Count; i++)
+            {
+                <h3 style="margin-top: 20px;">Player @(i+1)</h3>
+
+                <div class="row g-3" style="margin-top: 30px;">
+                    <div class="col">
+                        <label asp-for="@Model.Players[i].Name"></label>
+                        <input asp-for="@Model.Players[i].Name" class="form-control">
+                        <span asp-validation-for="@Model.Players[i].Name" class="small text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="@Model.Players[i].Goals"></label>
+                        <input asp-for="@Model.Players[i].Goals" class="form-control">
+                        <span asp-validation-for="@Model.Players[i].Goals" class="small text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="@Model.Players[i].Assists"></label>
+                        <input asp-for="@Model.Players[i].Assists" class="form-control">
+                        <span asp-validation-for="@Model.Players[i].Assists" class="small text-danger"></span>
+                    </div>
+                    <input type="hidden" asp-for="@Model.Players[i].Id" class="form-control">
+                </div>
+
+                <hr style="margin-top: 20px;">
+
+            }
+
+            <button type="submit" class="btn btn-secondary btn-sm">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial" />
+}
