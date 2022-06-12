@@ -2,6 +2,7 @@
 {
     public class InfoTeamModel
     {
+        
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -15,5 +16,7 @@
         public int? AccumolateGoals { get; set; }
 
         public int? Difference { get; set; }
+
+        public IEnumerable<InfoPlayerModel> Players { get; set; }
     }
 }

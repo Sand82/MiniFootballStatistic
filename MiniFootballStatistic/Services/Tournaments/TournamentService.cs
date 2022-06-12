@@ -40,7 +40,7 @@ namespace MiniFootballStatistic.Services.Tournaments
                         Assists = 0,
                         Goals = 0,
                         MachesCount = 0,                        
-                    })
+                    })                    
                     .ToList()
                 })
                 .ToList();

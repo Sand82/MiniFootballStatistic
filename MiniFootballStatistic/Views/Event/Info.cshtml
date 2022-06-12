@@ -12,8 +12,7 @@
     int modelPosition = 0;
     int counter = @Model.Levels;
     int idInHTML = 1;
-    int teamsInEvent = @Model.ShcemaLength;
-    int statisticCount = 0;
+    int teamsInEvent = @Model.ShcemaLength;   
 }
 
 <main class="conteiner" id="tournament" >
@@ -45,7 +44,7 @@
                 <table class="table table-striped" >
                 <thead>
                     <tr>
-                        <th scope="col">Team name</th>
+                        <th scope="col">Team Name</th>
                         <th scope="col">Scored Goals</th>
                         <th scope="col">Accumolate Goals</th>
                         <th scope="col">Diference</th>
@@ -55,19 +54,37 @@
                 <tbody>
                     @foreach (var team in Model.Teams.Take(Model.ShcemaLength).OrderByDescending(
                         t => t.ScoredGoals - t.AccumolateGoals).ThenBy(t => t.ScoredGoals))
-                    {
-                        statisticCount++;
+                    {                       
                         <tr>
                             <td scope="col">@team.Name</td>
                             <td scope="col">@team.ScoredGoals</td>
                             <td scope="col">@team.AccumolateGoals</td>
                             <td scope="col">@(team.ScoredGoals - team.AccumolateGoals)</td>
-                        </tr>
+                        </tr>                       
+                    }
+                </tbody>
+            </table>
 
-                        @if (@Model.ShcemaLength == statisticCount)
+            <div class="col offset-xl-3">
+                <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col">Player Name</th>
+                        <th scope="col">Player Goals</th>
+                        <th scope="col">Player Assistence</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var team in Model.Teams)
+                    {
+                        @foreach (var player in team.Players)
                         {
-                            break;
-                        }
+                            <tr>
+                            <td scope="col">@player.Name</td>
+                            <td scope="col">@player.Goals</td>
+                            <td scope="col">@player.Assists</td>                            
+                        </tr>         
+                        }  
                     }
                 </tbody>
             </table>
