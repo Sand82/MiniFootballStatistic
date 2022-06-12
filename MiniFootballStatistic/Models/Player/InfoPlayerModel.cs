@@ -1,4 +1,4 @@
-﻿namespace MiniFootballStatistic.Models.Event
+﻿namespace MiniFootballStatistic.Models.Player
 {
     public class InfoPlayerModel
     {

@@ -1,0 +1,50 @@
+﻿@model StatisticPlayersModel
+
+@{
+    ViewData["Title"] = "Info Player";
+}
+
+<div class="conteiner">
+    <div class="row">
+        
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Player Name</th>
+                        <th scope="col">Player Goals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var player in Model.PlayesGoals.OrderByDescending(p => p.Value).Take(10))
+                    {
+                        <tr>
+                            <td scope="col">@player.Key</td>
+                            <td scope="col">@player.Value</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Player Name</th>
+                        <th scope="col">Player Assistence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var player in Model.PlayesAssists.OrderByDescending(p => p.Value).Take(10))
+                    {
+                        <tr>
+                            <td scope="col">@player.Key</td>
+                            <td scope="col">@player.Value</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+       
+    </div>
+</div>
+
+
+

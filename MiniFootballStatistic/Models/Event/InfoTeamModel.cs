@@ -15,8 +15,6 @@
         
         public int? AccumolateGoals { get; set; }
 
-        public int? Difference { get; set; }
-
-        public IEnumerable<InfoPlayerModel> Players { get; set; }
+        public int? Difference { get; set; }       
     }
 }

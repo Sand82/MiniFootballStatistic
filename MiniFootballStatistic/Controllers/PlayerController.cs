@@ -55,5 +55,19 @@ namespace MiniFootballStatistic.Controllers
 
             return RedirectToAction("Edit", "Event", new { id });
         }
+
+        public IActionResult Info(int tournamentId)
+        {
+            var tournament = playerService.GetTournament(tournamentId);
+
+            if (tournament is null)
+            {
+                return BadRequest();
+            }
+
+            var model = playerService.GetTopPlayersStatistic(tournament);
+
+            return View(model);
+        }
     }
 }

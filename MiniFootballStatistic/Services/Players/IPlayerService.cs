@@ -7,6 +7,10 @@ namespace MiniFootballStatistic.Services.Players
     {
         public PlayerTeamEditModel FindPlayers(int tournamentId, int teamId, string teamName);
 
-        public void SetPlayersStatistic(PlayerTeamEditModel model, Team team);     
+        public void SetPlayersStatistic(PlayerTeamEditModel model, Team team);
+
+        public Tournament GetTournament(int tournamentId);
+
+        public StatisticPlayersModel GetTopPlayersStatistic(Tournament tournament);
     }
 }

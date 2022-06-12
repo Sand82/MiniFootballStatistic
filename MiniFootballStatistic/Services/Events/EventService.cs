@@ -93,15 +93,7 @@ namespace MiniFootballStatistic.Services.Events
                         TournamentPosition = te.TournamentPosition,
                         AccumolateGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.AccumulateGoals),
                         ScoredGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.ScoredGoals),
-                        Id = te.Id,
-                        Players = te.Players.Select(p => new InfoPlayerModel 
-                        { 
-                            Name = p.Name,
-                            Assists = p.Assists,
-                            Goals = p.Goals,
-                        })
-                        .Where(p => p.Goals != 0 || p.Assists != 0)
-                        .ToList()                      
+                        Id = te.Id,                                   
                     })
                     .ToList()
                 }) 

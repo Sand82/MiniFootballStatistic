@@ -46,6 +46,53 @@ namespace MiniFootballStatistic.Services.Players
             return players;
         }
 
+        public StatisticPlayersModel GetTopPlayersStatistic(Tournament tournament)
+        {
+            StatisticPlayersModel model = new();
+
+            //Task.Run(() =>
+            //{
+                foreach (var team in tournament.Teams)
+                {
+                    foreach (var player in team.Players)
+                    {
+                        if (!model.PlayesGoals.ContainsKey(player.Name))
+                        {
+                            model.PlayesGoals.Add(player.Name, player.Goals);
+                        }
+
+                        model.PlayesGoals[player.Name] += player.Goals;
+
+                        if (!model.PlayesAssists.ContainsKey(player.Name))
+                        {
+                            model.PlayesAssists.Add(player.Name, player.Assists);
+                        }
+
+                        model.PlayesAssists[player.Name] += player.Assists;
+                    }
+                }
+
+            //}).GetAwaiter().GetResult();
+
+            return model;
+        }
+
+        public Tournament GetTournament(int tournamentId)
+        {
+            Tournament? tournamnet = null;
+
+            Task.Run(() =>
+            {
+                tournamnet = this.data.Tournaments
+                .Include(t => t.Teams).ThenInclude(t => t.Players)
+                .Where(t => t.Id == tournamentId)
+                .FirstOrDefault();
+
+            }).GetAwaiter().GetResult();
+
+            return tournamnet;
+        }
+
         public void SetPlayersStatistic(PlayerTeamEditModel model, Team team)
         {
             Task.Run(() =>

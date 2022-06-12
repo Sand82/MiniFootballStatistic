@@ -65,30 +65,8 @@
                 </tbody>
             </table>
 
-            <div class="col offset-xl-3">
-                <table class="table table-striped" >
-                <thead>
-                    <tr>
-                        <th scope="col">Player Name</th>
-                        <th scope="col">Player Goals</th>
-                        <th scope="col">Player Assistence</th>                        
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var team in Model.Teams)
-                    {
-                        @foreach (var player in team.Players)
-                        {
-                            <tr>
-                            <td scope="col">@player.Name</td>
-                            <td scope="col">@player.Goals</td>
-                            <td scope="col">@player.Assists</td>                            
-                        </tr>         
-                        }  
-                    }
-                </tbody>
-            </table>
-            </div>            
+            <a asp-controller="Player" asp-action="Info" asp-route-tournamentId="@Model.Id" class="btn btn-secondary btn-sm">Players statistic</a>
+            
         </div>
     </div>
 </main>
