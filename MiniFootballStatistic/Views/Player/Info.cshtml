@@ -4,45 +4,58 @@
     ViewData["Title"] = "Info Player";
 }
 
+@{
+    int goalsColectionCounetr = 1;
+    int assistColectionCounetr = 1;
+}
+
 <div class="conteiner">
     <div class="row">
-        
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Player Name</th>
-                        <th scope="col">Player Goals</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.PlayesGoals.OrderByDescending(p => p.Value).Take(10))
-                    {
-                        <tr>
-                            <td scope="col">@player.Key</td>
-                            <td scope="col">@player.Value</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
 
-            <table class="table table-striped">
-                <thead>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Ranking Position</th>
+                    <th scope="col">Player Name</th>
+                    <th scope="col">Player Goals</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.PlayesGoals.OrderByDescending(p => p.Value).Take(10))
+                {
                     <tr>
-                        <th scope="col">Player Name</th>
-                        <th scope="col">Player Assistence</th>
+                        <th scope="col">@goalsColectionCounetr</th>
+                        <td scope="col">@player.Key</td>
+                        <td scope="col">@player.Value</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var player in Model.PlayesAssists.OrderByDescending(p => p.Value).Take(10))
-                    {
-                        <tr>
-                            <td scope="col">@player.Key</td>
-                            <td scope="col">@player.Value</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-       
+
+                    goalsColectionCounetr++;
+                }
+            </tbody>
+        </table>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Ranking Position</th>
+                    <th scope="col">Player Name</th>
+                    <th scope="col">Player Assistence</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.PlayesAssists.OrderByDescending(p => p.Value).Take(10))
+                {
+                    <tr>
+                        <th scope="col">@assistColectionCounetr</th>
+                        <td scope="col">@player.Key</td>
+                        <td scope="col">@player.Value</td>
+                    </tr>
+
+                    assistColectionCounetr++;
+                }
+            </tbody>
+        </table>
+
     </div>
 </div>
 

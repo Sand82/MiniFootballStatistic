@@ -66,12 +66,7 @@ namespace MiniFootballStatistic.Services.Api
                 .Where(t => t.TournamentId == currTeam.TournamentId && t.TournamentPosition == shemaPosition)
                 .FirstOrDefault();
 
-                bool isTeamHavePlayers = true;
-
-                if (team.Players.Count() == 0)
-                {
-                    isTeamHavePlayers = false;
-                }
+                bool isTeamHavePlayers = true;                
 
                 if ((schemaLength - 2) < shemaPosition && team == null)
                 {
@@ -86,6 +81,11 @@ namespace MiniFootballStatistic.Services.Api
                 }
                 else
                 {
+                    if (team.Players.Count() == 0)
+                    {
+                        isTeamHavePlayers = false;
+                    }
+
                     team.Name = currTeam.Name;
 
                     for (int i = 0; i < currTeam.Players.Count; i++)
