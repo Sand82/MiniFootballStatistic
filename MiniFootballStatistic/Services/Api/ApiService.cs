@@ -21,6 +21,7 @@ namespace MiniFootballStatistic.Services.Api
             Task.Run(() =>
             {
                 team = this.data.Team
+                .Include(t => t.Players)
                 .Where(x => x.TournamentId == tournamentId && x.Id == teamId)
                 .FirstOrDefault();
 
@@ -61,21 +62,54 @@ namespace MiniFootballStatistic.Services.Api
             Task.Run(() =>
             {
                 var team = this.data.Team
-                    .Include(t => t.Players)
-                    .Where(t => t.TournamentId == currTeam.TournamentId && t.TournamentPosition == shemaPosition)
-                    .FirstOrDefault();
+                .Include(t => t.Players)
+                .Where(t => t.TournamentId == currTeam.TournamentId && t.TournamentPosition == shemaPosition)
+                .FirstOrDefault();
+
+                bool isTeamHavePlayers = true;
+
+                if (team.Players.Count() == 0)
+                {
+                    isTeamHavePlayers = false;
+                }
 
                 if ((schemaLength - 2) < shemaPosition && team == null)
                 {
+                    var previousChampion = this.data.Team.Where(t => t.IsChampion == true).FirstOrDefault();
+
+                    if (previousChampion != null)
+                    {
+                        previousChampion.IsChampion = false;
+                    }
+
                     currTeam.IsChampion = true;
                 }
                 else
                 {
                     team.Name = currTeam.Name;
-                    team.Players = currTeam.Players;
+
+                    for (int i = 0; i < currTeam.Players.Count; i++)
+                    {
+                        if (isTeamHavePlayers)
+                        {
+                            team.Players[i].Name = currTeam.Players[i].Name;
+                        }
+                        else
+                        {
+                            team.Players.Add(new Player
+                            {
+                                Name = currTeam.Players[i].Name,
+                                TeamId = currTeam.Players[i].TeamId,
+                            });
+                        }
+
+                        team.Players[i].Assists = 0;
+                        team.Players[i].Goals = 0;
+                        team.Players[i].MachesCount = 0;
+                    }
                 }
 
-            }).GetAwaiter().GetResult();           
+            }).GetAwaiter().GetResult();
         }
 
         public void SetName(Team team, string name)

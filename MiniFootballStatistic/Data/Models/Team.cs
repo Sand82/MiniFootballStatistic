@@ -6,6 +6,11 @@ namespace MiniFootballStatistic.Data.Models
 {
     public class Team
     {
+        public Team()
+        {
+            this.Players = new List<Player>();
+        }
+
         [Key]
         public int Id { get; set; }
 

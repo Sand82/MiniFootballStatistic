@@ -63,22 +63,6 @@ namespace MiniFootballStatistic.Services.Players
                 this.data.SaveChanges();
 
             }).GetAwaiter().GetResult();
-        }
-
-        public Team FindTeam(int tournamentId, int teamId)
-        {
-            Team? team = null;
-
-            Task.Run(() =>
-            {
-                team = this.data.Team
-                .Include(t => t.Players)
-                .Where(x => x.TournamentId == tournamentId && x.Id == teamId)                
-                .FirstOrDefault();
-
-            }).GetAwaiter().GetResult();
-
-            return team;
-        }
+        }       
     }
 }

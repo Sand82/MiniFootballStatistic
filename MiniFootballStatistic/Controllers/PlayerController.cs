@@ -9,11 +9,13 @@ namespace MiniFootballStatistic.Controllers
 {
     public class PlayerController : Controller
     {
-        private readonly IPlayerService playerService;      
+        private readonly IPlayerService playerService;
+        private readonly IApiService apiService;
 
-        public PlayerController(IPlayerService playerService)
+        public PlayerController(IPlayerService playerService, IApiService apiService)
         {
-            this.playerService = playerService;      
+            this.playerService = playerService;
+            this.apiService = apiService;
         }
 
         [Authorize]
@@ -40,7 +42,7 @@ namespace MiniFootballStatistic.Controllers
                 return View(model);
             }
 
-            var team = playerService.FindTeam(model.TournamentId, model.Id);
+            var team = apiService.FindTeam(model.TournamentId, model.Id);
 
             if (team is null)
             {
