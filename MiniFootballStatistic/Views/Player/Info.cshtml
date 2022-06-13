@@ -11,51 +11,54 @@
 
 <div class="conteiner">
     <div class="row">
+        <div class="col" style="margin: 30px;">
+            <h2 style="margin: 60px;">Best scorer players in the tournament.</h2>
+            <table class="col table table-striped" style="border: 1px solid; margin: 50px;">
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Ranking Position</th>
-                    <th scope="col">Player Name</th>
-                    <th scope="col">Player Goals</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var player in Model.PlayesGoals.OrderByDescending(p => p.Value).Take(10))
-                {
+                <thead>
                     <tr>
-                        <th scope="col">@goalsColectionCounetr</th>
-                        <td scope="col">@player.Key</td>
-                        <td scope="col">@player.Value</td>
+                        <th scope="col">Ranking Position</th>
+                        <th scope="col">Player Name</th>
+                        <th scope="col">Player Goals</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @foreach (var player in Model.PlayesGoals.OrderByDescending(p => p.Value).Take(10))
+                    {
+                        <tr>
+                            <th scope="col">@goalsColectionCounetr</th>
+                            <td scope="col">@player.Key</td>
+                            <td scope="col">@player.Value</td>
+                        </tr>
 
-                    goalsColectionCounetr++;
-                }
-            </tbody>
-        </table>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Ranking Position</th>
-                    <th scope="col">Player Name</th>
-                    <th scope="col">Player Assistence</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var player in Model.PlayesAssists.OrderByDescending(p => p.Value).Take(10))
-                {
+                        goalsColectionCounetr++;
+                    }
+                </tbody>
+            </table>
+            <h2 style="margin: 60px;">Best assistence players in the tournament.</h2>
+            <table class="col table table-striped" style="border: 1px solid; margin: 50px;">
+                <thead>
                     <tr>
-                        <th scope="col">@assistColectionCounetr</th>
-                        <td scope="col">@player.Key</td>
-                        <td scope="col">@player.Value</td>
+                        <th scope="col">Ranking Position</th>
+                        <th scope="col">Player Name</th>
+                        <th scope="col">Player Assistence</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @foreach (var player in Model.PlayesAssists.OrderByDescending(p => p.Value).Take(10))
+                    {
+                        <tr>
+                            <th scope="col">@assistColectionCounetr</th>
+                            <td scope="col">@player.Key</td>
+                            <td scope="col">@player.Value</td>
+                        </tr>
 
-                    assistColectionCounetr++;
-                }
-            </tbody>
-        </table>
+                        assistColectionCounetr++;
+                    }
+                </tbody>
+            </table>
 
+        </div>
     </div>
 </div>
 

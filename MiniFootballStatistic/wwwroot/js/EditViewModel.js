@@ -67,16 +67,19 @@ function seePlayerStats(e, tournamentId, teamId) {
             var table = document.createElement('table');
             var thead = document.createElement('thead');
             var tbody = document.createElement('tbody');
-            var tr = document.createElement('tr');
+            var tr = document.createElement('tr');            
 
             var th2 = document.createElement('th');
             th2.textContent = 'Name';
+            th2.style.padding = "6px";
 
             var th3 = document.createElement('th');
-            th3.textContent = 'Goa';
+            th3.textContent = 'Goals';
+            th3.style.padding = "6px";
 
             var th4 = document.createElement('th');
-            th4.textContent = 'Ass';
+            th4.textContent = 'Assists';
+            th4.style.padding = "6px";
 
             tr.appendChild(th2);
             tr.appendChild(th3);
