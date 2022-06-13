@@ -66,7 +66,7 @@ namespace MiniFootballStatistic.Services.Api
                 .Where(t => t.TournamentId == currTeam.TournamentId && t.TournamentPosition == shemaPosition)
                 .FirstOrDefault();
 
-                bool isTeamHavePlayers = true;                
+                bool isTeamHavePlayers = true;
 
                 if ((schemaLength - 2) < shemaPosition && team == null)
                 {
@@ -112,6 +112,25 @@ namespace MiniFootballStatistic.Services.Api
             }).GetAwaiter().GetResult();
         }
 
+        public List<Player> GetTeams(Team team)
+        {
+            List<Player> players = null;
+
+            Task.Run(() =>
+            {
+                players = team.Players.Select(p => new Player 
+                {
+                    Name = p.Name,
+                    Goals = p.Goals,
+                    Assists = p.Assists,
+                })
+                .ToList();
+
+            }).GetAwaiter().GetResult();
+
+            return players;
+        }
+
         public void SetName(Team team, string name)
         {
             Task.Run(() =>
@@ -135,5 +154,6 @@ namespace MiniFootballStatistic.Services.Api
 
             }).GetAwaiter().GetResult();
         }
+
     }
 }

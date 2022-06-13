@@ -50,8 +50,8 @@ namespace MiniFootballStatistic.Services.Players
         {
             StatisticPlayersModel model = new();
 
-            //Task.Run(() =>
-            //{
+            Task.Run(() =>
+            {
                 foreach (var team in tournament.Teams)
                 {
                     foreach (var player in team.Players)
@@ -72,7 +72,7 @@ namespace MiniFootballStatistic.Services.Players
                     }
                 }
 
-            //}).GetAwaiter().GetResult();
+            }).GetAwaiter().GetResult();
 
             return model;
         }

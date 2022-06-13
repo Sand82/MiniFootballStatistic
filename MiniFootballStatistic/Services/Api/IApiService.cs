@@ -11,5 +11,7 @@ namespace MiniFootballStatistic.Services.Api
         public void SetStatistic(Team team, int goals);
 
         public void AdjustStatistic(Team previusTeam,Team team,int shemaPosition, int schemaLength);
+
+        public List<Player> GetTeams(Team team);
     }
 }

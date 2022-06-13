@@ -49,39 +49,51 @@
                                 <div style="margin: 600px"></div>
                             }
 
-                            <div onmouseover="changePlayerStats(event, @Model.Id, @Model.Teams[modelPosition].Id)" class="form-group row-2 border border-secondary" style="margin-top: 5px">
+                            <div class="form-group row-4 border border-secondary" style="margin-top: 5px">
                                 <h5 style="text-align:center;">Group @groupCounter</h5>
 
-                                <div class="d-flex flex-row bd-highlight mb-3 ">
-                                    <div class="row" style="margin: 5px;">
+                                <div class="d-flex flex-row bd-highlight mb-3">
+                                    <div id="atag-div" class="row" style="margin: 5px;">
 
                                         <label asp-for="@Model.Teams[modelPosition].Name"> Team Name </label>
                                         <input onchange="getValue(event, @Model.Id, @Model.Teams[modelPosition].Id)"
-                                                id="Name-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].Name">
+                                   id="Name-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].Name">
 
                                         <label asp-for="@Model.Teams[modelPosition].PositionResult"> Scored goals </label>
                                         <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition].Id, @groupCounter, @Model.SchemaLength)"
-                                                id="Velue-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].PositionResult">
+                                   id="Velue-@Model.Teams[modelPosition].Id" value="@Model.Teams[modelPosition].PositionResult">
 
-                                                <a class="btn btn-secondary btn-sm" style="margin-top: 5px;" asp-controller="Player" asp-action="Statistic"  asp-route-tournamentId="@Model.Id"
-                                                asp-route-teamId="@Model.Teams[modelPosition].Id" asp-route-teamName="@Model.Teams[modelPosition].Name">Players stats</a>
-                                    </div>                                    
+                                        <a class="btn btn-secondary btn-sm" style="margin-top: 5px;"
+                                            asp-controller="Player" asp-action="Statistic" asp-route-tournamentId="@Model.Id"
+                                            asp-route-teamId="@Model.Teams[modelPosition].Id"
+                                            asp-route-teamName="@Model.Teams[modelPosition].Name">Set stats</a>
+
+                                        <a id="aElement@(Model.Teams[modelPosition].Id)" class="btn btn-secondary btn-sm" style="margin-top: 5px;"
+                                            onclick="seePlayerStats(event, @Model.Id, @Model.Teams[modelPosition].Id)"
+                                            onmouseout="hidePlayersStatisticMenu(event)">Players Info</a>
+                                    </div>
                                 </div>
                                 <div class="d-flex flex-row bd-highlight mb-3">
-                                    <div class="row" style="margin: 5px;">
+                                    <div id="atag-div" class="row" style="margin: 5px;">
 
                                         <label asp-for="@Model.Teams[modelPosition + 1].Name"> Team Name </label>
                                         <input onchange="getValue(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)"
-                                                id="Name-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].Name">
+                                   id="Name-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].Name">
 
                                         <label asp-for="@Model.Teams[modelPosition + 1].PositionResult"> Scored goals </label>
-                                        <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition + 1].Id, @groupCounter, @Model.SchemaLength)"   
-                                                id="Velue-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].PositionResult">
+                                        <input onchange="getResult(event, @Model.Id, @Model.Teams[modelPosition + 1].Id, @groupCounter, @Model.SchemaLength)"
+                                   id="Velue-@Model.Teams[modelPosition + 1].Id" value="@Model.Teams[modelPosition + 1].PositionResult">
 
-                                                <a class="btn btn-secondary btn-sm" style="margin-top: 5px;" asp-controller="Player" asp-action="Statistic" asp-route-tournamentId="@Model.Id"
-                                                asp-route-teamId="@Model.Teams[modelPosition + 1].Id" asp-route-teamName="@Model.Teams[modelPosition + 1].Name">Players stats</a>
-                                    </div>                                    
-                                </div>                                 
+                                        <a class="btn btn-secondary btn-sm" style="margin-top: 5px;"
+                                            asp-controller="Player" asp-action="Statistic" asp-route-tournamentId="@Model.Id"
+                                            asp-route-teamId="@Model.Teams[modelPosition + 1].Id"
+                                            asp-route-teamName="@Model.Teams[modelPosition + 1].Name">Set stats</a>
+
+                                        <a id="aElement@(Model.Teams[modelPosition + 1].Id)" class="btn btn-secondary btn-sm" style="margin-top: 5px;"
+                                            onclick="seePlayerStats(event, @Model.Id, @Model.Teams[modelPosition + 1].Id)"
+                                            onmouseout="hidePlayersStatisticMenu(event)">Players Info</a>
+                                    </div>
+                                </div>
                             </div>
 
                             groupCounter++;
@@ -90,27 +102,9 @@
 
                     </div>
                     colCounter++;
-                }
-                @*<div id="hidenElement" style="display: none;" class="col offset-xl-3">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Player Name</th>
-                                <th scope="col">Player Goals</th>
-                                <th scope="col">Player Assistence</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td scope="col">Name</td>
-                                <td scope="col">Goals</td>
-                                <td scope="col">Assists</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>*@
+                }              
 
-                <div style="margin-top: 30px;" class="d-grid gap-2 d-md-block">
+                <div style="margin-top: 100px;" class="d-grid gap-2 d-md-block">
                     <a class="btn btn-outline-secondary me-md-2" asp-controller="Event" asp-action="Info" asp-route-id="@Model.Id">See Changes</a>
                 </div>
 
@@ -123,12 +117,9 @@
 @section Scripts{
 <script src="~/js/EditViewModel.js" asp-append-version="true"></script>
 <script>
-    //function changePlayerStats(e, tournamentId, teamId){
-    //    e.preventDefault();
-    //    console.log(tournamentId);
-    //    console.log(teamId);
-    //    document.getElementById("hidenElement").style.display = "block";
-    //}
+
+   
+
 </script>
 
 <partial name="_ValidationScriptsPartial" />
