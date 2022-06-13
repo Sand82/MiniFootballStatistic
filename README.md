@@ -10,7 +10,7 @@ In MiniFootballStatistic application you can create owne tournament and manage i
   <li>ASP.NET Core 6.0</li>
   <li>Entity Framework (EF) Core 6.0</li>
   <li>Microsoft SQL Server</li>
-  <li>MVC Layouts</li>
+  <li>MVC Model</li>
   <li>Razor Pages</li> 
   <li>Dependency Injection</li>
   <li>Data Validation, both Client-side and Server-side</li>
