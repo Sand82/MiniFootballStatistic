@@ -155,5 +155,25 @@ namespace MiniFootballStatistic.Services.Tournaments
 
             return count;
         }
+
+        public bool CheckForFreeTournamentName(string name)
+        {
+            var isExsist = false;
+
+            Task.Run(() =>
+            {
+                var tournament = this.data.Tournaments
+                .Where(t => t.Name == name && t.isDelete == false)
+                .FirstOrDefault();
+
+                if (tournament != null)
+                {
+                    isExsist = true;
+                }
+
+            }).GetAwaiter().GetResult();
+
+            return isExsist;
+        }
     }
 }

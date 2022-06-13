@@ -1,5 +1,4 @@
 ﻿using MiniFootballStatistic.Models.Schema;
-using MiniFootballStatistic.Models.Tournament;
 using MiniFootballStatistic.Models.Tournament.TournamentPost;
 
 namespace MiniFootballStatistic.Services.Tournaments
@@ -11,5 +10,7 @@ namespace MiniFootballStatistic.Services.Tournaments
         public bool CreateTournament(TournamentPostModel model, string userId, DateTime date);
 
         public void FinishedTournament(string userId);
+
+        public bool CheckForFreeTournamentName(string name);
     }
 }

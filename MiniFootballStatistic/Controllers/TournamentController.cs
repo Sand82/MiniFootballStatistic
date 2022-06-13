@@ -42,6 +42,13 @@ namespace MiniFootballStatistic.Controllers
 
             model.TournamentPositions = neededCount;
 
+            var isNameFree = tournamentService.CheckForFreeTournamentName(model.Name);
+
+            if (isNameFree)
+            {
+                ModelState.AddModelError("Tournament", "This Tournament name is already taken.");
+            }
+
             if (!ModelState.IsValid)
             {              
                return View(model);
