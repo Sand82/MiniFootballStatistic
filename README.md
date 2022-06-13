@@ -1,7 +1,7 @@
 # MiniFootballStatistic
 
 <div>Asp.Net Core application</div>
-<p>I wanna say thanks to Softuni team for this hard for me challenge and for this opportunity. This project is writhen on ASP.NET Core 6 and Entity Framework Core 6 with  MSSQL Ralation Database, code first approach.
+<p>I wanna thanks to Softuni team for this hard for me challenge and for this opportunity. This project is writhen on ASP.NET Core 6 and Entity Framework Core 6 with MSSQL Ralation Database, code first approach.
 In MiniFootballStatistic application you can create owne tournament and manage it. You can set on your tournaments, matches result and pleyers scored goals and assistances. You can see other tournaments matches result and statistics for the ten bests players on the tournament in two diferent statistics table, scored goals and made assistance.
  </p>
 
