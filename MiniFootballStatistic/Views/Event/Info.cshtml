@@ -12,10 +12,10 @@
     int modelPosition = 0;
     int counter = @Model.Levels;
     int idInHTML = 1;
-    int teamsInEvent = @Model.ShcemaLength;   
+    int teamsInEvent = @Model.ShcemaLength;
 }
 
-<main class="conteiner" id="tournament" >
+<main class="conteiner" id="tournament">
 
     @for (var i = 0; i < counter; i++)
     {
@@ -37,39 +37,38 @@
                 }
             }
         </ul>
-    }
-
-    <i class="far fa-trophy"></i>
-
+    }  
+     
     <div class="container">
         <div class="row">
             <div class="col offset-xl-3">
-                <table class="table table-striped" >
-                <thead>
-                    <tr>
-                        <th scope="col">Team Name</th>
-                        <th scope="col">Scored Goals</th>
-                        <th scope="col">Accumolate Goals</th>
-                        <th scope="col">Diference</th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    @foreach (var team in Model.Teams.Take(Model.ShcemaLength).OrderByDescending(
-                        t => t.ScoredGoals - t.AccumolateGoals).ThenBy(t => t.ScoredGoals))
-                    {                       
+                <table style="margin-bottom: 50px;" class="table table-striped">
+                    <thead>
                         <tr>
-                            <td scope="col">@team.Name</td>
-                            <td scope="col">@team.ScoredGoals</td>
-                            <td scope="col">@team.AccumolateGoals</td>
-                            <td scope="col">@(team.ScoredGoals - team.AccumolateGoals)</td>
-                        </tr>                       
-                    }
-                </tbody>
-            </table>
+                            <th scope="col">Team Name</th>
+                            <th scope="col">Scored Goals</th>
+                            <th scope="col">Accumolate Goals</th>
+                            <th scope="col">Diference</th>
+                        </tr>
 
-            <a asp-controller="Player" asp-action="Info" asp-route-tournamentId="@Model.Id" class="btn btn-secondary btn-sm">Players statistic</a>
-            
+                    </thead>
+                    <tbody>
+                        @foreach (var team in Model.Teams.Take(Model.ShcemaLength).OrderByDescending(
+                        t => t.ScoredGoals - t.AccumolateGoals).ThenBy(t => t.ScoredGoals))
+                        {
+                            <tr>
+                                <td scope="col">@team.Name</td>
+                                <td scope="col">@team.ScoredGoals</td>
+                                <td scope="col">@team.AccumolateGoals</td>
+                                <td scope="col">@(team.ScoredGoals - team.AccumolateGoals)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <a asp-controller="Player" asp-action="Info" asp-route-tournamentId="@Model.Id" class="btn btn-secondary btn-sm">Players statistic</a>
+
+            </div>
         </div>
     </div>
 </main>

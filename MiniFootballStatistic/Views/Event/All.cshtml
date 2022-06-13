@@ -25,7 +25,7 @@
             <tr>
                 <th scope="col">Name of Tournament</th>
                 <th scope="col">Date of creation</th>
-                @*<th scope="col">Creator</th>*@
+                <th scope="col">Winer</th>
                 <th scope="col">Tournament positions</th>
                 <th scope="col"></th>
             </tr>
@@ -36,7 +36,13 @@
                 <tr>
                     <td scope="col">@tournament.Name</td>
                     <td scope="col">@tournament.CreationData</td>
-                    @*<td scope="col"></td>*@
+                    <td scope="col">
+                        @if (@tournament.WinnerTeam != null)
+                        {
+                            <img src="~/goldanCoupe.jpg" class="card-img-top hoverable" style ="height: 5%; width: 5%; margin-right: 5px;">
+                        }
+                        @(tournament.WinnerTeam == null ? "Not finished" : @tournament.WinnerTeam )
+                    </td>
                     <td scope="col">@tournament.SchemaLenght</td>
                     <td scope="col">
                         <a asp-controller="Event" asp-action="Info" asp-route-id="@tournament.Id" class="btn btn-info">Info</a>

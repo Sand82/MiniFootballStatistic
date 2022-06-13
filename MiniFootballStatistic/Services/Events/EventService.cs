@@ -39,17 +39,17 @@ namespace MiniFootballStatistic.Services.Events
 
             Task.Run(() =>
             {
-               tournaments = this.data.Tournaments
-                .Where(t => t.isAddedInDatabase == true && t.isDelete == false)
-                .Select(t => new TournamentViewModel 
-                { 
-                    Name = t.Name,
-                    CreationData = t.CreatedOn.Value.Date.ToString(),
-                    Id = t.Id,
-                    SchemaLenght = t.ShcemaLength,
-                    UserId = t.UserId,
-                    //UserEmail = GetUserEmail(t.UserId),
-                })
+                tournaments = this.data.Tournaments
+                 .Where(t => t.isAddedInDatabase == true && t.isDelete == false)
+                 .Select(t => new TournamentViewModel
+                 {
+                     Name = t.Name,
+                     CreationData = t.CreatedOn.Value.Date.ToString(),
+                     Id = t.Id,
+                     SchemaLenght = t.ShcemaLength,
+                     UserId = t.UserId,
+                     WinnerTeam = t.Teams.Where(t => t.IsChampion == true).Select(t => t.Name).FirstOrDefault(),
+                 })
                 .ToList();
 
             }).GetAwaiter().GetResult();             

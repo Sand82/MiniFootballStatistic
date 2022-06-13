@@ -12,6 +12,8 @@ namespace MiniFootballStatistic.Models.Tournament
 
         public int SchemaLenght { get; set; }
 
-        public string UserId { get; set; }       
+        public string UserId { get; set; }
+
+        public string? WinnerTeam { get; set; }
     }
 }
