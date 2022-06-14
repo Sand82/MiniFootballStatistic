@@ -31,6 +31,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<FoodballStatisticDbContext>();
 
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "X-ANTIF-TOKEN";
+});
+
 builder.Services.AddTransient<IHomeService, HomeService>();
 builder.Services.AddTransient<ITournamentService, TournamentService>();
 builder.Services.AddTransient<IEventService, EventService>();

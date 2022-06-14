@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var player in Model.PlayesGoals.OrderByDescending(p => p.Value).Take(10))
+                    @foreach (var player in Model.PlayesGoals.OrderByDescending(p => p.Value).Take(10).Where(p => p.Value != 0))
                     {
                         <tr>
                             <th scope="col">@goalsColectionCounetr</th>
@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var player in Model.PlayesAssists.OrderByDescending(p => p.Value).Take(10))
+                    @foreach (var player in Model.PlayesAssists.OrderByDescending(p => p.Value).Take(10).Where(p => p.Value != 0))
                     {
                         <tr>
                             <th scope="col">@assistColectionCounetr</th>

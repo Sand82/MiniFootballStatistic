@@ -5,10 +5,17 @@
 
     let model = { TournamentId: tournamentId, TeamId: teamId, TeamName: teamName };
 
+    var token = $('#antiForgaryToken input[Name=__RequestVerificationToken]').val();
+
+    console.log(token);
+
     $.ajax({
         type: "POST",
         url: "/api/TeamName",
         data: JSON.stringify(model),
+        headers: {
+            'X-ANTIF-TOKEN': token
+        },
         success: function (data) {
             
         },
@@ -20,6 +27,10 @@ function getResult(e, tournamentId, teamId, groupNumber, schemaLength) {
     e.preventDefault();
 
     let goals = document.getElementById("Velue-" + teamId).value;
+
+    var token = $('#antiForgaryToken input[Name=__RequestVerificationToken]').val();
+
+    console.log(token);
 
     let model = {
         TournamentId: tournamentId,
@@ -33,6 +44,9 @@ function getResult(e, tournamentId, teamId, groupNumber, schemaLength) {
         type: "POST",
         url: "/api/Result",
         data: JSON.stringify(model),
+        headers: {
+            'X-ANTIF-TOKEN': token
+        },
         success: function (data) {
             
         },
@@ -49,10 +63,17 @@ function seePlayerStats(e, tournamentId, teamId) {
 
     let model = { TournamentId: tournamentId, TeamId: teamId };
 
+    var token = $('#antiForgaryToken input[Name=__RequestVerificationToken]').val();
+
+    console.log(token);
+
     $.ajax({
         type: "POST",
         url: "/api/Table",
         data: JSON.stringify(model),
+        headers: {
+            'X-ANTIF-TOKEN': token
+        },
         success: function (data) {
 
             var removeDiv = document.getElementById("mainDiv");
