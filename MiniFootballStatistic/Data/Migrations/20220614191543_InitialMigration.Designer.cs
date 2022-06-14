@@ -12,7 +12,7 @@ using MiniFootballStatistic.Data;
 namespace MiniFootballStatistic.Data.Migrations
 {
     [DbContext(typeof(FoodballStatisticDbContext))]
-    [Migration("20220614160152_InitialMigration")]
+    [Migration("20220614191543_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
