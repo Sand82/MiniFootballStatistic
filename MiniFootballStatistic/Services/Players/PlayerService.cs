@@ -56,21 +56,21 @@ namespace MiniFootballStatistic.Services.Players
                 {
                     foreach (var player in team.Players)
                     {
-                        if (!model.PlayesGoals.ContainsKey(player.Name))
-                        {
-                            model.PlayesGoals.Add(player.Name, player.Goals);
-                        }
-
-                        model.PlayesGoals[player.Name] += player.Goals;
-
                         if (!model.PlayesAssists.ContainsKey(player.Name))
                         {
-                            model.PlayesAssists.Add(player.Name, player.Assists);
+                            model.PlayesAssists.Add(player.Name, 0);
                         }
 
                         model.PlayesAssists[player.Name] += player.Assists;
+
+                        if (!model.PlayesGoals.ContainsKey(player.Name))
+                        {
+                            model.PlayesGoals.Add(player.Name, 0);
+                        }
+
+                        model.PlayesGoals[player.Name] += player.Goals;
                     }
-                }
+                }                
 
             }).GetAwaiter().GetResult();
 
