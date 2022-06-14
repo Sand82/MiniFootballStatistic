@@ -2,7 +2,7 @@
 
 <div>Asp.Net Core application</div>
 <p>I wanna thanks to Softuni team for this hard for me challenge. This project is writhen on ASP.NET Core 6 and Entity Framework Core 6 with MSSQL Ralation Database, code first approach.
-In Mini Football Statistic application you can create owne tournaments and manage it easily with the auto management system built into each tournament. You can set pleyers statistiks too. You can see other tournaments matches result and statistics for the ten bests players on the tournament in two diferent categories, scored goals and made assistance.
+In Mini Football Statistic application you can create owne tournaments and manage it easily with the auto management system built into each tournament. You can set pleyers statistics too. You can see other tournaments matches result and statistics for the ten bests players on the tournament in two diferent categories, scored goals and made assistance.
  </p>
 
 <h2>Build in</h2>
