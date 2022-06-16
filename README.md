@@ -17,6 +17,7 @@ In Mini Football Statistic application you can create owne tournaments and manag
   <li>Data Validation in the Models and Input View Models</li>
   <li>Responsive Design</li>
   <li>Bootstrap</li>
+  <li>Java Script</li>
   <li>jQuery</li>
   <li>Web Api AJAX</li> 
 </ul>
