@@ -16,13 +16,13 @@ namespace MiniFootballStatistic.Controllers
             this.teamService = teamService;
         }
 
-        public IActionResult GoalsScored(GetGoalsEditModel model)
+        public async Task<IActionResult> GoalsScored(GetGoalsEditModel model)
         {
-            var team = teamService.FindTeam(model.TournamentId, model.TeamId);
+            var team = await teamService.FindTeam(model.TournamentId, model.TeamId);
 
             var initialTeamScore = team.ScoredGoals;
 
-            teamService.SetStatistic(team, model.Goals);
+            await teamService.SetStatistic(team, model.Goals);
 
             team.ScoredGoals = model.Goals;
 
@@ -34,7 +34,7 @@ namespace MiniFootballStatistic.Controllers
                 initialTeamScore = model.Goals;
             }
 
-            var opponentTeam = teamService.FindTeam(model.TournamentId, positionId);
+            var opponentTeam = await teamService.FindTeam(model.TournamentId, positionId);
 
             var shemaPosition = model.SchemaLength + model.GroupNumber;
 
@@ -42,7 +42,7 @@ namespace MiniFootballStatistic.Controllers
             {
                 if (opponentTeam.ScoredGoals != team.ScoredGoals)
                 {
-                    teamService.AdjustStatistic(team, opponentTeam, shemaPosition, model.SchemaLength);
+                    await teamService.AdjustStatistic(team, opponentTeam, shemaPosition, model.SchemaLength);
                 }                
             }
 

@@ -16,16 +16,16 @@ namespace MiniFootballStatistic.Controllers
             this.teamService = teamService;
         }
 
-        public IActionResult Name(GetNameEditModel model) 
+        public async Task<IActionResult> Name(GetNameEditModel model) 
         {
-            var team = teamService.FindTeam(model.TournamentId, model.TeamId);
+            var team = await teamService.FindTeam(model.TournamentId, model.TeamId);
 
             if (team is null)
             {
                 return NotFound();
             }
 
-            teamService.SetName(team, model.TeamName);
+            await teamService.SetName(team, model.TeamName);
 
             return Ok();
         }

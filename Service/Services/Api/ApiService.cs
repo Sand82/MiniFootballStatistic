@@ -13,111 +13,96 @@ namespace MiniFootballStatistic.Services.Api
             this.data = data;
         }
 
-        public Team FindTeam(int tournamentId, int teamId)
+        public async Task<Team> FindTeam(int tournamentId, int teamId)
         {
-            Team? team = null;
-
-            Task.Run(() =>
-            {
-                team = this.data.Team
-                .Include(t => t.Players)
-                .Where(x => x.TournamentId == tournamentId && x.Id == teamId)
-                .FirstOrDefault();
-
-            }).GetAwaiter().GetResult();
+            Team? team = await this.data.Team
+                 .Include(t => t.Players)
+                 .Where(x => x.TournamentId == tournamentId && x.Id == teamId)
+                 .FirstOrDefaultAsync();
 
             return team;
         }
 
-        public void AdjustStatistic(Team team, Team opponentTeam, int shemaPosition, int schemaLength)
+        public async Task AdjustStatistic(Team team, Team opponentTeam, int shemaPosition, int schemaLength)
         {
-            Task.Run(() =>
+
+            opponentTeam.AccumulateGoals = team.ScoredGoals;
+
+            team.AccumulateGoals = opponentTeam.ScoredGoals;
+
+            if (opponentTeam.ScoredGoals > team.ScoredGoals)
             {
+                opponentTeam.IsLose = false;
+                team.IsLose = true;
+                await SetTeam(opponentTeam, shemaPosition, schemaLength);
+            }
+            else
+            {
+                opponentTeam.IsLose = true;
+                team.IsLose = false;
+                await SetTeam(team, shemaPosition, schemaLength);
+            }
 
-                opponentTeam.AccumulateGoals = team.ScoredGoals;
+            await this.data.SaveChangesAsync();
 
-                team.AccumulateGoals = opponentTeam.ScoredGoals;
-
-                if (opponentTeam.ScoredGoals > team.ScoredGoals)
-                {
-                    opponentTeam.IsLose = false;
-                    team.IsLose = true;
-                    SetTeam(opponentTeam, shemaPosition, schemaLength);
-                }
-                else
-                {
-                    opponentTeam.IsLose = true;
-                    team.IsLose = false;
-                    SetTeam(team, shemaPosition, schemaLength);
-                }
-
-                this.data.SaveChanges();
-
-            }).GetAwaiter().GetResult();
         }
 
-        private void SetTeam(Team currTeam, int shemaPosition, int schemaLength)
+        private async Task SetTeam(Team currTeam, int shemaPosition, int schemaLength)
         {
-            Task.Run(() =>
+
+            var team = await this.data.Team
+            .Include(t => t.Players)
+            .Where(t => t.TournamentId == currTeam.TournamentId && t.TournamentPosition == shemaPosition)
+            .FirstOrDefaultAsync();
+
+            bool isTeamHavePlayers = true;
+
+            if ((schemaLength - 2) < shemaPosition && team == null)
             {
-                var team = this.data.Team
-                .Include(t => t.Players)
-                .Where(t => t.TournamentId == currTeam.TournamentId && t.TournamentPosition == shemaPosition)
-                .FirstOrDefault();
+                var previousChampion = this.data.Team.Where(t => t.IsChampion == true).FirstOrDefault();
 
-                bool isTeamHavePlayers = true;
-
-                if ((schemaLength - 2) < shemaPosition && team == null)
+                if (previousChampion != null)
                 {
-                    var previousChampion = this.data.Team.Where(t => t.IsChampion == true).FirstOrDefault();
-
-                    if (previousChampion != null)
-                    {
-                        previousChampion.IsChampion = false;
-                    }
-
-                    currTeam.IsChampion = true;
-                }
-                else
-                {
-                    if (team.Players.Count() == 0)
-                    {
-                        isTeamHavePlayers = false;
-                    }
-
-                    team.Name = currTeam.Name;
-
-                    for (int i = 0; i < currTeam.Players.Count; i++)
-                    {
-                        if (isTeamHavePlayers)
-                        {
-                            team.Players[i].Name = currTeam.Players[i].Name;
-                        }
-                        else
-                        {
-                            team.Players.Add(new Player
-                            {
-                                Name = currTeam.Players[i].Name,
-                                TeamId = currTeam.Players[i].TeamId,
-                            });
-                        }
-
-                        team.Players[i].Assists = 0;
-                        team.Players[i].Goals = 0;
-                        team.Players[i].MachesCount = 0;
-                    }
+                    previousChampion.IsChampion = false;
                 }
 
-            }).GetAwaiter().GetResult();
+                currTeam.IsChampion = true;
+            }
+            else
+            {
+                if (team.Players.Count() == 0)
+                {
+                    isTeamHavePlayers = false;
+                }
+
+                team.Name = currTeam.Name;
+
+                for (int i = 0; i < currTeam.Players.Count; i++)
+                {
+                    if (isTeamHavePlayers)
+                    {
+                        team.Players[i].Name = currTeam.Players[i].Name;
+                    }
+                    else
+                    {
+                        team.Players.Add(new Player
+                        {
+                            Name = currTeam.Players[i].Name,
+                            TeamId = currTeam.Players[i].TeamId,
+                        });
+                    }
+
+                    team.Players[i].Assists = 0;
+                    team.Players[i].Goals = 0;
+                    team.Players[i].MachesCount = 0;
+                }
+            }
         }
 
-        public List<Player> GetTeams(Team team)
+        public Task<List<Player>> GetTeams(Team team)
         {
-            List<Player> players = null;
-
-            Task.Run(() =>
-            {
-                players = team.Players.Select(p => new Player 
+            var players = team.Players
+                .Select(p => new Player
                 {
                     Name = p.Name,
                     Goals = p.Goals,
@@ -125,34 +110,23 @@ namespace MiniFootballStatistic.Services.Api
                 })
                 .ToList();
 
-            }).GetAwaiter().GetResult();
-
-            return players;
+            return Task.FromResult(players);
         }
 
-        public void SetName(Team team, string name)
+        public async Task SetName(Team team, string name)
         {
-            Task.Run(() =>
-            {
-                team.Name = name;
+            team.Name = name;
 
-                this.data.SaveChanges();
-
-            }).GetAwaiter().GetResult();
+            await this.data.SaveChangesAsync();
         }
 
-        public void SetStatistic(Team team, int goals)
+        public async Task SetStatistic(Team team, int goals)
         {
-            Task.Run(() =>
-            {
-                team.ScoredGoals = goals;
+            team.ScoredGoals = goals;
 
-                team.PositionResult = goals;
+            team.PositionResult = goals;
 
-                this.data.SaveChanges();
-
-            }).GetAwaiter().GetResult();
+            await this.data.SaveChangesAsync();
         }
-
     }
 }

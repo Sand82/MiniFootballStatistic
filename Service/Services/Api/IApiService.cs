@@ -4,14 +4,14 @@ namespace MiniFootballStatistic.Services.Api
 {
     public interface IApiService
     {
-        public Team FindTeam(int tournamentId, int teamId);
+        public Task<Team> FindTeam(int tournamentId, int teamId);
 
-        public void SetName(Team team, string name);
+        public Task SetName(Team team, string name);
 
-        public void SetStatistic(Team team, int goals);
+        public Task SetStatistic(Team team, int goals);
 
-        public void AdjustStatistic(Team previusTeam,Team team,int shemaPosition, int schemaLength);
+        public Task AdjustStatistic(Team previusTeam,Team team,int shemaPosition, int schemaLength);
 
-        public List<Player> GetTeams(Team team);
+        public Task<List<Player>> GetTeams(Team team);
     }
 }

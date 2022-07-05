@@ -1,4 +1,5 @@
-﻿using MiniFootballStatistic.Infrastructure;
+﻿
+using MiniFootballStatistic.Infrastructure;
 using MiniFootballStatistic.Models.Tournament.TournamentPost;
 using MiniFootballStatistic.Services.Tournaments;
 
@@ -17,17 +18,17 @@ namespace MiniFootballStatistic.Controllers
         }
 
         [Authorize]
-        public IActionResult FirstStep()
+        public async Task<IActionResult> FirstStep()
         {
-            var model = tournamentService.GetSchemas();
+            var model = await tournamentService.GetSchemasAsync();
 
             return View(model);
         }
 
         [Authorize]
-        public IActionResult SecondStep(int positionCount)
+        public async Task<IActionResult> SecondStep(int positionCount)
         {
-            var model = GeneratePostDataModel(positionCount);
+            var model = await GeneratePostDataModel(positionCount);
 
             model.TournamentPositions = positionCount;
 
@@ -36,13 +37,13 @@ namespace MiniFootballStatistic.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult SecondStep(TournamentPostModel model)
+        public async Task<IActionResult> SecondStep(TournamentPostModel model)
         {
             var neededCount = model.Teams.Count();
 
             model.TournamentPositions = neededCount;
 
-            var isNameFree = tournamentService.CheckForFreeTournamentName(model.Name);
+            var isNameFree = await tournamentService.CheckForFreeTournamentName(model.Name);
 
             if (isNameFree)
             {
@@ -58,33 +59,37 @@ namespace MiniFootballStatistic.Controllers
 
             var creationDate = DateTime.UtcNow;
 
-            var isAddedInDataBase = tournamentService.CreateTournament(model, userId, creationDate);
+            var isAddedInDataBase = await tournamentService.CreateTournament(model, userId, creationDate);
 
             if (isAddedInDataBase)
             {
-                tournamentService.FinishedTournament(userId);
+               await tournamentService.FinishedTournament(userId);
+            }
+            else 
+            {
+                return BadRequest();
             }
 
             return RedirectToAction("Index", "Home");
         }
 
-        private TournamentPostModel GeneratePostDataModel(int positionCount)
+        private Task<TournamentPostModel> GeneratePostDataModel(int positionCount)
         {
             TournamentPostModel model = new();
-
-            for (int i = 0; i < positionCount; i++)
-            {
-                var team = new TeamPostModel();
-
-                for (int j = 0; j < 4; j++)
+                       
+                for (int i = 0; i < positionCount; i++)
                 {
-                    team.Players.Add(new PlayerPostModel());
+                    var team = new TeamPostModel();
+
+                    for (int j = 0; j < 4; j++)
+                    {
+                        team.Players.Add(new PlayerPostModel());
+                    }
+
+                    model.Teams.Add(team);
                 }
 
-                model.Teams.Add(team);
-            }
-
-            return model;
+            return Task.FromResult(model);
         }
     }
 }

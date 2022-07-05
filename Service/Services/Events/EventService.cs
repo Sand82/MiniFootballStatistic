@@ -17,29 +17,19 @@ namespace MiniFootballStatistic.Services.Events
         {
             this.data = data;
         }
-        
-        public Tournament GetTournamentById(int id)
+
+        public async Task<Tournament> GetTournamentById(int id)
         {
-            Tournament? tournament = null;
-
-            Task.Run(() =>
-            { 
-               tournament = this.data
-               .Tournaments
-               .FirstOrDefault(x => x.Id == id);
-
-            }).GetAwaiter().GetResult();
+            var tournament = await this.data
+            .Tournaments
+            .FirstOrDefaultAsync(x => x.Id == id);
 
             return tournament;
         }
 
-        public ICollection<TournamentViewModel> GetTournaments()
+        public async Task<ICollection<TournamentViewModel>> GetTournaments()
         {
-            List<TournamentViewModel>? tournaments = null;
-
-            Task.Run(() =>
-            {
-                tournaments = this.data.Tournaments
+            var tournaments = await this.data.Tournaments
                  .Where(t => t.isAddedInDatabase == true && t.isDelete == false)
                  .Select(t => new TournamentViewModel
                  {
@@ -50,31 +40,23 @@ namespace MiniFootballStatistic.Services.Events
                      UserId = t.UserId,
                      WinnerTeam = t.Teams.Where(t => t.IsChampion == true).Select(t => t.Name).FirstOrDefault(),
                  })
-                .ToList();
-
-            }).GetAwaiter().GetResult();             
+                .ToListAsync();
 
             return tournaments;
         }
 
-        public void DeleteTournament(Tournament tournament)
+        public Task DeleteTournament(Tournament tournament)
         {
-            Task.Run(() =>
-            {
-                tournament.isDelete = true;
+            tournament.isDelete = true;
 
-                this.data.SaveChanges();
+            this.data.SaveChangesAsync();
 
-            }).GetAwaiter().GetResult();
+            return Task.CompletedTask;
         }
 
-        public InfoViewModel GetInfoViewModel(int id)
+        public async Task<InfoViewModel> GetInfoViewModel(int id)
         {
-            InfoViewModel? model = null;
-
-            Task.Run(() =>
-            {
-                model = this.data.Tournaments
+            InfoViewModel? model = await this.data.Tournaments
                 .Include(t => t.Teams)
                 .ThenInclude(t => t.Players)
                 .Where(t => t.Id == id)
@@ -93,27 +75,21 @@ namespace MiniFootballStatistic.Services.Events
                         TournamentPosition = te.TournamentPosition,
                         AccumolateGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.AccumulateGoals),
                         ScoredGoals = t.Teams.Where(x => x.Name == te.Name).Sum(x => x.ScoredGoals),
-                        Id = te.Id,                                   
+                        Id = te.Id,
                     })
                     .ToList()
-                }) 
-                .FirstOrDefault();
-
-            }).GetAwaiter().GetResult();
+                })
+                .FirstOrDefaultAsync();
 
             return model;
         }
 
-        public TournamentEditModel GetTournamentEditModel(int id)
+        public async Task<TournamentEditModel> GetTournamentEditModel(int id)
         {
-            TournamentEditModel? model = null;
-
-            Task.Run(() =>
-            {
-                model = this.data.Tournaments                
+            TournamentEditModel? model = await this.data.Tournaments
                 .Where(t => t.Id == id)
                 .Include(t => t.Teams)
-                .ThenInclude(t => t.Players)                
+                .ThenInclude(t => t.Players)
                 .Select(t => new TournamentEditModel
                 {
                     Id = t.Id,
@@ -132,18 +108,16 @@ namespace MiniFootballStatistic.Services.Events
                         TournamentPosition = te.TournamentPosition,
                         Players = te.Players.Select(p => new PlayerEditModel
                         {
-                           TeamId = p.TeamId,
-                           Name = p.Name,
-                           Goals = p.Goals,
-                           Assists = p.Assists,
+                            TeamId = p.TeamId,
+                            Name = p.Name,
+                            Goals = p.Goals,
+                            Assists = p.Assists,
                         })
                         .ToList(),
                     })
                     .ToList(),
-                })                   
-                .FirstOrDefault();
-
-            }).GetAwaiter().GetResult();
+                })
+                .FirstOrDefaultAsync();
 
             return model;
         }

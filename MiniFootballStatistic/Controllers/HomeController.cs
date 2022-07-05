@@ -17,9 +17,9 @@ namespace MiniFootballStatistic.Controllers
             this.homeService = homeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-           var model = homeService.GetTournaments();
+           var model = await homeService.GetTournaments();
 
             return View(model);
         }

@@ -19,9 +19,9 @@ namespace MiniFootballStatistic.Controllers
         }
 
         [Authorize]
-        public IActionResult Statistic(int tournamentId, int teamId, string teamName)
+        public async Task<IActionResult> Statistic(int tournamentId, int teamId, string teamName)
         {
-            var model = playerService.FindPlayers(tournamentId, teamId, teamName);
+            var model = await playerService.FindPlayers(tournamentId, teamId, teamName);
 
             if (model == null)
             {
@@ -33,39 +33,39 @@ namespace MiniFootballStatistic.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Statistic(PlayerTeamEditModel model)
+        public async Task<IActionResult> Statistic(PlayerTeamEditModel model)
         {
             if (!ModelState.IsValid)
             {
-                model = playerService.FindPlayers(model.TournamentId, model.Id, model.Name);
+                model = await playerService.FindPlayers(model.TournamentId, model.Id, model.Name);
 
                 return View(model);
             }
 
-            var team = apiService.FindTeam(model.TournamentId, model.Id);
+            var team = await apiService.FindTeam(model.TournamentId, model.Id);
 
             if (team is null)
             {
                 return BadRequest();
             }
 
-            playerService.SetPlayersStatistic(model, team);
+            await playerService.SetPlayersStatistic(model, team);
 
             var id = model.TournamentId;
 
             return RedirectToAction("Edit", "Event", new { id });
         }
 
-        public IActionResult Info(int tournamentId)
+        public async Task<IActionResult> Info(int tournamentId)
         {
-            var tournament = playerService.GetTournament(tournamentId);
+            var tournament = await playerService.GetTournament(tournamentId);
 
             if (tournament is null)
             {
                 return BadRequest();
             }
 
-            var model = playerService.GetTopPlayersStatistic(tournament);
+            var model = await playerService.GetTopPlayersStatistic(tournament);
 
             return View(model);
         }

@@ -7,14 +7,14 @@ namespace MiniFootballStatistic.Services.Events
 {
     public interface IEventService
     {
-        public ICollection<TournamentViewModel> GetTournaments();
+        public Task<ICollection<TournamentViewModel>> GetTournaments();
 
-        public Tournament GetTournamentById(int id);
+        public Task<Tournament> GetTournamentById(int id);
 
-        public InfoViewModel GetInfoViewModel(int id);
+        public Task<InfoViewModel> GetInfoViewModel(int id);
 
-        public TournamentEditModel GetTournamentEditModel(int id);
+        public Task<TournamentEditModel> GetTournamentEditModel(int id);
 
-        public void DeleteTournament(Tournament tournament);
+        public Task DeleteTournament(Tournament tournament);
     }
 }

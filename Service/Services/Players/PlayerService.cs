@@ -15,101 +15,82 @@ namespace MiniFootballStatistic.Services.Players
             this.data = data;
         }
 
-        public PlayerTeamEditModel FindPlayers(int tournamentId, int teamId, string teamName)
+        public async Task<PlayerTeamEditModel> FindPlayers(int tournamentId, int teamId, string teamName)
         {
-            PlayerTeamEditModel? players = null;
-
-            Task.Run(() =>
+           var players = await this.data.Team
+            .Include(t => t.Players)
+            .Where(t => t.TournamentId == tournamentId && t.Id == teamId)
+            .Select(t => new PlayerTeamEditModel
             {
-                players = this.data.Team
-                .Include(t => t.Players)
-                .Where(t => t.TournamentId == tournamentId && t.Id == teamId)
-                .Select(t => new PlayerTeamEditModel
+                Id = t.Id,
+                Name = t.Name,
+                TournamentId = tournamentId,
+                Players = t.Players.Select(p => new PlayerEditModel
                 {
-                    Id = t.Id,
-                    Name = t.Name,
-                    TournamentId = tournamentId,
-                    Players = t.Players.Select(p => new PlayerEditModel
-                    {
-                        Id = p.Id,
-                        Name = p.Name,
-                        TeamId = p.TeamId,
-                        Goals = p.Goals,
-                        Assists = p.Assists,
-                    })
-                    .ToList()
+                    Id = p.Id,
+                    Name = p.Name,
+                    TeamId = p.TeamId,
+                    Goals = p.Goals,
+                    Assists = p.Assists,
                 })
-                .FirstOrDefault();
-
-            }).GetAwaiter().GetResult();
+                .ToList()
+            })
+            .FirstOrDefaultAsync();
 
             return players;
         }
 
-        public StatisticPlayersModel GetTopPlayersStatistic(Tournament tournament)
+        public Task<StatisticPlayersModel> GetTopPlayersStatistic(Tournament tournament)
         {
             StatisticPlayersModel model = new();
 
-            Task.Run(() =>
+            foreach (var team in tournament.Teams)
             {
-                foreach (var team in tournament.Teams)
+                foreach (var player in team.Players)
                 {
-                    foreach (var player in team.Players)
+                    if (!model.PlayesAssists.ContainsKey(player.Name))
                     {
-                        if (!model.PlayesAssists.ContainsKey(player.Name))
-                        {
-                            model.PlayesAssists.Add(player.Name, 0);
-                        }
-
-                        model.PlayesAssists[player.Name] += player.Assists;
-
-                        if (!model.PlayesGoals.ContainsKey(player.Name))
-                        {
-                            model.PlayesGoals.Add(player.Name, 0);
-                        }
-
-                        model.PlayesGoals[player.Name] += player.Goals;
+                        model.PlayesAssists.Add(player.Name, 0);
                     }
-                }                
 
-            }).GetAwaiter().GetResult();
+                    model.PlayesAssists[player.Name] += player.Assists;
 
-            return model;
+                    if (!model.PlayesGoals.ContainsKey(player.Name))
+                    {
+                        model.PlayesGoals.Add(player.Name, 0);
+                    }
+
+                    model.PlayesGoals[player.Name] += player.Goals;
+                }
+            }            
+
+            return Task.FromResult(model);
         }
 
-        public Tournament GetTournament(int tournamentId)
+        public async Task<Tournament> GetTournament(int tournamentId)
         {
-            Tournament? tournamnet = null;
-
-            Task.Run(() =>
-            {
-                tournamnet = this.data.Tournaments
-                .Include(t => t.Teams).ThenInclude(t => t.Players)
-                .Where(t => t.Id == tournamentId)
-                .FirstOrDefault();
-
-            }).GetAwaiter().GetResult();
+            var tournamnet = await this.data.Tournaments
+              .Include(t => t.Teams).ThenInclude(t => t.Players)
+              .Where(t => t.Id == tournamentId)
+              .FirstOrDefaultAsync();
 
             return tournamnet;
         }
 
-        public void SetPlayersStatistic(PlayerTeamEditModel model, Team team)
+        public async Task SetPlayersStatistic(PlayerTeamEditModel model, Team team)
         {
-            Task.Run(() =>
+        
+            for (int i = 0; i < team.Players.Count; i++)
             {
-                for (int i = 0; i < team.Players.Count; i++)
+                if (model.Players[i].Id == team.Players[i].Id)
                 {
-                    if (model.Players[i].Id == team.Players[i].Id)
-                    {
-                        team.Players[i].Name = model.Players[i].Name;
-                        team.Players[i].Goals = model.Players[i].Goals;
-                        team.Players[i].Assists = model.Players[i].Assists;
-                    }
+                    team.Players[i].Name = model.Players[i].Name;
+                    team.Players[i].Goals = model.Players[i].Goals;
+                    team.Players[i].Assists = model.Players[i].Assists;
                 }
+            }
 
-                this.data.SaveChanges();
-
-            }).GetAwaiter().GetResult();
-        }       
+            await  this.data.SaveChangesAsync();                       
+        }
     }
 }

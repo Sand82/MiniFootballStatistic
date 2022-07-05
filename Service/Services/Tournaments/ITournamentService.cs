@@ -5,12 +5,12 @@ namespace MiniFootballStatistic.Services.Tournaments
 {
     public interface ITournamentService
     {
-        public List<SchemaViewModel> GetSchemas();
+        public Task<List<SchemaViewModel>> GetSchemasAsync();
 
-        public bool CreateTournament(TournamentPostModel model, string userId, DateTime date);
+        public Task<bool> CreateTournament(TournamentPostModel model, string userId, DateTime date);
 
-        public void FinishedTournament(string userId);
+        public Task FinishedTournament(string userId);
 
-        public bool CheckForFreeTournamentName(string name);
+        public Task<bool> CheckForFreeTournamentName(string name);
     }
 }

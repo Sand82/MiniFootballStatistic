@@ -4,6 +4,6 @@ namespace MiniFootballStatistic.Services.Home
 {
     public interface IHomeService
     {
-        public IEnumerable<IndexViewModel> GetTournaments();
+        public Task<IEnumerable<IndexViewModel>> GetTournaments();
     }
 }

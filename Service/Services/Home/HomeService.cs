@@ -12,21 +12,15 @@ namespace MiniFootballStatistic.Services.Home
             this.data = data;
         }
 
-        public IEnumerable<IndexViewModel> GetTournaments()
+        public async Task<IEnumerable<IndexViewModel>> GetTournaments()
         {
-            List<IndexViewModel>? tournamens = null;
-
-            Task.Run(() =>
-            {
-                tournamens = data.TournamentCategories.Select(c => new IndexViewModel 
+            var tournamens = data.TournamentCategories.Select(c => new IndexViewModel 
                 { 
                     Name = c.Name,
                     Descrioption = c.Descrioption,
                     ImageUrl = c.ImageUrl,
 
                 }).ToList();
-
-            }).GetAwaiter().GetResult();
             
             return tournamens;
         }

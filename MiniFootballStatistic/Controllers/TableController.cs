@@ -16,17 +16,17 @@ namespace MiniFootballStatistic.Controllers
             this.apiService = apiService;
         }
 
-        public IActionResult Dynamic(TableCreateModel model)
+        public async Task<IActionResult> Dynamic(TableCreateModel model)
         {
 
-            var team = apiService.FindTeam(model.TournamentId, model.TeamId);
+            var team = await apiService.FindTeam(model.TournamentId, model.TeamId);
 
             if (team is null)
             {
                 return BadRequest();
             }
 
-            var players = apiService.GetTeams(team);
+            var players = await apiService.GetTeams(team);
 
             return Ok(players);
         }

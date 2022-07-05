@@ -15,16 +15,16 @@ namespace MiniFootballStatistic.Controllers
             this.eventService = eventService;
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var model = eventService.GetTournaments();
+            var model = await eventService.GetTournaments();
            
             return View(model);
         }
 
-        public IActionResult Info(int id)
+        public async Task<IActionResult> Info(int id)
         {
-            var model = eventService.GetInfoViewModel(id);
+            var model = await eventService.GetInfoViewModel(id);
 
             if (model is null)
             {
@@ -35,9 +35,9 @@ namespace MiniFootballStatistic.Controllers
         }
 
         [Authorize]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = eventService.GetTournamentEditModel(id);
+            var model = await eventService.GetTournamentEditModel(id);
 
             if (model is null)
             {
@@ -60,16 +60,16 @@ namespace MiniFootballStatistic.Controllers
         }
 
         [Authorize]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var tournament = eventService.GetTournamentById(id);
+            var tournament = await eventService.GetTournamentById(id);
 
             if (tournament is null)
             {
                 return NotFound();
             }
 
-            eventService.DeleteTournament(tournament);
+            await eventService.DeleteTournament(tournament);
 
             return Redirect("/");
         }        
