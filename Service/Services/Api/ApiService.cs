@@ -1,7 +1,6 @@
-﻿using MiniFootballStatistic.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MiniFootballStatistic.Data;
 using MiniFootballStatistic.Data.Models;
-
-using Microsoft.EntityFrameworkCore;
 
 namespace MiniFootballStatistic.Services.Api
 {

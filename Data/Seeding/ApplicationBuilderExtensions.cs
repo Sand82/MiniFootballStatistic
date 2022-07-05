@@ -4,6 +4,8 @@
     using MiniFootballStatistic.Data.Models;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
 
     public static class ApplicationBuilderExtensions
     {

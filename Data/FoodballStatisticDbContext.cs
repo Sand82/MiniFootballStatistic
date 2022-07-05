@@ -1,7 +1,6 @@
-﻿using MiniFootballStatistic.Data.Models;
-
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MiniFootballStatistic.Data.Models;
 
 namespace MiniFootballStatistic.Data
 {

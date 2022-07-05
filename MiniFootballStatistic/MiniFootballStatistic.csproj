@@ -26,4 +26,12 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GlobalConstants\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Service\Services.csproj" />
+  </ItemGroup>
+
 </Project>
