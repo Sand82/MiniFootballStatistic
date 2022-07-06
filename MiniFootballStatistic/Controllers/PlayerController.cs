@@ -1,9 +1,9 @@
-﻿using MiniFootballStatistic.Services.Players;
+﻿using MiniFootballStatisticServices.Services.Players;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MiniFootballStatistic.Models.Player;
-using MiniFootballStatistic.Services.Api;
+using MiniFootballStatisticServices.Models.Player;
+using MiniFootballStatisticServices.Services.Api;
 
 namespace MiniFootballStatistic.Controllers
 {

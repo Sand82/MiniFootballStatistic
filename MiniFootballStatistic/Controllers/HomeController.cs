@@ -1,5 +1,5 @@
-﻿using MiniFootballStatistic.Models;
-using MiniFootballStatistic.Services.Home;
+﻿using MiniFootballStatisticServices.Models;
+using MiniFootballStatisticServices.Services.Home;
 
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

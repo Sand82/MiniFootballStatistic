@@ -1,8 +1,8 @@
-﻿using MiniFootballStatistic.Services.Events;
+﻿using MiniFootballStatisticServices.Services.Events;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MiniFootballStatistic.Models.Tournament.TurnamentEdit;
+using MiniFootballStatisticServices.Models.Tournament.TurnamentEdit;
 
 namespace MiniFootballStatistic.Controllers
 {

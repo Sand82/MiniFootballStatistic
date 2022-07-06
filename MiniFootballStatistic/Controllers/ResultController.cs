@@ -1,5 +1,5 @@
-﻿using MiniFootballStatistic.Models.Team;
-using MiniFootballStatistic.Services.Api;
+﻿using MiniFootballStatisticServices.Models.Team;
+using MiniFootballStatisticServices.Services.Api;
 
 using Microsoft.AspNetCore.Mvc;
 

@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Service\Services.csproj" />
+    <ProjectReference Include="..\MiniFootballStatisticServices\MiniFootballStatisticServices.csproj" />
   </ItemGroup>
 
 </Project>

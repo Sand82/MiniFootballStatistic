@@ -1,13 +1,13 @@
-using MiniFootballStatistic.Data;
+using MiniFootballStatisticData.Data;
 using MiniFootballStatistic.Infrastructure;
-using MiniFootballStatistic.Services.Home;
-using MiniFootballStatistic.Services.Tournaments;
+using MiniFootballStatisticServices.Services.Home;
+using MiniFootballStatisticServices.Services.Tournaments;
+using MiniFootballStatisticServices.Services.Events;
+using MiniFootballStatisticServices.Services.Api;
+using MiniFootballStatisticServices.Services.Players;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MiniFootballStatistic.Services.Events;
-using MiniFootballStatistic.Services.Api;
-using MiniFootballStatistic.Services.Players;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
