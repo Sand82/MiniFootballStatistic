@@ -61,7 +61,7 @@ namespace MiniFootballStatisticServices.Services.Api
 
             if ((schemaLength - 2) < shemaPosition && team == null)
             {
-                var previousChampion = this.data.Team.Where(t => t.IsChampion == true).FirstOrDefault();
+                var previousChampion = this.data.Team.Where(t => t.IsChampion == true && t.TournamentId == currTeam.TournamentId).FirstOrDefault();
 
                 if (previousChampion != null)
                 {
